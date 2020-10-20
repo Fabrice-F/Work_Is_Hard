@@ -22,10 +22,8 @@
     margin: 15px;
 }
 .inputFormInscription{
+    border: 0px;
     border-bottom:1px;
-    border-top:0px;
-    border-right:0px;
-    border-left:0px;
     border-color: black;
     border-style: inset;
     background: transparent;
