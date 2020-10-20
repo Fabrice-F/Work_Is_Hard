@@ -26,6 +26,14 @@ def profile(username):
 def inscription():
     return render_template("inscription.html")
 
+@app.route('/ConfirmationInscription', methods=['POST'])
+def ConfirmationInscription():
+    nom = request.form["nom"]
+    print(nom)
+    prenom = request.form["prenom"]
+    print(prenom)
+    
+
 
 @app.route('/connexion/', methods=['POST'])
 def connexion():
