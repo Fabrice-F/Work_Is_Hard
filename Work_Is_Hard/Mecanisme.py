@@ -5,9 +5,5 @@ conn = sqlite3.connect('WorkIsHard.db')
 c = conn.cursor()
 
 
-def GoToPage(page):
-    return render_template(page)
-
-
 def ExecuteRequest(requete):
     return c.execute(requete)

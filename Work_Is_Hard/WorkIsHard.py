@@ -8,16 +8,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return GoToPage("Accueil.html")
+    return render_template("Accueil.html")
     
 
 @app.route('/login')
-#def login():
-#    conn = sqlite3.connect('WorkIsHard.db')
-#    c = conn.cursor()
-#    for row in c.execute('SELECT * FROM Utilisateur'):
-#        userOne = Utilisateur(row[0],row[1],row[2],row[3],row[4],row[5])
-#    return f"{userOne.IdUtilisateur} | {userOne.PseudoUtilisateur} | {userOne.MdpUtilisateur} | {userOne.NomUtilisateur} | {userOne.AgeUtilisateur}"
 def login():
     for row in ExecuteRequest('SELECT * FROM Utilisateur'):
         userOne = Utilisateur(row[0],row[1],row[2],row[3],row[4],row[5])
