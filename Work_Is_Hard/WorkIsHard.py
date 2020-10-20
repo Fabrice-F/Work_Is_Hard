@@ -3,7 +3,6 @@ from Mecanisme import *
 from markupsafe import escape
 import hashlib , sqlite3
 from datetime import timedelta
-from flask_login import LoginManager
 
 TempsSession = 5 
 app = Flask(__name__)
