@@ -42,10 +42,6 @@ def connexion():
         return render_template("Error/ErrorConnexion.html")
 
     userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5])
-    print("pseudo :" , pseudo)
-    print("mdp :" , h.hexdigest())
-    print("pseudo BDD:" , userDemandeConnexion.PseudoUtilisateur)
-    print("mdp BDD:" , userDemandeConnexion.MdpUtilisateur)
 
     if userDemandeConnexion.PseudoUtilisateur==pseudo and userDemandeConnexion.MdpUtilisateur== h.hexdigest():
         return render_template("test.html",champsA = pseudo)
