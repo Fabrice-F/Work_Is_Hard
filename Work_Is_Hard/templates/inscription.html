@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css"> <!-- Flask fait le lien avec le css -->
+    <link rel="stylesheet" href="../static/css/inscription.css"> <!-- Flask fait le lien avec le css -->
+    <title>Accueil</title>
+</head>
+<body>
+
+    {% include  "components/header.html" %}
+
+
+    <form action="#" method="GET" id="FormInscription">
+        <div class="rowFormInscription">
+            <label for="">Nom :</label>
+            <input class="inputFormInscription" type="text" required>
+        </div>
+        <div class="rowFormInscription">
+            <label for="">Prenom :</label>
+            <input class="inputFormInscription" type="text" required>
+        </div>
+        <div class="rowFormInscription">
+            <label for="">Pseudo :</label>
+            <input class="inputFormInscription" type="text" required>
+        </div>
+        <div class="rowFormInscription">
+            <label for="">Mots de passe :</label>
+            <input class="inputFormInscription" type="password" required>
+        </div>
+        <div class="rowFormInscription">
+            <label for="">Confirmation mots de passe :</label>
+            <input class="inputFormInscription" type="password" required>
+        </div>
+        <div class="rowFormInscription">
+            <label for="">Date de naisssance :</label>
+            <input class="inputFormInscription" type="date" required>
+        </div>
+        <button> envoyer</button>
+    </form>
+
+
+    <footer>
+        <h2></h2>
+    </footer>
+
+    <button id="buttonTheme">☽</button>
+</body>
+<script type="text/javascript" src="static/js/main.js"></script>
+</html>

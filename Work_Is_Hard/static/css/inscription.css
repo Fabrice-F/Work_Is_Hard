@@ -1,0 +1,36 @@
+:root{
+    --myBlack: rgb(30, 30, 30);
+    --myWhite:rgb(240, 240, 240);
+    --myTheme:rgb(110, 177, 245);
+    --myBackTheme:rgba(30, 143, 255, 0.3);
+}
+
+#FormInscription{
+    width: 50%;
+    border: 1px solid black;
+    background: var(--myTheme);
+    height: 70%;
+}
+
+.rowFormInscription{
+    width: 90%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em;
+    margin: 15px;
+}
+.inputFormInscription{
+    border-bottom:1px;
+    border-top:0px;
+    border-right:0px;
+    border-left:0px;
+    border-color: black;
+    border-style: inset;
+    background: transparent;
+    font-size: 1.2em;
+}
+.inputFormInscription:focus{
+    outline: none;
+}

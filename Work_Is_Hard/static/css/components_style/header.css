@@ -1,0 +1,26 @@
+header{
+    width:90%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 25px;
+}
+h1 {
+    width: 100%;
+    border: 2px var(--myBlack) solid;
+    height: 50px;
+    color: var(--myBlack);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px ;
+    background: var(--myTheme);
+}
+nav{
+    width:100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.5em;
+}

@@ -1,0 +1,16 @@
+
+<link rel="stylesheet" href="{{ url_for('static', filename= 'css/components_style/Connexion.css') }}">
+
+<div id="BlocConnexion">
+
+    <h2>Connexion</h2>
+
+    <form action="/connexion/" method="POST">
+        <label for="">Pseudo : </label>
+        <input type="text" name="pseudo" required>
+        <label for="">Mot de passe :</label>
+        <input type="password" name="password" required>
+        <button>Envoyer</button>
+    </form>
+
+</div>

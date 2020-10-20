@@ -1,0 +1,38 @@
+    /*========= BLOC DE CONNEXION ==========*/
+    #BlocConnexion{
+        background: var(--myTheme);
+        height: 200px;
+        width: 15%;
+        border: 2px var(--myBlack) solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    h2{
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    form{
+        height: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    #buttonTheme{
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        background:var(--myBlack);
+        color: var(--myWhite);
+    }
+    #buttonTheme:active{
+    
+        background:var(--myWhite);
+        color: var(--myBlack);
+    }
+    

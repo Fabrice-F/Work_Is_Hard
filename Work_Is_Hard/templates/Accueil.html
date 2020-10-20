@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}"> <!-- Flask fait le lien avec le css -->
+    <title>Accueil</title>
+</head>
+<body>
+
+    {% include  "components/header.html" %}
+    
+<!-- TEST CONDITION :
+    {% if 2-2 == 4  %} 
+        <p>ouii</p>
+    {% else %}
+        <p>noon</p>
+    {% endif %} 
+-->
+
+    <section id="information">
+
+    </section>
+
+    <div id="corp">
+        
+        <section id="Main">
+
+            <div class="blocGif">
+                <img src="https://media.giphy.com/media/zKDop2l5pVi7zYRXaM/giphy.gif" class="gif" alt="test">
+                <legend>Quand tes collègues te regarde sortir les poubelles en hiver</legend>
+            </div>
+
+            <div class="blocGif">
+                <img src="https://media.giphy.com/media/DHFUvl7EK111mMKobq/giphy.gif" class="gif" alt="test">
+                <legend>Quand ton patron arrive et que tu as oublié ton masque</legend>
+            </div>
+
+            <div class="blocGif">
+                <img src="https://media.giphy.com/media/spfXFxYbfh6Xm/giphy.gif" class="gif" alt="test">
+                <legend>Quand t'essaye de te remettre au sport après 10 ans</legend>
+            </div>
+
+        </section>
+
+        {% include  "components/Connexion.html" %}
+
+    </div>
+
+
+
+    <footer>
+        <h2></h2>
+    </footer>
+
+    <button id="buttonTheme">☽</button>
+</body>
+<script type="text/javascript" src="/static/js/library/IncludeHtmlTools.js"></script>
+<script type="text/javascript" src="static/js/main.js"></script>
+</html>
