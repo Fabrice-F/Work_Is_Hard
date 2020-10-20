@@ -60,3 +60,35 @@ legend{
     align-items: center;
     padding: 10px;
 }
+
+
+#informationUtilisateur{
+        background: var(--myTheme);
+        height: 200px;
+        width: 15%;
+        border: 2px var(--myBlack) solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+}
+
+input{
+    border: 0px;
+    border-bottom:1px;
+    border-color: black;
+    border-style: inset;
+    background: transparent;
+    font-size: 1.2em;
+    width: 60%;
+}
+#gestionCompte{
+    height: 80%;
+    width: 90%;
+    background: var(--myTheme);
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}

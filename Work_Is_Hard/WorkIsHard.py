@@ -1,26 +1,21 @@
-from flask import Flask, url_for, render_template , request   # render_template permet de mettre des pages html
+from flask import Flask, url_for, render_template ,session, request, redirect   # render_template permet de mettre des pages html
 from Mecanisme import *
 from markupsafe import escape
 import hashlib , sqlite3
+from datetime import timedelta
+from flask_login import LoginManager
 
-
+TempsSession = 5 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.permanent_session_lifetime = timedelta(minutes=TempsSession)
 
 @app.route('/')
 def index():
+    if 'utilisateur' in session:
+        return render_template("Accueil.html",user=session['utilisateur'])
     return render_template("Accueil.html")
     
-
-@app.route('/login')
-def login():
-    for row in ExecuteRequest('SELECT * FROM Utilisateur'):
-        userOne = Utilisateur(row[0],row[1],row[2],row[3],row[4],row[5])
-    return f"{userOne.IdUtilisateur} | {userOne.PseudoUtilisateur} | {userOne.MdpUtilisateur} | {userOne.NomUtilisateur} | {userOne.AgeUtilisateur}"
-
-
-@app.route('/user/<username>')
-def profile(username):
-    return '{}\'s profile'.format(escape(username))
 
 @app.route('/inscription')
 def inscription():
@@ -44,9 +39,25 @@ def connexion():
     userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5])
 
     if userDemandeConnexion.PseudoUtilisateur==pseudo and userDemandeConnexion.MdpUtilisateur== h.hexdigest():
-        return render_template("test.html",champsA = pseudo)
+        session['utilisateur'] = userDemandeConnexion.__dict__
+        return redirect(url_for('index'))
     else:
         return render_template("Error/ErrorConnexion.html")
+
+@app.route('/logOut')
+def logOut():
+    session.clear()
+    return render_template("Accueil.html")
+
+@app.route('/GestionDeCompte')
+def login():
+    if 'utilisateur' in session:
+        return render_template("GestionDeCompte.html",user=session['utilisateur'])
+    else:
+        return render_template("inscription.html")
+
+
+
 
 
 class Utilisateur:
