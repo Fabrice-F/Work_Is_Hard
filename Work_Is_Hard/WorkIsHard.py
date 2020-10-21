@@ -56,6 +56,9 @@ def login():
         return render_template("inscription.html")
 
 
+@app.route('/CreationDePoste')
+def CreationDePoste():
+    return render_template("CreationDePoste.html")
 
 
 
