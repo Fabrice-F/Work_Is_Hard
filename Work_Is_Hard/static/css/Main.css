@@ -24,6 +24,7 @@ html ,body{
 .blocGif{
     background: lightblue;
     border: 2px solid black;
+    height: 80%;
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -35,12 +36,58 @@ html ,body{
 .gif{
     height: 300px;
     width: 400px;
+    min-width: 400px;
+    max-height: 300px;
 }
 legend{
     font-size: 1.5vmax;
 }
 
 
+.rowForm{
+    height: 10% ;
+    width: 90%;
+    background: transparent;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+input{
+    border: 0px;
+    border-bottom:1px;
+    border-color: black;
+    border-style: inset;
+    background: transparent;
+    font-size: 1.2em;
+    width: 60%;
+}
+input:focus{
+    outline: none;
+}
+label{
+    font-size: 150%;
+    text-decoration: underline;
+}
+
+button{
+    background: lightblue;
+    height: 50px;
+    width: 100px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px black;
+    transition: all 0.5s;
+
+}
+button:hover{
+    background: whitesmoke;
+    transition: all 0.5s;
+    transform: translateY(-5px) ;
+}
+button:active{
+    background: var(--myTheme);
+    color: white;
+}
 /*======= COPRS ========*/
 #corp{
     width:90%;
@@ -73,15 +120,6 @@ legend{
         align-items: center;
 }
 
-input{
-    border: 0px;
-    border-bottom:1px;
-    border-color: black;
-    border-style: inset;
-    background: transparent;
-    font-size: 1.2em;
-    width: 60%;
-}
 #gestionCompte{
     height: 80%;
     width: 90%;
@@ -91,4 +129,56 @@ input{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+
+/*======= PAGE CREATION DE POSTE ========*/
+#conteneurCreationPoste{
+    height: 80%;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+
+#formPosteGIf{
+    height: 80%;
+    width: 40%;
+    background: var(--myTheme);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
+    box-shadow: 5px 5px 20px black;
+    min-width: 450px;
+    min-height: 250px;
+    border-radius: 10px;
+}
+#posteApercu{
+    height: 80%;
+    width: 40%;
+    background: var(--myTheme);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    box-shadow: 5px 5px 20px black;
+    min-width: 450px;
+    min-height: 250px;
+    border-radius: 10px;
+
+}
+#apercuBlocGif{
+    height: 80%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
 }
