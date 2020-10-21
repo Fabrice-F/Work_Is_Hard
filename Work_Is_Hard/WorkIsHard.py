@@ -58,7 +58,22 @@ def login():
 
 @app.route('/CreationDePoste')
 def CreationDePoste():
-    return render_template("CreationDePoste.html")
+    if 'utilisateur' in session:
+        return render_template("CreationDePoste.html",user=session['utilisateur'])
+    else:
+        return render_template("Accueil.html")
+
+
+@app.route('/publiePost', methods=['POST'])
+def publiePost():
+    TitrePoste = request.form["TitrePoste"]
+    LienImg = request.form["LienImg"]
+    PseudoUser = request.form["PseudoUser"]
+    print(TitrePoste)
+    print(LienImg)
+    print(PseudoUser)
+    #TODO: Ajout de la date / userQuiEnvoiLePost / pour enregistrer dans la db
+    return index()
 
 
 

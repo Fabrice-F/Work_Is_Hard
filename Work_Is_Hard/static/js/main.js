@@ -1,5 +1,8 @@
+var drapeauGifOk ={value:""}
+
 function EnvoyerOuPas()
 {
+    alert("value drapeau: "+drapeauGifOk.value)
     TitrePoste = document.getElementById("TitrePoste").value;
     LienImg = document.getElementById("LienImg").value;
 
@@ -8,10 +11,12 @@ function EnvoyerOuPas()
         return false;      
     }
     else{
-        
-        alert(TitrePoste);
-        alert(LienImg)
-        return true;
+        if(drapeauGifOk.value===true)
+        {
+            alert(TitrePoste);
+            alert(LienImg)
+            return true;
+        }
     }
 }
 
@@ -23,19 +28,31 @@ function isEmptyOrSpaces(str){
 
 function changeApercu(e,baliseChanger)
 {
+    drapeauGifOk.value ="";
     parent = document.getElementById(baliseChanger).parentElement;
     balise = document.getElementById(baliseChanger);
+    imageApercu = document.getElementById("apercuImg");
     if(baliseChanger =="apercuLegend"){
         balise.innerHTML=e.value;
     }
     else{
         if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(e.value))
         {
-            balise.remove();
-            parent.innerHTML +=`<img src="${e.value}" class="gif" alt="test" id="apercuImg" onerror="this.style.display='none'">`;
-    
+            //balise.remove();
+            imageApercu.src=e.value;
+            imageApercu.style.visibility= "visible";
+            //parent.innerHTML +=`<img src="${e.value}" class="gif" alt="test" id="apercuImg" onerror="this.style.display='none'">`;
         }
     }
-
-
+}
+function onerrorApercu(e,bal)
+{
+    drapeauGifOk.value=false;
+    console.clear();
+    bal.style.visibility= "hidden";
+}
+function succesApercu()
+{
+    drapeauGifOk.value=true;
+    console.log("ok");
 }
