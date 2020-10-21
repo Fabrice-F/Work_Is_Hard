@@ -182,3 +182,8 @@ button:active{
     padding: 20px;
     margin-bottom: 20px;
 }
+#apercuImg{
+    height: 200px;
+    width: 300px;
+    visibility: hidden;
+}
