@@ -12,7 +12,7 @@
     {% include  "components/header.html" %}
 
 
-    <form action="/ConfirmationInscription" method="POST" id="FormInscription">
+    <form action="/ConfirmationInscription" method="POST" id="FormInscription" onsubmit="return EnvoiFormulaireInscription()">
         <div class="rowFormInscription">
             <label for="">Nom :</label>
             <input class="inputFormInscription" type="text" required name="nom">
@@ -27,11 +27,11 @@
         </div>
         <div class="rowFormInscription">
             <label for="">Mots de passe :</label>
-            <input class="inputFormInscription" type="password" required name="motdepasse">
+            <input class="inputFormInscription" type="password" required name="motdepasse" id="mot_de_passe">
         </div>
         <div class="rowFormInscription">
             <label for="">Confirmation mots de passe :</label>
-            <input class="inputFormInscription" type="password" required name="confmdp">
+            <input class="inputFormInscription" type="password" required name="confmdp" id="confirm_mdp">
         </div>
         <div class="rowFormInscription">
             <label for="">Date de naisssance :</label>

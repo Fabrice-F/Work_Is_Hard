@@ -18,9 +18,9 @@ def login():
     return f"{userOne.IdUtilisateur} | {userOne.PseudoUtilisateur} | {userOne.MdpUtilisateur} | {userOne.NomUtilisateur} | {userOne.AgeUtilisateur}"
 
 
-@app.route('/user/<username>')
-def profile(username):
-    return '{}\'s profile'.format(escape(username))
+@app.route('/test')
+def profile():
+    return render_template("test.html",champsA="La phrase de la page test")
 
 @app.route('/inscription')
 def inscription():
@@ -28,11 +28,38 @@ def inscription():
 
 @app.route('/ConfirmationInscription', methods=['POST'])
 def ConfirmationInscription():
+    pseudo = request.form["pseudo"]
     nom = request.form["nom"]
-    print(nom)
     prenom = request.form["prenom"]
+    motdepasse = request.form["motdepasse"]
+    confmdp = request.form["confmdp"]
+    datenaissance = request.form["datenaissance"]
+
+    print(pseudo)
+    print(nom)
     print(prenom)
-    
+    print(motdepasse)
+    print(confmdp)
+    print(datenaissance)
+
+    return render_template("inscription.html")
+
+    """hashage du mots de passe  
+       hashage de la confrmation  mots de passe
+       comparer si le hash du mot de passe est identique au hash de la fconfirmation """
+
+
+    """conn = sqlite3.connect('WorkIsHard.db')
+    c = conn.cursor()*
+
+
+    resultArray = c.execute(f"SELECT * FROM Utilisateur WHERE PseudoUtilisateur = '{pseudo}'").fetchall()
+    if len(resultArray)==1:
+        return render_template("Error/testErreur.html")
+    else:
+        return "Votre compte a bien été crée"
+    """
+
 
 
 @app.route('/connexion/', methods=['POST'])
