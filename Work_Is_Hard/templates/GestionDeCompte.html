@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/Library/jquery.modal.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}">
     <title>Mon compte</title>
 </head>
@@ -26,8 +27,13 @@
                 <label for="pseudo">Age :</label>
                 <input type="text" name="pseudo" value="{{ user.AgeUtilisateur }}" disabled>
                 <button>Deconnexion</button>
+                <p><a href="#ex1" rel="modal:open">Open Modal</a></p>
             </form>
 
+            <div id="ex1" class="modal">
+                <p>Thanks for clicking. That felt good.</p>
+                <a href="#" rel="modal:close">Close</a>
+            </div>
     {% endif %} 
 
     <footer>
@@ -36,4 +42,5 @@
 
     <button id="buttonTheme">☽</button>
 </body>
+<script src="../static/js/Library/jquery.modal.min.js"></script>
 </html>

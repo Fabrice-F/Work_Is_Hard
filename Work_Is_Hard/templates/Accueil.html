@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}"> <!-- Flask fait le lien avec le css -->
     <title>Accueil</title>
 </head>
@@ -41,13 +42,29 @@
 
         {% include  "components/Connexion.html" %}
 
+        <button data-izimodal-open="#modal" data-izimodal-transitionin="fadeInDown"></button>
+
+
     </div>
 
     <footer>
         <h2></h2>
     </footer>
-
+    <div id="modal" data-iziModal-title="Changer votre pseudo"  data-iziModal-subtitle="Changer votre pseudo puis cliquez sur valider ou annuler"  data-iziModal-icon="icon-home"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
+        <!-- Modal content -->
+        <div id="conteneur-modal">
+            <input type="text" class="input-modal" value="" disabled>
+            <input type="text" class="input-modal" placeholder="Nouveau Pseudo">
+        </div>
+        <div id="conteneur-ChoiceModal">
+            <button class="btnModal cancel">Annuler</button>
+            <button class="btnModal submit">Valider</button>
+        </div>
+    </div>
     <button id="buttonTheme">☽</button>
 </body>
-<script type="text/javascript" src="static/js/main.js"></script>
+<script src="../static/js/Library/jquery.min.js"></script>
+<script src="../static/js/Library/iziModal.min.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
+
 </html>
