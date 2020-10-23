@@ -1,8 +1,8 @@
 from flask import Flask, url_for, render_template ,session, request, redirect   # render_template permet de mettre des pages html
-from Mecanisme import *
+from Dao import *
 from markupsafe import escape
 import hashlib , sqlite3
-from datetime import timedelta
+from datetime import *
 
 TempsSession = 5 
 app = Flask(__name__)
@@ -65,15 +65,17 @@ def CreationDePoste():
 
 @app.route('/publiePost', methods=['POST'])
 def publiePost():
-    TitrePoste = request.form["TitrePoste"]
-    LienImg = request.form["LienImg"]
-    PseudoUser = request.form["PseudoUser"]
-    print(TitrePoste)
-    print(LienImg)
-    print(PseudoUser)
-    #TODO: Ajout de la date / userQuiEnvoiLePost / pour enregistrer dans la db
-    return index()
-
+    if 'utilisateur' in session:
+        TitrePoste = request.form["TitrePoste"]
+        LienImg = request.form["LienImg"]
+        UserId = session['utilisateur']["IdUtilisateur"]
+        if InsertPoste(UserId,TitrePoste,LienImg):
+            return "ok"
+        #TODO: Ajout de la date / userQuiEnvoiLePost / pour enregistrer dans la db
+        else:
+            return "problème d'insertion à la base de donnée"
+    else:
+        return render_template("Accueil.html")
 
 @app.route('/base')
 def accesBase():
