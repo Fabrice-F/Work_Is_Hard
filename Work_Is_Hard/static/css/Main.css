@@ -186,8 +186,6 @@ button:active{
     height: 200px;
     width: 300px;
     visibility: hidden;
-}
-
 
 /*============== MODAL ==============*/
 #modal{
@@ -235,4 +233,5 @@ button:active{
 
 .iziModal .iziModal-header-subtitle{
     font-size: 15px;
+
 }

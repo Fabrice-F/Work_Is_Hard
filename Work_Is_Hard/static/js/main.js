@@ -1,3 +1,4 @@
+
 var drapeauGifOk ={value:""};
 
 $("#modal_changementPseudo").iziModal({

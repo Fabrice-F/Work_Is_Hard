@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
     <link rel="stylesheet" href="../static/css/Library/jquery.modal.min.css">
+
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}">
     <title>Mon compte</title>
 </head>
@@ -15,6 +17,7 @@
 
     {% if user!= null%}
             <form action="/logOut" method="GET" id="gestionCompte">
+
                 <div class="rowForm">
                     <label for="pseudo">Pseudo :</label>
                     <input type="text" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
@@ -65,6 +68,7 @@
                 </div>
             </div>
 
+
     {% endif %} 
 
     <footer>
@@ -73,7 +77,9 @@
 
     <button id="buttonTheme">☽</button>
 </body>
+
 <script src="../static/js/Library/jquery.min.js"></script>
 <script src="../static/js/Library/iziModal.min.js"></script>
 <script type="text/javascript" src="../static/js/main.js"></script>
+
 </html>
