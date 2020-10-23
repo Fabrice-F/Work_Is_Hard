@@ -1,4 +1,12 @@
-var drapeauGifOk ={value:""}
+
+var drapeauGifOk ={value:""};
+
+$("#modal_changementPseudo").iziModal({
+    headerColor: '#00bfff',
+});
+$("#modal_changementMotDePasse").iziModal({
+    headerColor: '#00bfff',
+});
 
 function EnvoyerOuPas()
 {
@@ -19,8 +27,6 @@ function EnvoyerOuPas()
         }
     }
 }
-
-
 
 function isEmptyOrSpaces(str){
     return str === null || str.match(/^ *$/) !== null;
