@@ -22,5 +22,3 @@ def InsertPoste(UserId,TitrePoste,LienImg):
     except RuntimeError:
         return False
 
-def ExecuteRequest(requete):
-    return c.execute(requete)
