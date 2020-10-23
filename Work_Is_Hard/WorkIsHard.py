@@ -55,14 +55,12 @@ def login():
     else:
         return render_template("inscription.html")
 
-
 @app.route('/CreationDePoste')
 def CreationDePoste():
     if 'utilisateur' in session:
         return render_template("CreationDePoste.html",user=session['utilisateur'])
     else:
         return render_template("Accueil.html")
-
 
 @app.route('/publiePost', methods=['POST'])
 def publiePost():
@@ -75,7 +73,13 @@ def publiePost():
     #TODO: Ajout de la date / userQuiEnvoiLePost / pour enregistrer dans la db
     return index()
 
+@app.route('/base')
+def accesBase():
+    return render_template("heritageJinja/base.html")
 
+@app.route('/ChildBase1')
+def ChildBase1():
+    return render_template("heritageJinja/ChildBase1.html")
 
 class Utilisateur:
     def __init__(self, identifiant, pseudo,mdp,nom,prenom,age):
