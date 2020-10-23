@@ -10,16 +10,16 @@
     {% include  "components/header.html" %}
     <div id="conteneurCreationPoste">
         <form action="/publiePost" method="POST" onsubmit="return EnvoyerOuPas()"  id="formPosteGIf">
-            <div class="rowForm">
-                <label for="LienImg">Titre du poste :</label>
-                <input type="text" oninput="changeApercu(this,'apercuLegend')" name ="TitrePoste" id="TitrePoste">
-            </div>
+
             <div class="rowForm">
                 <label for="LienImg">Lien img / gif :</label>
                 <input type="text" oninput="changeApercu(this,'apercuImg')" name ="LienImg" id="LienImg">
             </div>
 
-            <input type="text" hidden name="PseudoUser" value="{{user.PseudoUtilisateur}}">
+            <div class="rowForm">
+                <label for="LienImg">Titre du poste :</label>
+                <input type="text" oninput="changeApercu(this,'apercuLegend')" name ="TitrePoste" id="TitrePoste">
+            </div>
             <button>ENVOYER</button>
         </form>
 

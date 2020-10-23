@@ -1,4 +1,3 @@
-
 var drapeauGifOk ={value:""};
 
 $("#modal_changementPseudo").iziModal({
@@ -10,7 +9,6 @@ $("#modal_changementMotDePasse").iziModal({
 
 function EnvoyerOuPas()
 {
-    alert("value drapeau: "+drapeauGifOk.value)
     TitrePoste = document.getElementById("TitrePoste").value;
     LienImg = document.getElementById("LienImg").value;
 
@@ -21,8 +19,6 @@ function EnvoyerOuPas()
     else{
         if(drapeauGifOk.value===true)
         {
-            alert(TitrePoste);
-            alert(LienImg)
             return true;
         }
     }
