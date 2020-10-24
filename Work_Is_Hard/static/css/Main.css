@@ -131,6 +131,18 @@ button:active{
     align-items: center;
 }
 
+/*======= PAGE ACCUEIL  ========*/
+#NavigationPoste{
+    height: 100px;
+    width: 90%;
+    margin: 50px;
+    font-size: 1.5vmax;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
 /*======= PAGE CREATION DE POSTE ========*/
 #conteneurCreationPoste{
     height: 80%;

@@ -12,22 +12,23 @@
         <form action="/publiePost" method="POST" onsubmit="return EnvoyerOuPas()"  id="formPosteGIf">
 
             <div class="rowForm">
+                <label for="LienImg">Titre du poste :</label>
+                <input type="text" oninput="changeApercu(this,'apercuLegend')" name ="TitrePoste" id="TitrePoste">
+            </div>
+
+            <div class="rowForm">
                 <label for="LienImg">Lien img / gif :</label>
                 <input type="text" oninput="changeApercu(this,'apercuImg')" name ="LienImg" id="LienImg">
             </div>
 
-            <div class="rowForm">
-                <label for="LienImg">Titre du poste :</label>
-                <input type="text" oninput="changeApercu(this,'apercuLegend')" name ="TitrePoste" id="TitrePoste">
-            </div>
             <button>ENVOYER</button>
         </form>
 
         <div id="posteApercu">
             <h2>APERCU DU POSTE</h2>
             <div id="apercuBlocGif">
-                <img class="gif" id="apercuImg" onerror="onerrorApercu(event,this)" onload="succesApercu()">
                 <legend id="apercuLegend"></legend>
+                <img class="gif" id="apercuImg" onerror="onerrorApercu(event,this)" onload="succesApercu()">
             </div>
         </div>
         

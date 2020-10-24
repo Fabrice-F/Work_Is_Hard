@@ -11,10 +11,14 @@ app.permanent_session_lifetime = timedelta(minutes=TempsSession)
 
 @app.route('/')
 def index():
+    resultArray = getLastPoste()
+    posteArray = []
+    for result in resultArray:
+        posteArray.append(Poste(result[0],result[1],result[2],result[3]))
     if 'utilisateur' in session:
-        return render_template("Accueil.html",user=session['utilisateur'])
-    return render_template("Accueil.html")
-    
+        return render_template("Accueil.html",posteArray=posteArray,user=session['utilisateur'])
+    return render_template("Accueil.html",posteArray=posteArray)
+
 
 @app.route('/inscription')
 def inscription():
@@ -46,7 +50,7 @@ def connexion():
 @app.route('/logOut')
 def logOut():
     session.clear()
-    return render_template("Accueil.html")
+    return redirect(url_for('index'))
 
 @app.route('/GestionDeCompte')
 def login():
@@ -60,8 +64,7 @@ def CreationDePoste():
     if 'utilisateur' in session:
         return render_template("CreationDePoste.html",user=session['utilisateur'])
     else:
-        return render_template("Accueil.html")
-
+        return redirect(url_for('index'))
 
 @app.route('/publiePost', methods=['POST'])
 def publiePost():
@@ -70,12 +73,24 @@ def publiePost():
         LienImg = request.form["LienImg"]
         UserId = session['utilisateur']["IdUtilisateur"]
         if InsertPoste(UserId,TitrePoste,LienImg):
-            return "ok"
+            return redirect(url_for('index'))
         #TODO: Ajout de la date / userQuiEnvoiLePost / pour enregistrer dans la db
         else:
             return "problème d'insertion à la base de donnée"
     else:
-        return render_template("Accueil.html")
+        return redirect(url_for('index'))
+
+@app.route('/page<idPage>')
+def getPage(idPage):
+    if 'utilisateur' in session:
+        nbPage= int(idPage)
+        return render_template("Accueil.html",user=session['utilisateur'],page= nbPage)
+    else:
+        nbPage= int(idPage)
+        return render_template("Accueil.html",page= nbPage)
+
+
+
 
 @app.route('/base')
 def accesBase():
@@ -94,6 +109,13 @@ class Utilisateur:
         self.NomUtilisateur=nom
         self.PrenomUtilisateur=prenom 
         self.AgeUtilisateur=age
+
+class Poste:
+    def __init__(self, pseudo,titre, adresse,date):
+        self.PseudoUtilisateurPoste=pseudo
+        self.titrePoste=titre
+        self.adressePoste=adresse
+        self.datePoste=date 
 
 
 

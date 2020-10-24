@@ -47,14 +47,22 @@ function changeApercu(e,baliseChanger)
         }
     }
 }
+
 function onerrorApercu(e,bal)
 {
     drapeauGifOk.value=false;
     console.clear();
     bal.style.visibility= "hidden";
 }
+
 function succesApercu()
 {
     drapeauGifOk.value=true;
     console.log("ok");
+}
+
+
+function ChangePage(th)
+{
+    console.log(th.firstChild.value);
 }
