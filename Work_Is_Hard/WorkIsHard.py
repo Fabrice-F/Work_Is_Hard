@@ -3,26 +3,32 @@ from Dao import *
 from markupsafe import escape
 import hashlib , sqlite3
 from datetime import *
+from ConstanteAndTools import *
 
-TempsSession = 5 
+TempsSession = 60 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.permanent_session_lifetime = timedelta(minutes=TempsSession)
 
 @app.route('/')
 def index():
+    resultArray = getLastPoste()
+    nbPosteTotal = getNbPoste()
+    posteArray = []
+    for result in resultArray:
+        posteArray.append(Poste(result[0],result[1],result[2],result[3]))
     if 'utilisateur' in session:
-        return render_template("Accueil.html",user=session['utilisateur'])
-    return render_template("Accueil.html")
-    
+        return render_template("Accueil.html",posteArray=posteArray,nbPosteTotal =nbPosteTotal,user=session['utilisateur'])
+    return render_template("Accueil.html",posteArray=posteArray ,nbPosteTotal=nbPosteTotal)
+
 
 @app.route('/inscription')
 def inscription():
     return render_template("inscription.html")
 
-
-@app.route('/connexion/', methods=['POST'])
-def connexion():
+#TODO: Refaire le systeème de connexion
+@app.route('/login', methods=['POST'])
+def login():
     pseudo = request.form["pseudo"]
     mdp = request.form["password"]
     h = hashlib.md5(mdp.encode())
@@ -43,25 +49,27 @@ def connexion():
     else:
         return render_template("Error/ErrorConnexion.html")
 
-@app.route('/logOut')
-def logOut():
+
+@app.route('/logout')
+def logout():
     session.clear()
-    return render_template("Accueil.html")
+    return redirect(url_for('index'))
+
 
 @app.route('/GestionDeCompte')
-def login():
+def GestionDeCompte():
     if 'utilisateur' in session:
         return render_template("GestionDeCompte.html",user=session['utilisateur'])
     else:
         return render_template("inscription.html")
+
 
 @app.route('/CreationDePoste')
 def CreationDePoste():
     if 'utilisateur' in session:
         return render_template("CreationDePoste.html",user=session['utilisateur'])
     else:
-        return render_template("Accueil.html")
-
+        return redirect(url_for('index'))
 
 @app.route('/publiePost', methods=['POST'])
 def publiePost():
@@ -70,12 +78,33 @@ def publiePost():
         LienImg = request.form["LienImg"]
         UserId = session['utilisateur']["IdUtilisateur"]
         if InsertPoste(UserId,TitrePoste,LienImg):
-            return "ok"
-        #TODO: Ajout de la date / userQuiEnvoiLePost / pour enregistrer dans la db
+            return redirect(url_for('index'))
         else:
             return "problème d'insertion à la base de donnée"
     else:
-        return render_template("Accueil.html")
+        return redirect(url_for('index'))
+
+
+@app.route('/page<idPage>')
+def getPage(idPage):
+
+    numPage= int(idPage)
+    posteArray = []
+
+    nbPosteTotal = getNbPoste()
+    resultArray = getPosteByPage(idPage)
+    NbPageMax = CalculNbPageMax(nbPosteTotal,nbPosteByPage)
+
+    for result in resultArray:
+        posteArray.append(Poste(result[0],result[1],result[2],result[3]))
+
+    if 'utilisateur' in session:
+        return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,user=session['utilisateur'])
+    else:
+        return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax )
+
+
+
 
 @app.route('/base')
 def accesBase():
@@ -94,6 +123,13 @@ class Utilisateur:
         self.NomUtilisateur=nom
         self.PrenomUtilisateur=prenom 
         self.AgeUtilisateur=age
+
+class Poste:
+    def __init__(self, pseudo,titre, adresse,date):
+        self.PseudoUtilisateurPoste=pseudo
+        self.titrePoste=titre
+        self.adressePoste=adresse
+        self.datePoste=date 
 
 
 
