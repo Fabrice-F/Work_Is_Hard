@@ -5,6 +5,8 @@ import ConstanteAndTools
 
 nbPosteByPage=3
 
+
+#TODO fermer les connexions !!
 def InsertPoste(UserId,TitrePoste,LienImg):
     try:
         conn = sqlite3.connect('WorkIsHard.db')
@@ -20,6 +22,14 @@ def InsertPoste(UserId,TitrePoste,LienImg):
         return True
     except RuntimeError:
         return False
+
+def getNbPoste():
+    conn = sqlite3.connect('WorkIsHard.db')
+    c = conn.cursor()
+    request =f"""SELECT COUNT(IdPoste)
+                FROM Poste ;"""
+    result = c.execute(request).fetchone()[0]
+    return result
 
 
 def getLastPoste():
@@ -37,12 +47,22 @@ def getLastPoste():
     resultArray = c.execute(request).fetchall()
     return resultArray
 
+
 def getPosteByPage(idPage):
-    request = f"""SELECT * FROM Poste LIMIT {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage} ;""" 
+    request =f"""SELECT U.PseudoUtilisateur,
+                    P.TitrePoste,
+                    P.AdressePoste,
+                    P.DatePoste
+                FROM Poste AS P
+                INNER JOIN Utilisateur AS U ON
+                U.IdUtilisateur = P.Fk_IdUtilisateur
+                ORDER BY P.DatePoste DESC
+                LIMIT {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage};"""
     conn = sqlite3.connect('WorkIsHard.db')
     c = conn.cursor()
-    resultArray = c.execute(request,(idPage)).fetchall()
+    resultArray = c.execute(request,(idPage,)).fetchall()
     return resultArray
+
 
 def getRandomPoste():
     return ""

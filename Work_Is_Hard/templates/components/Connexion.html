@@ -7,7 +7,7 @@
 
         <h2>Connexion</h2>
 
-        <form action="/connexion/" method="POST">
+        <form action="/login" method="POST">
             <label for="">Pseudo : </label>
             <input type="text" name="pseudo" required>
             <label for="">Mot de passe :</label>
@@ -20,7 +20,7 @@
 
     <section id="informationUtilisateur">
         
-        <form action="/logOut" method="GET">
+        <form action="/logout" method="GET">
             <label for="pseudo">Pseudo :</label>
             <input type="text" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
             

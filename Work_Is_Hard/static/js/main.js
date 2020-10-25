@@ -1,4 +1,3 @@
-var drapeauGifOk ={value:""};
 
 $("#modal_changementPseudo").iziModal({
     headerColor: '#00bfff',
@@ -9,6 +8,9 @@ $("#modal_changementMotDePasse").iziModal({
 
 function EnvoyerOuPas()
 {
+    //TODO FAIRE UNE VERITABLE ALERTE
+    if(window.Drapeau==false)
+        alert("Le gif ou l'image n'est pas correctement formaté");
     TitrePoste = document.getElementById("TitrePoste").value;
     LienImg = document.getElementById("LienImg").value;
 
@@ -17,11 +19,12 @@ function EnvoyerOuPas()
         return false;      
     }
     else{
-        if(drapeauGifOk.value===true)
+        if(window.Drapeau===true)
         {
             return true;
         }
     }
+    return false;
 }
 
 function isEmptyOrSpaces(str){
@@ -30,7 +33,6 @@ function isEmptyOrSpaces(str){
 
 function changeApercu(e,baliseChanger)
 {
-    drapeauGifOk.value ="";
     parent = document.getElementById(baliseChanger).parentElement;
     balise = document.getElementById(baliseChanger);
     imageApercu = document.getElementById("apercuImg");
@@ -40,29 +42,18 @@ function changeApercu(e,baliseChanger)
     else{
         if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(e.value))
         {
-            //balise.remove();
             imageApercu.src=e.value;
             imageApercu.style.visibility= "visible";
-            //parent.innerHTML +=`<img src="${e.value}" class="gif" alt="test" id="apercuImg" onerror="this.style.display='none'">`;
         }
     }
 }
-
-function onerrorApercu(e,bal)
+function onerrorApercu(bal)
 {
-    drapeauGifOk.value=false;
+    window.Drapeau=false;
     console.clear();
     bal.style.visibility= "hidden";
 }
-
 function succesApercu()
 {
-    drapeauGifOk.value=true;
-    console.log("ok");
-}
-
-
-function ChangePage(th)
-{
-    console.log(th.firstChild.value);
+    window.Drapeau=true;
 }
