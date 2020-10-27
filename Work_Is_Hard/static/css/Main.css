@@ -349,3 +349,6 @@ legend{
 
 }
 
+.input-hidden{
+    visibility: collapse;
+}

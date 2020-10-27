@@ -47,13 +47,28 @@ function changeApercu(e,baliseChanger)
         }
     }
 }
+
 function onerrorApercu(bal)
 {
     window.Drapeau=false;
     console.clear();
     bal.style.visibility= "hidden";
 }
+
 function succesApercu()
 {
     window.Drapeau=true;
+}
+
+function CopyLinkImage(button){
+    var copyText = button.parentNode.parentNode.children[1].children[1] ;
+    const el = document.createElement('textarea');
+    el.value = copyText.src;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
 }
