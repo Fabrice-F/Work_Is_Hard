@@ -71,4 +71,25 @@ function CopyLinkImage(button){
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
+    AnimationBtnFlipIn(button)
+}
+function AnimationBtnFlipIn(bouton)
+{
+    bouton.classList.add("animate__flipInX");
+    setTimeout(function() { bouton.classList.remove("animate__flipInX");}, 1000);
+}
+
+function Get()
+{
+
+    $.ajax('/testAjax',   // request url
+    {
+        success: function (data, status, xhr) {// success callback function
+            $('#test').append(data);
+        }
+    });
+
+       
+
+    
 }

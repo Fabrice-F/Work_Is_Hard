@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}"> <!-- Flask fait le lien avec le css -->
+    <link rel="stylesheet" href="../static/css/Library/animate.min.css"/>
     <title>Accueil</title>
 </head>
 <body>
 
+    <p id="test"></p>
     {% include  "components/header.html" %}
     {% include  "components/Information.html" %}
 
@@ -26,9 +28,9 @@
                         <img src="{{ poste.adressePoste }}" class="gif" alt="test">
                     </div>
                     <div class="partagePoste">
-                        <button onclick="CopyLinkImage(this)" class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <button onclick="CopyLinkImage(this)" class="btnPartagePoste btn-hover btn-focus-disabled animate__animated"><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
                         <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
-                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
+                        <button  onclick="Get()" class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
                         <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
                         <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
                     </div>
