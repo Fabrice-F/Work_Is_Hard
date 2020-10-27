@@ -18,24 +18,63 @@ html ,body{
     align-items: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+.btn-hover:hover{
+    background: var(--myTheme);
+    transition: all 0.5s;
+    transform: translateY(-5px) ;
+}
+.btn-focus-disabled:focus{
+    text-decoration: none;
+    outline: none;
+}
 /*======= GENERAL ========*/
 
-    /*======= GIF ========*/
+    /*======= POSTE ========*/
 .blocGif{
     background: lightblue;
-    background: lightblue;
-    /* background: var(--myTheme); */
     border: 2px solid black;
     height: 80%;
     width: 70%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
     margin-bottom: 20px;
 }
+
+.infoUserPoste{
+    background: purple;
+    width: 15%;
+    height: 100%;
+}
+.blocLegendImagePoste{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.partagePoste{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.btnPartagePoste{
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    background: white;
+}
+.imgBtnPartagePoste{
+    width: 100%;
+    height: auto;
+}
+
+
 .gif{
     height: 300px;
     width: 400px;
@@ -61,21 +100,21 @@ legend{
     text-decoration: underline;
 }
 
-button{
+.btn-classique{
     background: lightblue;
-    height: 50px;
+    height: auto;
     width: 100px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 5px 5px 10px black;
     transition: all 0.5s;
-
+    padding: 5px;
 }
-button:hover{
+.btn-classique:hover{
     background: whitesmoke;
     transition: all 0.5s;
     transform: translateY(-5px) ;
 }
-button:active{
+.btn-classique:active{
     background: var(--myTheme);
     color: white;
 }
@@ -89,7 +128,7 @@ button:active{
     justify-content: space-between;
 }
 
-#Main{
+#blocGaucheCorpAccueil{
     width: 80%;
     height: auto;
     border: 1px solid black;
@@ -99,16 +138,13 @@ button:active{
     padding: 10px;
 }
 
-
-#informationUtilisateur{
-        background: var(--myTheme);
-        height: 200px;
-        width: 15%;
-        border: 2px var(--myBlack) solid;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
+#blocDroitCorpAccueil{
+    width: 15%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
 #gestionCompte{
@@ -120,6 +156,34 @@ button:active{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+#btnLinkCreationPoste{
+    border: 2px solid black;
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--myBlack);
+    transition: all 0.5s;
+    text-decoration: none;
+    background:lightgreen;
+    margin-bottom: 25px;
+    font-size: 1.3vmax;
+}
+#btnLinkCreationPoste:active{
+    color: var(--myBlack);
+    background : transparent;
+    transition: all 0.5s;
+}
+#btnLinkCreationPoste:hover{
+    background : green;
+    transition: all 0.5s;
+    transform: translateY(-5px);
+    font-size: 1.5vmax;
+    color: white;
 }
 
 /*======= PAGE ACCUEIL  ========*/

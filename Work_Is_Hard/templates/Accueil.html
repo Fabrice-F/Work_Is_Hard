@@ -14,12 +14,26 @@
 
     <div id="corp">
         
-        <section id="Main">
+        <section id="blocGaucheCorpAccueil">
             
             {% for poste in posteArray %}
                 <div class="blocGif">
-                    <legend>{{ poste.titrePoste }}</legend>
-                    <img src="{{ poste.adressePoste }}" class="gif" alt="test">
+                    <div class="infoUserPoste">
+
+                    </div>
+                    <div class="blocLegendImagePoste">
+                        <legend>{{ poste.titrePoste }}</legend>
+                        <img src="{{ poste.adressePoste }}" class="gif" alt="test">
+    
+                        
+                    </div>
+                    <div class="partagePoste">
+                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
+                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
+                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
+                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
+                    </div>
                 </div>
             {% endfor %}
 
@@ -45,8 +59,18 @@
             </div>
 
         </section>
+        <div id="blocDroitCorpAccueil">
 
-        {% include  "components/Connexion.html" %}
+
+            {% if user != null%}
+                <a href="/CreationDePoste" id="btnLinkCreationPoste">Poster</a>
+            {% endif %}     
+
+
+            {% include  "components/Connexion.html" %}
+
+
+        </div>
 
     </div>
 
