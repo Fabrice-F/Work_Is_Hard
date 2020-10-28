@@ -1,9 +1,13 @@
 
-$("#modal_changementPseudo").iziModal({
-    headerColor: '#00bfff',
-});
-$("#modal_changementMotDePasse").iziModal({
-    headerColor: '#00bfff',
+$("#modal_CopieOK").iziModal({
+    background: '#1E8449',
+    closeButton: true,
+    bottom: '0px',
+    onOpening: function(){
+        setTimeout(function(){
+            $('#modal_CopieOK').iziModal('close')
+        },1500); 
+    },
 });
 
 function EnvoyerOuPas()
@@ -88,8 +92,6 @@ function Get()
             $('#test').append(data);
         }
     });
-
-       
 
     
 }

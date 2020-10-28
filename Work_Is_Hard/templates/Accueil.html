@@ -2,10 +2,12 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    
+    <link rel="stylesheet" href="../static/css/Library/animate.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}"> <!-- Flask fait le lien avec le css -->
-    <link rel="stylesheet" href="../static/css/Library/animate.min.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}">
+
     <title>Accueil</title>
 </head>
 <body>
@@ -28,7 +30,7 @@
                         <img src="{{ poste.adressePoste }}" class="gif" alt="test">
                     </div>
                     <div class="partagePoste">
-                        <button onclick="CopyLinkImage(this)" class="btnPartagePoste btn-hover btn-focus-disabled animate__animated"><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <button onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" class="btnPartagePoste btn-hover btn-focus-disabled animate__animated"><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
                         <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
                         <button  onclick="Get()" class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
                         <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
@@ -36,7 +38,6 @@
                     </div>
                 </div>
             {% endfor %}
-
 
             <div id="RowChangePage">
                 {% if page == null %}
@@ -73,8 +74,11 @@
         </div>
 
     </div>
-
-
+    <div id="modal_CopieOK"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
+        <!-- Modal content -->
+        ✓ Le lien a été Copié!!
+        <a href="javascript:void(0)" class="iziModal-button iziModal-button-close" data-izimodal-close=""></a>
+    </div>    
 
     <footer>
         <h2></h2>

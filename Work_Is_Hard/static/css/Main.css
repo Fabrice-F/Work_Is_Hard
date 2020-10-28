@@ -351,6 +351,12 @@ legend{
 
 }
 
-.input-hidden{
-    visibility: collapse;
+
+#modal_CopieOK{
+    height: 50px;
+    min-height: 50px;
+    font-size: 1.3em;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
