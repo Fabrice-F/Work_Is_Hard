@@ -360,3 +360,15 @@ legend{
     font-family: Arial, Helvetica, sans-serif;
 
 }
+.conteneurModal{
+    height: 50px;
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#imgModal{
+    height: 60%;
+    width: auto;
+}

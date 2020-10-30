@@ -3,12 +3,12 @@ $("#modal_CopieOK").iziModal({
     background: '#1E8449',
     closeButton: true,
     bottom: '0px',
-    onOpening: function(){
-        setTimeout(function(){
-            $('#modal_CopieOK').iziModal('close')
-        },1500); 
-    },
+    onOpening: ModalCopyOpen
 });
+
+
+
+
 
 function EnvoyerOuPas()
 {
@@ -94,4 +94,13 @@ function Get()
     });
 
     
+}
+
+function ModalCopyOpen()
+{
+    document.getElementById("imgModal").src="../static/img/Check-gif.gif";
+    setTimeout(function(){
+        $('#modal_CopieOK').iziModal('close')
+    },1500); 
+
 }
