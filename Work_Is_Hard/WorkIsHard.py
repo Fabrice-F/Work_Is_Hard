@@ -1,7 +1,9 @@
 from flask import Flask, url_for, render_template , request   # render_template permet de mettre des pages html
+from werkzeug.security import generate_password_hash, check_password_hash
 from Mecanisme import *
 from markupsafe import escape
 import hashlib , sqlite3
+
 
 
 app = Flask(__name__)
@@ -28,6 +30,8 @@ def inscription():
 
 @app.route('/ConfirmationInscription', methods=['POST'])
 def ConfirmationInscription():
+
+    # Récupération des informations de la page inscription.html
     pseudo = request.form["pseudo"]
     nom = request.form["nom"]
     prenom = request.form["prenom"]
@@ -35,7 +39,41 @@ def ConfirmationInscription():
     confmdp = request.form["confmdp"]
     datenaissance = request.form["datenaissance"]
 
+    #hash des mots de passes 
+    motdepasse_hashe = hashlib.sha256(motdepasse.encode('ascii')).hexdigest()
+    confmdp_hashe = hashlib.sha256(confmdp.encode('ascii')).hexdigest()
+
+
     print(pseudo)
+    print(nom)
+    print(prenom)
+    print(motdepasse_hashe)
+    print(confmdp_hashe)
+    print(datenaissance) 
+
+    return render_template("inscription.html")
+    # Conncexion a la base de donnée
+    # conn = sqlite3.connect('WorkIsHard.db')
+    # c = conn.cursor()
+    
+    # # Insertion des données dans la BDD
+    # c.execute("INSERT INTO Utilisateur(pseudo, nom, prenom, motdepasse, confmdp, datenaissance) VALUES(%s, %s, %s, %s, %s, %s)", (pseudo, nom, prenom, motdepasse, confmdp, datenaissance))
+
+    #  if len(resultArray)==1:
+    #     result =  resultArray[0]
+    # else:
+    #     return render_template("Error/ErrorConnexion.html")
+
+
+    # #Commit de la connexion
+    # conn.commit()
+
+    # #Fermeture de connexion
+    # conn.close()
+
+    
+
+    """print(pseudo)
     print(nom)
     print(prenom)
     print(motdepasse)
@@ -43,6 +81,7 @@ def ConfirmationInscription():
     print(datenaissance)
 
     return render_template("inscription.html")
+    """
 
     """hashage du mots de passe  
        hashage de la confrmation  mots de passe

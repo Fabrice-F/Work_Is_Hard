@@ -1,4 +1,3 @@
-//alert("test");
 function EnvoiFormulaireInscription(){
 
     var mdp = document.getElementById("mot_de_passe").value;
