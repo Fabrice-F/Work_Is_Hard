@@ -1,44 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}"> <!-- Flask fait le lien avec le css -->
     <title>Accueil</title>
 </head>
 <body>
 
     {% include  "components/header.html" %}
-    
-<!-- TEST CONDITION :
-    {% if 2-2 == 4  %} 
-        <p>ouii</p>
-    {% else %}
-        <p>noon</p>
-    {% endif %} 
--->
-
-    <section id="information">
-
-    </section>
+    {% include  "components/Information.html" %}
 
     <div id="corp">
         
         <section id="Main">
+            
+            {% for poste in posteArray %}
+                <div class="blocGif">
+                    <legend>{{ poste.titrePoste }}</legend>
+                    <img src="{{ poste.adressePoste }}" class="gif" alt="test">
+                </div>
+            {% endfor %}
 
-            <div class="blocGif">
-                <img src="https://media.giphy.com/media/zKDop2l5pVi7zYRXaM/giphy.gif" class="gif" alt="test">
-                <legend>Quand tes collègues te regarde sortir les poubelles en hiver</legend>
-            </div>
 
-            <div class="blocGif">
-                <img src="https://media.giphy.com/media/DHFUvl7EK111mMKobq/giphy.gif" class="gif" alt="test">
-                <legend>Quand ton patron arrive et que tu as oublié ton masque</legend>
-            </div>
+            <div id="RowChangePage">
+                {% if page == null %}
+                    <div class="changePageBlocDroit">
+                        <a class="changePageLink" href="/page2">Suivant</a>
+                    </div>
 
-            <div class="blocGif">
-                <img src="https://media.giphy.com/media/spfXFxYbfh6Xm/giphy.gif" class="gif" alt="test">
-                <legend>Quand t'essaye de te remettre au sport après 10 ans</legend>
+                {% else %}
+                        <div class="changePageBlocGauche">
+                            {% if page-1 >= 1 %}
+                            <a class="changePageLink" href="/page{{ page-1 if page-1 >= 1 else '1' }}" >Precedent</a>
+                            {% endif %}
+                        </div>
+                    {% if page+1 <= NbPageMax %}
+                        <div class="changePageBlocDroit">
+                            <a class="changePageLink" href="/page{{ page+1 }}">Suivant</a>
+                        </div>
+                    {% endif %} 
+                {% endif %} 
             </div>
 
         </section>
@@ -54,7 +57,11 @@
     </footer>
 
     <button id="buttonTheme">☽</button>
+
 </body>
-<script type="text/javascript" src="/static/js/library/IncludeHtmlTools.js"></script>
-<script type="text/javascript" src="static/js/main.js"></script>
+
+<script src="../static/js/Library/jquery.min.js"></script>
+<script src="../static/js/Library/iziModal.min.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
+
 </html>

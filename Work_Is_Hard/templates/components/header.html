@@ -1,11 +1,20 @@
 <link rel="stylesheet" href="{{ url_for('static', filename= 'css/components_style/header.css') }}">
 
 <header>
-    <h1>Travailler c'est trop dur</h1>
+    <h1>WORK IS HARD</h1>
     <nav>
+
         <a href="/">Accueil</a>
-        <a href="/login">Mon compte</a>
-        <a href="/inscription">Inscription</a>
-        <a href="http://">A propos</a>
+        <a href="#">Aléatoire</a>
+        <a href="#">A propos</a>
+        {% if user == null%}
+            <a href="/inscription">Inscription</a>
+
+        {% else %}    
+            <a href="/CreationDePoste">Poster</a>
+            <a href="/GestionDeCompte">Mon compte</a>
+
+        {% endif %} 
+
     </nav>
 </header>

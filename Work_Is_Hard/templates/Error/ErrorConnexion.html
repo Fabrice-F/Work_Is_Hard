@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../static/css/styleError.css"/>
-    <link rel="stylesheet" href="../../static/css/style.css"/>
+    <link rel="stylesheet" href="../../static/css/Main.css"/>
     <!-- Flask fait le lien avec le css -->
     <title>Document</title>
     </head>
@@ -15,23 +15,10 @@
             <section id="Main">
                 <p class="messageError">L'identifiant ou le mots de passe est incorrect</p>
             </section>
-
-        <div id="BlocConnexion">
-            <h2>Connexion</h2>
-
-            <form action="/test/" method="POST">
-            <label for="">Pseudo : </label>
-            <input type="text" name="pseudo" required />
-            <label for="">Mot de passe :</label>
-            <input type="password" name="password" required />
-            <button>Envoyer</button>
-            </form>
+        {% include  "components/Connexion.html" %}
         </div>
-        </div>
-
-        <footer>
-            <h2></h2>
-        </footer>
+        
+        <footer></footer>
 
         <button id="buttonTheme">☽</button>
     </body>

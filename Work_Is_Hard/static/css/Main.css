@@ -1,7 +1,7 @@
 :root{
     --myBlack: rgb(30, 30, 30);
     --myWhite:rgb(240, 240, 240);
-    --myTheme:deepskyblue;
+    --myTheme:#00bfff;
     --myBackTheme:rgba(30, 143, 255, 0.3);
 }
 
@@ -16,6 +16,7 @@ html ,body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /*======= GENERAL ========*/
@@ -23,7 +24,10 @@ html ,body{
     /*======= GIF ========*/
 .blocGif{
     background: lightblue;
+    background: lightblue;
+    /* background: var(--myTheme); */
     border: 2px solid black;
+    height: 80%;
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -35,12 +39,46 @@ html ,body{
 .gif{
     height: 300px;
     width: 400px;
+    min-width: 400px;
+    max-height: 300px;
 }
 legend{
     font-size: 1.5vmax;
 }
 
 
+.rowForm{
+    height: 10% ;
+    width: 90%;
+    background: transparent;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.label{
+    font-size: 150%;
+    text-decoration: underline;
+}
+
+button{
+    background: lightblue;
+    height: 50px;
+    width: 100px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px black;
+    transition: all 0.5s;
+
+}
+button:hover{
+    background: whitesmoke;
+    transition: all 0.5s;
+    transform: translateY(-5px) ;
+}
+button:active{
+    background: var(--myTheme);
+    color: white;
+}
 /*======= COPRS ========*/
 #corp{
     width:90%;
@@ -60,3 +98,190 @@ legend{
     align-items: center;
     padding: 10px;
 }
+
+
+#informationUtilisateur{
+        background: var(--myTheme);
+        height: 200px;
+        width: 15%;
+        border: 2px var(--myBlack) solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+}
+
+#gestionCompte{
+    height: 80%;
+    width: 50%;
+    background: var(--myTheme);
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/*======= PAGE ACCUEIL  ========*/
+#NavigationPoste{
+    height: 100px;
+    width: 90%;
+    margin: 50px;
+    font-size: 1.5vmax;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Partie changement de page */
+
+#RowChangePage{
+    height: 50px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.changePageBlocGauche,.changePageBlocDroit{
+    width: 50%;
+    height: 100%;
+}
+.changePageBlocGauche{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.changePageBlocDroit{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.changePageLink{
+    border: 2px solid black;
+    height: 100%;
+    width: 150px;
+    border-radius: 5px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--myBlack);
+    transition: all 0.5s;
+    text-decoration: none;
+}
+.changePageLink:active{
+    color: var(--myBlack);
+    background : transparent;
+    transition: all 0.5s;
+}
+.changePageLink:hover{
+    background : var(--myTheme);
+    transition: all 0.5s;
+    transform: translateY(-5px);
+    font-size: 1.3vmax;
+}
+/*======= PAGE CREATION DE POSTE ========*/
+#conteneurCreationPoste{
+    height: 80%;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+
+#formPosteGIf{
+    height: 80%;
+    width: 40%;
+    background: var(--myTheme);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
+    box-shadow: 5px 5px 20px black;
+    min-width: 450px;
+    min-height: 250px;
+    border-radius: 10px;
+}
+#posteApercu{
+    height: 80%;
+    width: 40%;
+    background: var(--myTheme);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    box-shadow: 5px 5px 20px black;
+    min-width: 450px;
+    min-height: 250px;
+    border-radius: 10px;
+
+}
+#apercuBlocGif{
+    height: 80%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+#apercuImg{
+    height: 200px;
+    width: 300px;
+    visibility: hidden;
+}
+/*============== MODAL ==============*/
+#modal{
+    background: var(--myWhite);
+}
+#conteneur-modal{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.input-modal{
+    margin: 20px;
+    height: 75px;
+    width: 90%;
+    background: lightblue;
+    font-size: 1.7vmax;
+    text-align: center ;
+}
+#conteneur-ChoiceModal{
+    height :40px;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.btnModal{
+    width: 45%;
+    height: 90%;
+    border-radius: 5px;
+    font-size: 1.7vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cancel{
+    background: white;
+}
+.submit{
+    background: lightblue;
+}
+
+.iziModal .iziModal-header-subtitle{
+    font-size: 15px;
+
+}
+
