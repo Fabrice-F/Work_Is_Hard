@@ -57,7 +57,7 @@ def ConfirmationInscription():
     # c = conn.cursor()
     
     # # Insertion des données dans la BDD
-    # c.execute("INSERT INTO Utilisateur(pseudo, nom, prenom, motdepasse, confmdp, datenaissance) VALUES(%s, %s, %s, %s, %s, %s)", (pseudo, nom, prenom, motdepasse, confmdp, datenaissance))
+    # c.execute("INSERT INTO Utilisateur(PseudoUtilisateur, NomUtilisateur, PrenomUtilisateur, MdpUtilisateur, AgeUtilisateur) VALUES(%s, %s, %s, %s, %s, %s)", (pseudo, nom, prenom, motdepasse, datenaissance))
 
     #  if len(resultArray)==1:
     #     result =  resultArray[0]
