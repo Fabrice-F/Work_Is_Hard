@@ -18,10 +18,20 @@ html ,body{
     align-items: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+.conteneur{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .btn-hover:hover{
     background: var(--myTheme);
     transition: all 0.5s;
     transform: translateY(-5px) ;
+    cursor: pointer;
 }
 .btn-focus-disabled:focus{
     text-decoration: none;
@@ -132,6 +142,7 @@ legend{
     background: whitesmoke;
     transition: all 0.5s;
     transform: translateY(-5px) ;
+    cursor: pointer;
 }
 .btn-classique:active{
     background: var(--myTheme);
@@ -203,6 +214,7 @@ legend{
     transform: translateY(-5px);
     font-size: 1.5vmax;
     color: white;
+    cursor: pointer;
 }
 
 /*======= PAGE ACCUEIL  ========*/
@@ -262,6 +274,7 @@ legend{
     transition: all 0.5s;
     transform: translateY(-5px);
     font-size: 1.3vmax;
+    cursor: pointer;
 }
 /*======= PAGE CREATION DE POSTE ========*/
 #conteneurCreationPoste{
@@ -356,6 +369,9 @@ legend{
     justify-content: center;
     align-items: center;
 }
+.btnModal:hover{
+    cursor: pointer;
+}
 .cancel{
     background: white;
 }
@@ -365,7 +381,6 @@ legend{
 
 .iziModal .iziModal-header-subtitle{
     font-size: 15px;
-
 }
 
 
@@ -388,4 +403,8 @@ legend{
 #imgModal{
     height: 60%;
     width: auto;
+}
+.msgInModal{
+    color: green;
+    min-height: 20px;
 }

@@ -1,0 +1,11 @@
+¤ Appliqer les cript sql pour desactiver le case sensitive : 
+    PRAGMA case_sensitive_like = false;
+
+¤ Voir avec mr Ayoub si la bdd peu lui est transmise avec des données a l'intérieur (déja faite) ou l'application
+doit elle la créer et injectée des donnée au proéalable ?
+
+¤ Refactoring complet du code :
+    -Trie les fichier inutile
+    -Mieux organiser le css
+    -Mieux organiser le JS
+    

@@ -105,6 +105,48 @@ def getPage(idPage):
 
 
 
+
+@app.route('/DemandeSiPseudoDisponible',methods=['POST'])
+def DemandeSiPseudoDisponible():
+    if 'utilisateur' not in session:
+        return redirect(url_for('index'))   
+
+    pseudoVoulu = request.form["PseudoVoulu"]
+    IsPseudoDisponible = IfPseudoDisponible(pseudoVoulu)
+    if IsPseudoDisponible :
+        UserId= session['utilisateur']["IdUtilisateur"]
+        UserPseudo= session['utilisateur']["PseudoUtilisateur"]
+        if UpdatePseudo(pseudoVoulu,UserPseudo,UserId):
+            return "True"
+        else:
+            return "Echec pendant la mise à jour du pseudo"
+    else:
+        return "Le pseudo n'est pas disponible"
+    return 
+
+@app.route('/DemandeChangementPassword',methods=['POST']) #methode appelé en AJAX
+def DemandeChangementPassword():
+    if 'utilisateur' not in session:
+        return redirect(url_for('index'))
+    
+    UserId= session['utilisateur']["IdUtilisateur"]
+    UserPseudo= session['utilisateur']["PseudoUtilisateur"]
+    UserPasswordCurrent= session['utilisateur']["MdpUtilisateur"]
+    AncienMotDePasseSaisie = hashMdp(request.form["AncienMotDePasse"])
+    NewMotDePasse = hashMdp(request.form["NewMotDePasse"])
+    ConfirmationMotDePasse = hashMdp(request.form["ConfirmationMotDePasse"])
+
+    if(NewMotDePasse !=ConfirmationMotDePasse):
+        return "Le nouveau mot de passe et la confirmation ne sont pas identique"
+    if(UserPasswordCurrent !=AncienMotDePasseSaisie):
+        return "L'ancien mot de passe est incorrect"
+
+    if UpdateMdp(NewMotDePasse,UserPseudo,UserId):
+        return "True"
+    else:
+        return "Echec pendant la mise à jour du mot de passe"
+
+
 @app.route('/testAjax')
 def test():
     return "AJAX FONCTIONNEL"
