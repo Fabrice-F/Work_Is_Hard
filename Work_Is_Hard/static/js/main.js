@@ -1,14 +1,9 @@
-
 $("#modal_CopieOK").iziModal({
     background: '#1E8449',
     closeButton: true,
     bottom: '0px',
     onOpening: ModalCopyOpen
 });
-
-
-
-
 
 function EnvoyerOuPas()
 {

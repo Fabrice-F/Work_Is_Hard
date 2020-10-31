@@ -107,7 +107,7 @@ def getPage(idPage):
 
 @app.route('/testAjax')
 def test():
-    return "aaalalalaalal"
+    return "AJAX FONCTIONNEL"
 
 
 @app.route('/base')
