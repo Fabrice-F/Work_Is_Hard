@@ -105,14 +105,22 @@ def getPage(idPage):
 
 
 
+@app.route('/testAjax')
+def test():
+    return "AJAX FONCTIONNEL"
+
 
 @app.route('/base')
 def accesBase():
     return render_template("heritageJinja/base.html")
 
+
 @app.route('/ChildBase1')
 def ChildBase1():
     return render_template("heritageJinja/ChildBase1.html")
+
+
+
 
 
 class Utilisateur:

@@ -38,7 +38,7 @@ def getLastPoste():
     request = f"""SELECT U.PseudoUtilisateur,
                     P.TitrePoste,
                     P.AdressePoste,
-                    P.DatePoste
+                    strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste)
                 FROM Poste AS P
                 INNER JOIN Utilisateur AS U ON
                     U.IdUtilisateur = P.Fk_IdUtilisateur 
@@ -52,7 +52,7 @@ def getPosteByPage(idPage):
     request =f"""SELECT U.PseudoUtilisateur,
                     P.TitrePoste,
                     P.AdressePoste,
-                    P.DatePoste
+                    strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste)
                 FROM Poste AS P
                 INNER JOIN Utilisateur AS U ON
                 U.IdUtilisateur = P.Fk_IdUtilisateur

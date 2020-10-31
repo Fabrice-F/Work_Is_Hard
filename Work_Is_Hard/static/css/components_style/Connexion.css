@@ -1,8 +1,8 @@
     /*========= BLOC DE CONNEXION ==========*/
-    #BlocConnexion{
+    .BlocConnexion{
         background: var(--myTheme);
         height: 200px;
-        width: 15%;
+        width: 100%;
         border: 2px var(--myBlack) solid;
         display: flex;
         flex-direction: column;
