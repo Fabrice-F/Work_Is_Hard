@@ -43,7 +43,7 @@ html ,body{
 .blocGif{
     background: lightblue;
     border: 2px solid black;
-    height: 80%;
+    height: 500px;
     width: 70%;
     display: flex;
     justify-content: space-between;
@@ -52,17 +52,12 @@ html ,body{
     margin-bottom: 20px;
 }
 
-.infoUserPoste{
-    background: purple;
-    width: 15%;
-    height: 100%;
-}
 .blocLegendImagePoste{
-    width: 65%;
+    width: 75%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 .partagePoste{
@@ -93,25 +88,22 @@ html ,body{
     width: 100%;
     height: auto;
 }
-
 .figuregif{
-    height: 350px;
-    width: 400px;
-    min-width: 400px;
-    min-height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-width: 550px;
+    max-width: 85%;
 }
-.gif{
-    height: 350px;
-    width: 400px;
-    min-width: 400px;
+.gifSize{
+    min-width: 500px;
     min-height: 350px;
 }
+
+
 legend{
     font-size: 1.5vmax;
     text-align: center;
+    color: black;
+    font-weight: bold;
+    text-shadow: white 2px 2px 2px;
 }
 
 
@@ -175,17 +167,6 @@ legend{
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
-}
-
-#gestionCompte{
-    height: 80%;
-    width: 50%;
-    background: var(--myTheme);
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
 }
 #btnLinkCreationPoste{
     border: 2px solid black;

@@ -1,0 +1,114 @@
+:root{
+    --myBlack: rgb(30, 30, 30);
+    --myWhite:rgb(240, 240, 240);
+    --myTheme:#00bfff;
+    --myBackTheme:rgba(30, 143, 255, 0.3);
+}
+
+html ,body{
+    height: 100%;
+    width: 100%;
+    font: var(--myBlack);
+    overflow-x: hidden;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.conteneur{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#gestionCompte{
+    height: 80%;
+    width: 50%;
+    background: var(--myTheme);
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#blocHautGestionCompte{
+    height: 75%;
+    width: 100%;
+    background: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#contGauche{
+    width: 50%;
+    height: 100%;
+    background: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.rowForm{
+    height: 20%;
+    width: 100%;
+    border:3px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing:border-box;
+}
+
+
+#contDroit{
+    width: 50%;
+    height: 100%;
+    background: green;
+    display: flex;
+}
+
+
+
+
+
+
+
+#blocBasGestionCompte{
+    height: 15%;
+    width: 100%;
+    background: lightblue;
+}
+
+
+
+
+
+
+.btn-classique{
+    background: lightblue;
+    height: auto;
+    width: 100px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px black;
+    transition: all 0.5s;
+    padding: 5px;
+    border: 2px ridge black;
+}
+
+.btn-classique:hover{
+    background: whitesmoke;
+    transition: all 0.5s;
+    transform: translateY(-5px) ;
+    cursor: pointer;
+}
+.btn-classique:active{
+    background: var(--myTheme);
+    color: white;
+}

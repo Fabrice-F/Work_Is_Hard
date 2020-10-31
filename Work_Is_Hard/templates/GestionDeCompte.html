@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/Library/catto.min.css">
     <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/GestionDeCompte.css') }}">
     <title>Mon compte</title>
 </head>
 <body>
@@ -14,32 +14,42 @@
         {% include  "components/header.html" %}
 
         {% if user!= null%}
-                <form action="#" method="GET" id="gestionCompte">
 
-                    <div class="rowForm">
-                        <label for="pseudo">Pseudo :</label>
-                        <input type="text" id="pseudoUtilisateur" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
-                        <button class="btn-classique" type="button" data-izimodal-open="#modal_changementPseudo" data-izimodal-transitionin="fadeInDown">Changer pseudo</button>
+                <div id="gestionCompte">
+
+                    <div id="blocHautGestionCompte">
+                        <div id="contGauche">
+                            <div class="rowForm">
+                                <label for="pseudo">Pseudo :</label>
+                                <input type="text" id="pseudoUtilisateur" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
+                            </div>
+
+                            <div class="rowForm">
+                                <label for="pseudo">Nom :</label>
+                                <input type="text" name="pseudo" value="{{ user.NomUtilisateur }}" disabled>
+                            </div>
+                            <div class="rowForm">
+                                <label for="pseudo">Prenom:</label>
+                                <input type="text" name="pseudo" value="{{ user.PrenomUtilisateur }}" disabled>
+                            </div>
+                            <div class="rowForm">
+                                <label for="pseudo">Age :</label>
+                                <input type="text" name="pseudo" value="{{ user.AgeUtilisateur }}" disabled>
+                            </div>
+                        </div>
+                        <div id="contDroit">
+                            <button class="btn-classique test" type="button" data-izimodal-open="#modal_changementPseudo" data-izimodal-transitionin="fadeInDown">Changer pseudo</button>
+                        </div>
+
                     </div>
 
-                    <div class="rowForm">
-                        <label for="pseudo">Nom :</label>
-                        <input type="text" name="pseudo" value="{{ user.NomUtilisateur }}" disabled>
-                    </div>
-                    <div class="rowForm">
-                        <label for="pseudo">Prenom:</label>
-                        <input type="text" name="pseudo" value="{{ user.PrenomUtilisateur }}" disabled>
-                    </div>
-                    <div class="rowForm">
-                        <label for="pseudo">Age :</label>
-                        <input type="text" name="pseudo" value="{{ user.AgeUtilisateur }}" disabled>
-                    </div>
-                    <div class="rowForm">
+                    <div id="blocBasGestionCompte">
+                        <a href="/" class="btn-classique">Retour</a>
                         <a href="/logout" class="btn-classique" id="btnDeco">Deconnexion</a>
                         <button class="btn-classique" type="button" data-izimodal-open="#modal_changementMotDePasse" data-izimodal-transitionin="fadeInDown">Changer mot de passe</button>
                     </div>
 
-                </form>
+                </div>
 
         {% endif %} 
 
