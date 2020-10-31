@@ -108,3 +108,7 @@
 .iziModal .iziModal-header-subtitle{
     font-size: 15px;
 }
+.msgInModal{
+    color: green;
+    min-height: 20px;
+}

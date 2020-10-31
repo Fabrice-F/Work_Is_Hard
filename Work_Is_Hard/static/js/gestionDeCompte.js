@@ -45,7 +45,7 @@ function AjaxPseudo(baliseMessage)
         success : function(text, statut){ // contient le text renvoyé
         if (text=="True"){
 
-            PrintMessage(baliseMessage,`Le pseudo à été actualisé, merci de vous reconnecter...`);
+            PrintMessage(baliseMessage,`Le pseudo a été actualisé, merci de vous reconnecter...`);
             document.getElementById("pseudoUtilisateur").value=PseudoVoulu;
             setTimeout(function(){
                 document.getElementById("btnDeco").click();
@@ -86,13 +86,6 @@ function AjaxMotDePasse(baliseMessage)
         return;
     }
 
-    if(AncienMotDePasse==NewMotDePasse){
-        PrintMessage(baliseMessage,"L'ancien mot de passe et la nouveau sont identique",true);
-        return;
-    }
-
-
-
     $.ajax({
         url : '/DemandeChangementPassword', // La ressource ciblée
         type : 'POST', // Le type de la requête HTTP.
@@ -100,7 +93,11 @@ function AjaxMotDePasse(baliseMessage)
         dataType : 'text', // On désire recevoir du text
         success : function(text, statut){ // contient le text renvoyé
         if (text=="True"){
-            PrintMessage(baliseMessage,"Le mots de passe a été actualisé avec succès, merci de vous reconnecter...`");
+            PrintMessage(baliseMessage,"Le mots de passe a été actualisé avec succès, merci de vous reconnecter...");
+            document.getElementById("pseudoUtilisateur").value=PseudoVoulu;
+            setTimeout(function(){
+                document.getElementById("btnDeco").click();
+            },2000)
         }
         else 
             PrintMessage(baliseMessage,text,true);
