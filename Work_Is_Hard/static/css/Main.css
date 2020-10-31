@@ -18,10 +18,20 @@ html ,body{
     align-items: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+.conteneur{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .btn-hover:hover{
     background: var(--myTheme);
     transition: all 0.5s;
     transform: translateY(-5px) ;
+    cursor: pointer;
 }
 .btn-focus-disabled:focus{
     text-decoration: none;
@@ -33,7 +43,7 @@ html ,body{
 .blocGif{
     background: lightblue;
     border: 2px solid black;
-    height: 80%;
+    height: 500px;
     width: 70%;
     display: flex;
     justify-content: space-between;
@@ -42,17 +52,12 @@ html ,body{
     margin-bottom: 20px;
 }
 
-.infoUserPoste{
-    background: purple;
-    width: 15%;
-    height: 100%;
-}
 .blocLegendImagePoste{
-    width: 65%;
+    width: 75%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 .partagePoste{
@@ -83,25 +88,23 @@ html ,body{
     width: 100%;
     height: auto;
 }
-
 .figuregif{
-    height: 350px;
-    width: 400px;
-    min-width: 400px;
-    min-height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-width: 550px;
+    max-width: 85%;
+
 }
-.gif{
-    height: 350px;
-    width: 400px;
-    min-width: 400px;
+.gifSize{
+    min-width: 500px;
     min-height: 350px;
 }
+
+
 legend{
     font-size: 1.5vmax;
     text-align: center;
+    color: black;
+    font-weight: bold;
+    text-shadow: white 2px 2px 2px;
 }
 
 
@@ -132,6 +135,7 @@ legend{
     background: whitesmoke;
     transition: all 0.5s;
     transform: translateY(-5px) ;
+    cursor: pointer;
 }
 .btn-classique:active{
     background: var(--myTheme);
@@ -165,17 +169,6 @@ legend{
     justify-content: flex-start;
     align-items: flex-end;
 }
-
-#gestionCompte{
-    height: 80%;
-    width: 50%;
-    background: var(--myTheme);
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
 #btnLinkCreationPoste{
     border: 2px solid black;
     height: 50px;
@@ -203,6 +196,7 @@ legend{
     transform: translateY(-5px);
     font-size: 1.5vmax;
     color: white;
+    cursor: pointer;
 }
 
 /*======= PAGE ACCUEIL  ========*/
@@ -262,6 +256,7 @@ legend{
     transition: all 0.5s;
     transform: translateY(-5px);
     font-size: 1.3vmax;
+    cursor: pointer;
 }
 /*======= PAGE CREATION DE POSTE ========*/
 #conteneurCreationPoste{
@@ -319,63 +314,14 @@ legend{
     width: 300px;
     visibility: hidden;
 }
-/*============== MODAL ==============*/
-#modal{
-    background: var(--myWhite);
-}
-#conteneur-modal{
-    height: 80%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-.input-modal{
-    margin: 20px;
-    height: 75px;
-    width: 90%;
-    background: lightblue;
-    font-size: 1.7vmax;
-    text-align: center ;
-}
-#conteneur-ChoiceModal{
-    height :40px;
-    width: 100%;
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    margin-bottom: 5px;
-}
-.btnModal{
-    width: 45%;
-    height: 90%;
-    border-radius: 5px;
-    font-size: 1.7vmax;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.cancel{
-    background: white;
-}
-.submit{
-    background: lightblue;
-}
 
-.iziModal .iziModal-header-subtitle{
-    font-size: 15px;
-
-}
-
-
+/*============== MODAL COPIE ==============*/
 #modal_CopieOK{
     height: 50px;
     min-height: 50px;
     font-size: 1.3em;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-
 }
 .conteneurModal{
     height: 50px;
