@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     
-    <link rel="stylesheet" href="../static/css/Library/animate.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/Library/izmir.min.css">
     <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
+    <link rel="stylesheet" href="../static/css/Library/cssanimation.min.css">
+    <link rel="stylesheet" href="../static/css/Library/catto.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}">
 
     <title>Accueil</title>
@@ -21,26 +23,48 @@
         <section id="blocGaucheCorpAccueil">
             
             {% for poste in posteArray %}
-                <div class="blocGif">
-                    <div class="infoUserPoste">
+                <div class="blocGif" >
 
+                    <div class="partagePoste">
+                        <button onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" class="h-jello btnPartagePoste btn-hover btn-focus-disabled animate__animated"><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <button class="h-jello btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
+                        <button onclick="AjaxTest()" class="h-jello btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
+                        <button class="h-jello btnPartagePoste btn-hover btn-focus-disabled "><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
+                        <button class="h-jello btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
                     </div>
+
                     <div class="blocLegendImagePoste">
                         <legend>{{ poste.titrePoste }}</legend>
-                        <img src="{{ poste.adressePoste }}" class="gif" alt="test">
+
+                        <figure class="c4-izmir c4-border-center  c4-gradient-left c4-image-blur">
+                            <img src="{{ poste.adressePoste }}" class="gif" alt="Sample Image">
+                            <figcaption>
+                                <div class="c4-reveal-down">
+                                    <h3>
+                                        {{poste.PseudoUtilisateurPoste}}
+                                    </h3>
+                                </div>
+                                <div class="c4-reveal-up">
+                                    <h4>{{poste.datePoste}}</h4>
+                                </div>
+                            </figcaption>
+                        </figure>
                     </div>
-                    <div class="partagePoste">
-                        <button onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" class="btnPartagePoste btn-hover btn-focus-disabled animate__animated"><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
-                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
-                        <button  onclick="Get()" class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
-                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
-                        <button class="btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
+
+                    <div class="outilsAdmin">
+                        <button class="h-jello btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt=""></button>
                     </div>
+
                 </div>
             {% endfor %}
-
             <div id="RowChangePage">
+
+
+
+
                 {% if page == null %}
+                    <div class="changePageBlocGauche">
+                    </div>
                     <div class="changePageBlocDroit">
                         <a class="changePageLink" href="/page2">Suivant</a>
                     </div>
@@ -57,6 +81,8 @@
                         </div>
                     {% endif %} 
                 {% endif %} 
+
+
             </div>
 
         </section>
@@ -64,7 +90,7 @@
 
 
             {% if user != null%}
-                <a href="/CreationDePoste" id="btnLinkCreationPoste">Poster</a>
+                <a href="/CreationDePoste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
             {% endif %}     
 
 
@@ -93,6 +119,7 @@
 
 <script src="../static/js/Library/jquery.min.js"></script>
 <script src="../static/js/Library/iziModal.min.js"></script>
+<script type="text/javascript" src="../static/js/Library/letteranimation.min.js"></script>
 <script type="text/javascript" src="../static/js/main.js"></script>
 
 </html>

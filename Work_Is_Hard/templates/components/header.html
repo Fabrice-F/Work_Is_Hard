@@ -1,18 +1,22 @@
+<link rel="stylesheet" href="../static/css/Library/cssanimation.min.css">
+<link rel="stylesheet" href="../static/css/Library/catto.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename= 'css/components_style/header.css') }}">
 
 <header>
-    <h1>WORK IS HARD</h1>
+    <h1 class="cssanimation leWaterWave sequence">WORK IS HARD</h1>
     <nav>
 
-        <a href="/">Accueil</a>
-        <a href="#">Aléatoire</a>
-        <a href="#">A propos</a>
+        <a href="/" class="h-grow">Accueil</a>
+        <a href="#" class="h-grow" >Aléatoire</a>
+        <a href="#" class="h-grow">A propos</a>
         {% if user == null%}
-            <a href="/inscription">Inscription</a>
+            <a href="/inscription" class="h-grow">Inscription</a>
 
         {% else %}    
-            <a href="/GestionDeCompte">Mon compte</a>
+            <a href="/GestionDeCompte" class="h-grow">Mon compte</a>
         {% endif %} 
 
     </nav>
 </header>
+
+<script type="text/javascript" src="../static/js/Library/letteranimation.min.js"></script>

@@ -65,7 +65,7 @@ function succesApercu()
 }
 
 function CopyLinkImage(button){
-    var copyText = button.parentNode.parentNode.children[1].children[1] ;
+    var copyText = button.parentNode.parentNode.children[1].children[1].children[0]  ;
     const el = document.createElement('textarea');
     el.value = copyText.src;
     el.setAttribute('readonly', '');
@@ -77,13 +77,14 @@ function CopyLinkImage(button){
     document.body.removeChild(el);
     AnimationBtnFlipIn(button)
 }
+
 function AnimationBtnFlipIn(bouton)
 {
     bouton.classList.add("animate__flipInX");
     setTimeout(function() { bouton.classList.remove("animate__flipInX");}, 1000);
 }
 
-function Get()
+function AjaxTest()
 {
 
     $.ajax('/testAjax',   // request url
@@ -101,6 +102,7 @@ function ModalCopyOpen()
     document.getElementById("imgModal").src="../static/img/Check-gif.gif";
     setTimeout(function(){
         $('#modal_CopieOK').iziModal('close')
+        document.getElementById("imgModal").src="";
     },1500); 
 
 }
