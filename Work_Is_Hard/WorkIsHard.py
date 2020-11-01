@@ -52,23 +52,24 @@ def ConfirmationInscription():
 
     return render_template("inscription.html")
     # Conncexion a la base de donnée
-    # conn = sqlite3.connect('WorkIsHard.db')
-    # c = conn.cursor()
+    conn = sqlite3.connect('WorkIsHard.db')
+    c = conn.cursor()
     
-    # # Insertion des données dans la BDD
-    # c.execute("INSERT INTO Utilisateur(PseudoUtilisateur, NomUtilisateur, PrenomUtilisateur, MdpUtilisateur, AgeUtilisateur) VALUES(%s, %s, %s, %s, %s, %s)", (pseudo, nom, prenom, motdepasse, datenaissance))
-
-    #  if len(resultArray)==1:
-    #     result =  resultArray[0]
-    # else:
-    #     return render_template("Error/ErrorConnexion.html")
+    # Insertion des données dans la BDD
+    c.execute("INSERT INTO Utilisateur(PseudoUtilisateur, NomUtilisateur, PrenomUtilisateur, MdpUtilisateur, AgeUtilisateur) VALUES(?, ?, ?, ?, ??, ?)", (pseudo, nom, prenom, motdepasse, datenaissance))
 
 
-    # #Commit de la connexion
-    # conn.commit()
+     if len(resultArray)==1:
+        result =  resultArray[0]
+    else:
+        return render_template("Error/ErrorConnexion.html")
 
-    # #Fermeture de connexion
-    # conn.close()
+
+    #Commit de la connexion
+    conn.commit()
+
+    #Fermeture de connexion
+    conn.close()
 
     
 
