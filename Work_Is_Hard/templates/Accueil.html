@@ -2,66 +2,58 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/Library/izmir.min.css">
-    <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
-    <link rel="stylesheet" href="../static/css/Library/cssanimation.min.css">
-    <link rel="stylesheet" href="../static/css/Library/catto.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/izmir.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/iziModal.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/cssanimation.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Accueil.css') }}">
 
     <title>Accueil</title>
 </head>
 <body>
 
-    <p id="test"></p>
     {% include  "components/header.html" %}
     {% include  "components/Information.html" %}
 
     <div id="corp">
-        
         <section id="blocGaucheCorpAccueil">
-            
             {% for poste in posteArray %}
                 <div class="blocGif" >
 
-                    <div class="partagePoste">
-                        <button onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" class="h-jello btnPartagePoste btn-hover btn-focus-disabled animate__animated"><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
-                        <button class="h-jello btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
-                        <button onclick="AjaxTest()" class="h-jello btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
-                        <button class="h-jello btnPartagePoste btn-hover btn-focus-disabled "><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
-                        <button class="h-jello btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
+                    <div class="blocPartagePoste">
+                        <button class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <button class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
+                        <button class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
+                        <button class="h-jello btnPartagePoste "><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
+                        <button class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
                     </div>
 
                     <div class="blocLegendImagePoste">
-                        <legend>{{ poste.titrePoste }}</legend>
+                        <legend class="titrePoste">{{ poste.titrePoste }}</legend>
 
                         <figure class="c4-izmir c4-border-center c4-gradient-left c4-image-blur figuregif">
                             <img src="{{ poste.adressePoste }}" class="gifSize">
                             <figcaption>
                                 <div class="c4-reveal-down">
-                                    <h3>
-                                        {{poste.PseudoUtilisateurPoste}}
-                                    </h3>
+                                    <h3 class="H3pseudoUtilsateurPoste">{{poste.PseudoUtilisateurPoste}}</h3>
                                 </div>
                                 <div class="c4-reveal-up">
-                                    <h4>{{poste.datePoste}}</h4>
+                                    <h4 class="H4DatePoste">{{poste.datePoste}}</h4>
                                 </div>
                             </figcaption>
                         </figure>
                     </div>
 
                     <div class="outilsAdmin">
-                        <button class="h-jello btnPartagePoste btn-hover btn-focus-disabled"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt=""></button>
+                        <button class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt=""></button>
                     </div>
 
                 </div>
             {% endfor %}
+
             <div id="RowChangePage">
-
-
-
-
                 {% if page == null %}
                     <div class="changePageBlocGauche">
                     </div>
@@ -81,22 +73,16 @@
                         </div>
                     {% endif %} 
                 {% endif %} 
-
-
             </div>
-
         </section>
-        <div id="blocDroitCorpAccueil">
 
+        <div id="blocDroitCorpAccueil">
 
             {% if user != null%}
                 <a href="/CreationDePoste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
-            {% endif %}     
-
+            {% endif %} 
 
             {% include  "components/Connexion.html" %}
-
-
         </div>
 
     </div>
@@ -117,9 +103,9 @@
 
 </body>
 
-<script src="../static/js/Library/jquery.min.js"></script>
-<script src="../static/js/Library/iziModal.min.js"></script>
-<script type="text/javascript" src="../static/js/Library/letteranimation.min.js"></script>
-<script type="text/javascript" src="../static/js/main.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/iziModal.min.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/letteranimation.min.js') }}"></script>
+ --><script type="text/javascript" src="{{ url_for('static', filename= 'js/Accueil.js') }}"></script>
 
 </html>

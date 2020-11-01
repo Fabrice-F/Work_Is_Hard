@@ -42,7 +42,7 @@ html ,body{
 .btn-classique{
     background: lightblue;
     height: auto;
-    width: 100px;
+    width: auto;
     border-radius: 5px;
     box-shadow: 5px 5px 10px black;
     transition: all 0.5s;
