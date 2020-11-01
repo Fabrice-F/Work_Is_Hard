@@ -4,6 +4,10 @@ from markupsafe import escape
 import hashlib , sqlite3
 from datetime import *
 from ConstanteAndTools import *
+import threading
+
+lock = threading.Lock()
+
 
 TempsSession = 60 
 app = Flask(__name__)
@@ -29,6 +33,10 @@ def inscription():
 
 @app.route('/ConfirmationInscription', methods=['POST'])
 def ConfirmationInscription():
+    # Conncexion a la base de donnée
+    conn = sqlite3.connect('WorkIsHard.db')
+    c = conn.cursor()
+    
 
     # Récupération des informations de la page inscription.html
     pseudo = request.form["pseudo"]
@@ -50,26 +58,17 @@ def ConfirmationInscription():
     print(confmdp_hashe)
     print(datenaissance) 
 
-    return render_template("inscription.html")
-    # Conncexion a la base de donnée
-    conn = sqlite3.connect('WorkIsHard.db')
-    c = conn.cursor()
     
     # Insertion des données dans la BDD
-    c.execute("INSERT INTO Utilisateur(PseudoUtilisateur, NomUtilisateur, PrenomUtilisateur, MdpUtilisateur, AgeUtilisateur) VALUES(?, ?, ?, ?, ??, ?)", (pseudo, nom, prenom, motdepasse, datenaissance))
-
-
-     if len(resultArray)==1:
-        result =  resultArray[0]
-    else:
-        return render_template("Error/ErrorConnexion.html")
-
+    c.execute("INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, AgeUtilisateur) VALUES (?, ?, ?, ?, ?)", (pseudo, nom, prenom, motdepasse, datenaissance))
 
     #Commit de la connexion
     conn.commit()
 
     #Fermeture de connexion
     conn.close()
+
+    return render_template("inscription.html")
 
     
 
