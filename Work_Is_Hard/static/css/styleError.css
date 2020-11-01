@@ -1,9 +1,0 @@
-body,html{
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.messageError{
-    color: red;
-    font-size: 2.0em;
-}

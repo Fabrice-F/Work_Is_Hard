@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/ErrorPage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/cssanimation.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
+
+    <title>Erreur</title>
+
+    </head>
+    <body>
+
+        {% include  "components/header.html" %}
+
+        <div id="corpErrorPage">
+
+            <div id="messageErrorPage" class="cssanimation pushReleaseFrom">{{messageError}}</div>
+            
+            <div id="blocConnexionErrorPage">
+                {% include  "components/Connexion.html" %}
+            </div>
+
+        </div>
+        
+        <footer></footer>
+
+        <button id="buttonTheme">☽</button>
+    </body>
+
+</html>

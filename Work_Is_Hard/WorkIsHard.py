@@ -39,7 +39,7 @@ def login():
     if len(resultArray)==1:
         result =  resultArray[0]
     else:
-        return render_template("Error/ErrorConnexion.html")
+        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
     userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5])
 
@@ -47,7 +47,7 @@ def login():
         session['utilisateur'] = userDemandeConnexion.__dict__
         return redirect(url_for('index'))
     else:
-        return render_template("Error/ErrorConnexion.html")
+        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
 
 @app.route('/logout')

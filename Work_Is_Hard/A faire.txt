@@ -19,3 +19,5 @@ doit elle la créer et injectée des donnée au proéalable ?
 
 ¤ Mots de passe oublié par mail:
     - Possiblité de réinitialiser le mot de passe grace a son mail
+
+¤ Gestion de ban par IP en cas de test de connexion > 5 / 1min
