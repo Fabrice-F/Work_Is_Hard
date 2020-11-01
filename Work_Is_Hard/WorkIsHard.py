@@ -27,12 +27,29 @@ def inscription():
 
 @app.route('/Administration')
 def Administration():
-    if 'utilisateur' in session and session['utilisateur']['RoleUtilisateur']== "Administrateur":
-        return render_template("Administration.html",user=session['utilisateur'])
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
+        ArrayUser = SelectAllUser()
+        AllUser= MapArrayResultBddToArrayUtilisateur(ArrayUser)
+        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser)
     else :
         return redirect(url_for('index'))
 
-
+@app.route("/ChangementRole", methods=['POST'])
+def ChangementRole():
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:    
+        pseudoUser = request.form["pseudoUser"]
+        idUser = request.form["idUser"]    
+        AncienRoleUser = request.form["AncienRoleUser"]    
+        NouveauRoleUser = request.form["NouveauRoleUser"]    
+        mdpOfAdmin = hashMdp(request.form["AdminPwd"])
+        print(pseudoUser)
+        print(idUser)
+        print(AncienRoleUser)
+        print(NouveauRoleUser)
+        print(mdpOfAdmin)
+        return "True"
+    else :
+        return redirect(url_for('index'))
 
 #TODO: Refaire le systeème de connexion
 @app.route('/login', methods=['POST'])
@@ -44,7 +61,6 @@ def login():
         return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
     userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5],result[6])
-
     if userDemandeConnexion.PseudoUtilisateur==pseudo and userDemandeConnexion.MdpUtilisateur== mdp:
         session['utilisateur'] = userDemandeConnexion.__dict__
         return redirect(url_for('index'))
@@ -154,26 +170,6 @@ def accesBase():
 def ChildBase1():
     return render_template("heritageJinja/ChildBase1.html")
 
-
-
-
-
-class Utilisateur:
-    def __init__(self, identifiant, pseudo,mdp,nom,prenom,age,role):
-        self.IdUtilisateur=identifiant
-        self.PseudoUtilisateur=pseudo
-        self.MdpUtilisateur=mdp
-        self.NomUtilisateur=nom
-        self.PrenomUtilisateur=prenom 
-        self.AgeUtilisateur=age
-        self.RoleUtilisateur=role
-
-class Poste:
-    def __init__(self, pseudo,titre, adresse,date):
-        self.PseudoUtilisateurPoste=pseudo
-        self.titrePoste=titre
-        self.adressePoste=adresse
-        self.datePoste=date 
 
 
 

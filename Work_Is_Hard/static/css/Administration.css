@@ -14,18 +14,15 @@
 .imgAttributionRole{
     height: 20px;
     width: 20px;
-    margin-right: 5px;
-    padding: 0px;
     margin: 0;
+    margin-right: 15px;
+    padding: 0px;
     font-size: 2.5vmax;
-    color: red;
-
 }
 
 h3{
     margin: 0px;
     padding: 0px;
-
 }
 img{
     margin: 0px;
@@ -44,4 +41,45 @@ img{
     border :1px solid black;
     background: lightskyblue;
     margin: 5px;
+}
+
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+.radioButtton-Posteur:checked:after{
+    background-color: #f8f399;
+}
+.radioButtton-Moderateur:checked:after{
+    background-color: #bf00ff;
+}
+.radioButtton-Administrateur:checked:after{
+    background-color: #468334;
+}
+
+/* ====== MODAL ===== */
+.modal{
+    height: 400px;
+    width: 500px;
+    max-height: 100%;
+    max-width: 100%;
+}
+.paragrapheChangeRole{
+    height: auto;
+    margin: 20px;
+    font-size: 1.2vmax;
+}
+
+.RoleAccentuation{
+    font-weight: bold;
 }

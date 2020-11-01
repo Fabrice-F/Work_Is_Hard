@@ -19,16 +19,14 @@ def connexionUtilisateur(pseudo,mdp):
         conn= OpenConnexion()
         c= conn.cursor()
         request = f"""
-        SELECT U.IdUtilisateur,
-            U.PseudoUtilisateur,
-            U.MotDePasseUtilisateur,
-            U.NomUtilisateur,
-            U.Prenom,
-            U.AgeUtilisateur,
-            R.NomRole
-        FROM Utilisateur AS U
-        INNER JOIN Role AS R ON 
-            R.IdRole = U.Fk_IdRole
+        SELECT IdUtilisateur,
+            PseudoUtilisateur,
+            MotDePasseUtilisateur,
+            NomUtilisateur,
+            Prenom,
+            AgeUtilisateur,
+            Fk_IdRole
+        FROM Utilisateur
         WHERE PseudoUtilisateur = ?"""
         resultArray = c.execute(request,(pseudo,)).fetchall()
         if len(resultArray)==1:
@@ -162,3 +160,23 @@ def UpdateMdp(mdp,userPseudo,userId):
     except RuntimeError:
         closeConnexion(c,conn)
         return False
+
+def SelectAllUser():
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request  = f"""
+            SELECT *
+            FROM Utilisateur
+            WHERE Fk_IdRole 
+            IS NOT 3
+            ORDER BY PseudoUtilisateur """
+        resultArray= c.execute(request).fetchall()
+        return resultArray
+    
+    except RuntimeError:
+        closeConnexion(c,conn)
+        return False
+
+
+    return

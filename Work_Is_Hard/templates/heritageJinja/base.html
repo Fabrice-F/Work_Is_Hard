@@ -33,7 +33,9 @@
 
     </div>
 </body>
-    {% block js %}{% endblock %}
+
     <script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/iziModal.min.js') }}"></script>
+    {% block js %}{% endblock %}
+
 </html>

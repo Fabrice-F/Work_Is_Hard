@@ -88,3 +88,60 @@ html ,body{
     width: 28%;
     height: 50%;
 }
+
+/*============== MODAL ==============*/
+
+.modal{
+    background: var(--myWhite);
+}
+
+#conteneur-modal{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.input-modal{
+    margin: 20px;
+    height: 75px;
+    width: 90%;
+    background: lightblue;
+    font-size: 1.7vmax;
+    text-align: center ;
+}
+#conteneur-ChoiceModal{
+    height :40px;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.btnModal{
+    width: 45%;
+    height: 90%;
+    border-radius: 5px;
+    font-size: 1.7vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnModal:hover{
+    cursor: pointer;
+}
+.cancel{
+    background: white;
+}
+.submit{
+    background: lightblue;
+}
+.iziModal .iziModal-header-subtitle{
+    font-size: 15px;
+    color: wheat;
+}
+.msgInModal{
+    color: green;
+    min-height: 20px;
+}
