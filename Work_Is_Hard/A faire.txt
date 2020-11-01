@@ -23,3 +23,8 @@ doit elle la créer et injectée des donnée au proéalable ?
 ¤ Gestion de ban par IP en cas de test de connexion > 5 / 1min
 
 ¤ responsiver les pages
+
+¤ dans Administration mettre Possiblité d'update le message d'information (implique création d'une table message information)
+
+
+¤ Si poste supprimer mettre dans une table

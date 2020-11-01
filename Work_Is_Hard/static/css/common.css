@@ -25,7 +25,13 @@ html ,body{
     justify-content: space-between;
     align-items: center;
 }
+.ConteneurPrincipal{ /* preparer pour l'heritage jinja */
 
+    height: 3000px;
+    min-height: 3000px;
+    width: 90%;
+    border: 1px solid black;
+}
 /*  ligne pour les formulaires 
     contenant généralement un label et un input */
 .rowForm{

@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    {% block head %}
-    <link rel="stylesheet" href="style.css" />
-    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% block css %}
+    
     {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/izmir.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/iziModal.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/cssanimation.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
+    
+    <title>{% block title %}base{% endblock %}</title>
 </head>
 <body>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">
-        {% block footer %}
-        &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
-        {% endblock %}
+    <div class="conteneur">
+        {% include  "components/header.html" %}
+        {% include  "components/Information.html" %}
+
+        <div class="ConteneurPrincipal">
+            {% block content %}
+            
+            {% endblock %}
+
+        </div>
+
+        <div id="footer">
+            {% block footer %}
+            &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+            {% endblock %}
+        </div>
+
+
     </div>
 </body>
+    {% block js %}{% endblock %}
+    <script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/iziModal.min.js') }}"></script>
 </html>

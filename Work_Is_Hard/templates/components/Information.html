@@ -7,9 +7,11 @@
         <p id="messageInfoInformation">lore Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa alias architecto ex odit dignissimos, corporis atque veritatis cum dolorem quas mollitia incidunt ullam, facilis vel. Consequatur doloremque quidem omnis maxime.</p>
     </div>
 
-    <div id="blocNbPosteInformation">
-        <label id="labelNbPosteInformation">Postes totals :</label>
-        <input id="NbPosteInformation" type="text" value="{{ nbPosteTotal }}" name="nbPoste" disabled>
-    </div>
+    {% if nbPosteTotal != null%}
+        <div id="blocNbPosteInformation">
+            <label id="labelNbPosteInformation">Postes totals :</label>
+            <input id="NbPosteInformation" type="text" value="{{ nbPosteTotal }}" name="nbPoste" disabled>
+        </div>
+    {% endif %}
 
 </div>

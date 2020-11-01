@@ -21,40 +21,40 @@ def index():
         return render_template("Accueil.html",posteArray=posteArray,nbPosteTotal =nbPosteTotal,user=session['utilisateur'])
     return render_template("Accueil.html",posteArray=posteArray ,nbPosteTotal=nbPosteTotal)
 
-
 @app.route('/inscription')
 def inscription():
     return render_template("inscription.html")
+
+@app.route('/Administration')
+def Administration():
+    if 'utilisateur' in session and session['utilisateur']['RoleUtilisateur']== "Administrateur":
+        return render_template("Administration.html",user=session['utilisateur'])
+    else :
+        return redirect(url_for('index'))
+
+
 
 #TODO: Refaire le systeème de connexion
 @app.route('/login', methods=['POST'])
 def login():
     pseudo = request.form["pseudo"]
-    mdp = request.form["password"]
-    h = hashlib.md5(mdp.encode())
-    conn = sqlite3.connect('WorkIsHard.db')
-    c = conn.cursor()
-    
-    resultArray = c.execute(f"SELECT * FROM Utilisateur WHERE PseudoUtilisateur = '{pseudo}'").fetchall()
-    if len(resultArray)==1:
-        result =  resultArray[0]
-    else:
+    mdp = hashMdp(request.form["password"])
+    result = connexionUtilisateur(pseudo,mdp)
+    if result ==False:
         return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
-    userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5])
+    userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5],result[6])
 
-    if userDemandeConnexion.PseudoUtilisateur==pseudo and userDemandeConnexion.MdpUtilisateur== h.hexdigest():
+    if userDemandeConnexion.PseudoUtilisateur==pseudo and userDemandeConnexion.MdpUtilisateur== mdp:
         session['utilisateur'] = userDemandeConnexion.__dict__
         return redirect(url_for('index'))
     else:
         return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
-
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('index'))
-
 
 @app.route('/GestionDeCompte')
 def GestionDeCompte():
@@ -62,7 +62,6 @@ def GestionDeCompte():
         return render_template("GestionDeCompte.html",user=session['utilisateur'])
     else:
         return render_template("inscription.html")
-
 
 @app.route('/CreationDePoste')
 def CreationDePoste():
@@ -84,7 +83,6 @@ def publiePost():
     else:
         return redirect(url_for('index'))
 
-
 @app.route('/page<idPage>')
 def getPage(idPage):
 
@@ -102,9 +100,6 @@ def getPage(idPage):
         return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,user=session['utilisateur'])
     else:
         return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax )
-
-
-
 
 @app.route('/DemandeSiPseudoDisponible',methods=['POST'])
 def DemandeSiPseudoDisponible():
@@ -138,6 +133,7 @@ def DemandeChangementPassword():
 
     if(NewMotDePasse !=ConfirmationMotDePasse):
         return "Le nouveau mot de passe et la confirmation ne sont pas identique"
+
     if(UserPasswordCurrent !=AncienMotDePasseSaisie):
         return "L'ancien mot de passe est incorrect"
 
@@ -146,16 +142,13 @@ def DemandeChangementPassword():
     else:
         return "Echec pendant la mise à jour du mot de passe"
 
-
 @app.route('/testAjax')
 def test():
     return "AJAX FONCTIONNEL"
 
-
 @app.route('/base')
 def accesBase():
     return render_template("heritageJinja/base.html")
-
 
 @app.route('/ChildBase1')
 def ChildBase1():
@@ -166,13 +159,14 @@ def ChildBase1():
 
 
 class Utilisateur:
-    def __init__(self, identifiant, pseudo,mdp,nom,prenom,age):
+    def __init__(self, identifiant, pseudo,mdp,nom,prenom,age,role):
         self.IdUtilisateur=identifiant
         self.PseudoUtilisateur=pseudo
         self.MdpUtilisateur=mdp
         self.NomUtilisateur=nom
         self.PrenomUtilisateur=prenom 
         self.AgeUtilisateur=age
+        self.RoleUtilisateur=role
 
 class Poste:
     def __init__(self, pseudo,titre, adresse,date):

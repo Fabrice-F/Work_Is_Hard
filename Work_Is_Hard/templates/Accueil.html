@@ -23,11 +23,11 @@
                 <div class="blocGif" >
 
                     <div class="blocPartagePoste">
-                        <button class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
-                        <button class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
-                        <button class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
-                        <button class="h-jello btnPartagePoste "><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
-                        <button class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
+                        <button title ="Copier le lien du gif" class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
+                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
+                        <button title ="" class="h-jello btnPartagePoste "><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
+                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
                     </div>
 
                     <div class="blocLegendImagePoste">
@@ -45,9 +45,12 @@
                             </figcaption>
                         </figure>
                     </div>
+                    
 
                     <div class="outilsAdmin">
-                        <button class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt=""></button>
+                        {% if user!=undefined and user.RoleUtilisateur != "Posteur" %}
+                            <button title="Bouton outils administration" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt=""></button>
+                        {% endif %}
                     </div>
 
                 </div>
