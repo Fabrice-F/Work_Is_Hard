@@ -14,12 +14,17 @@ app.permanent_session_lifetime = timedelta(minutes=TempsSession)
 def index():
     resultArray = getLastPoste()
     nbPosteTotal = getNbPoste()
+    msgTmp = getLastMessageInformation()
+    if(msgTmp==False):
+        messageInfo = MessageInformation("vide","Aucun",datetime.now())
+    else :
+        messageInfo = MapResultToMessageInformation(msgTmp)
     posteArray = []
     for result in resultArray:
         posteArray.append(Poste(result[0],result[1],result[2],result[3]))
     if 'utilisateur' in session:
-        return render_template("Accueil.html",posteArray=posteArray,nbPosteTotal =nbPosteTotal,user=session['utilisateur'])
-    return render_template("Accueil.html",posteArray=posteArray ,nbPosteTotal=nbPosteTotal)
+        return render_template("Accueil.html",posteArray=posteArray,nbPosteTotal =nbPosteTotal,messageInfo=messageInfo,user=session['utilisateur'])
+    return render_template("Accueil.html",posteArray=posteArray ,nbPosteTotal=nbPosteTotal,messageInfo=messageInfo)
 
 @app.route('/inscription')
 def inscription():
@@ -27,10 +32,17 @@ def inscription():
 
 @app.route('/Administration')
 def Administration():
+
+    msgTmp = getLastMessageInformation()
+    if(msgTmp==False):
+        messageInfo = MessageInformation("vide","Aucun",datetime.now())
+    else :
+        messageInfo = MapResultToMessageInformation(msgTmp)
+
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
         ArrayUser = SelectAllUser()
         AllUser= MapArrayResultBddToArrayUtilisateur(ArrayUser)
-        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser)
+        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser,messageInfo=messageInfo)
     else :
         return redirect(url_for('index'))
 

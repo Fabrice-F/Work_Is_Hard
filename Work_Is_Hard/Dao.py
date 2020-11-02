@@ -181,7 +181,6 @@ def SelectAllUser():
         closeConnexion(c,conn)
         return False
 
-
 def getUserCurrentPasswd(pseudo,Id):
     try:
         conn = OpenConnexion()
@@ -224,3 +223,48 @@ def UpdateRole(Id,pseudo,Role):
     except RuntimeError:
         return False
 
+""" Quand activer les postes doivent d'abord passer par la modération
+    sinon il sont postés directement sur le site"""
+def UpdateModeModeration(booleen):
+    try:
+        conn = OpenConnexion()
+        c= conn.cursor()
+
+        request = f"""
+        UPDATE Parametre 
+        SET ModeModeration = ? 
+        WHERE IdParametre = 1
+        """
+        c.execute(request,(booleen,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError:
+        closeConnexion(c,conn)
+        return False
+
+def getLastMessageInformation():
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""SELECT 
+                        MI.ContenuMessageInformation,
+                        U.PseudoUtilisateur,
+                        MI.DateMessageInformation      
+                    FROM MessageInformation AS MI
+                    INNER JOIN Utilisateur AS U ON
+                        U.IdUtilisateur = MI.Fk_IdUtilisateurMessageInformation
+                    ORDER BY IdMessageInformation 
+                    DESC LIMIT 1"""
+        result= c.execute(request).fetchone()
+        if len(result)==0:
+            closeConnexion(c,conn)
+            return False
+        else :
+            closeConnexion(c,conn)
+            return result
+
+    except RuntimeError :
+        closeConnexion(c,conn)
+        print("error")
+        return False

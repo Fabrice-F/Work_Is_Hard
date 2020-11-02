@@ -13,8 +13,8 @@ def CalculNbPageMax(numberPoste,nbPosteByPage):
     NbPage = math.ceil(NbPageFloat)
     return NbPage
     
-def hashMdp(motdePassCLaire):
-    h = hashlib.md5(motdePassCLaire.encode())
+def hashMdp(motdePassClaire):
+    h = hashlib.md5(motdePassClaire.encode())
     return h.hexdigest()
 
 def messageErrorConnexion():
@@ -43,6 +43,8 @@ def MapArrayResultBddToArrayUtilisateur(arrayBdd):
         UsersArray.append(Utilisateur(resultBdd[0], resultBdd[1], resultBdd[2], resultBdd[3], resultBdd[4],resultBdd[5]))
     return UsersArray
 
+def MapResultToMessageInformation(result):
+    return MessageInformation(result[0],result[1],result[2])
 
 
 
@@ -70,3 +72,8 @@ class Poste:
         self.adressePoste=adresse
         self.datePoste=date 
 
+class MessageInformation :
+    def __init__(self, contenu,pseudo,date):
+        self.ContenuMessageInformation=contenu
+        self.pseudo=pseudo
+        self.DateMessageInformation=date 
