@@ -51,16 +51,16 @@ def ConfirmationInscription():
     confmdp_hashe = hashlib.sha256(confmdp.encode('ascii')).hexdigest()
 
 
-    print(pseudo)
-    print(nom)
-    print(prenom)
-    print(motdepasse_hashe)
-    print(confmdp_hashe)
-    print(datenaissance) 
+    # print(pseudo)
+    # print(nom)
+    # print(prenom)
+    # print(motdepasse_hashe)
+    # print(confmdp_hashe)
+    # print(datenaissance) 
 
     
     # Insertion des données dans la BDD
-    c.execute("INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, AgeUtilisateur) VALUES (?, ?, ?, ?, ?)", (pseudo, nom, prenom, motdepasse, datenaissance))
+    c.execute("INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, AgeUtilisateur) VALUES (?, ?, ?, ?, ?)", (pseudo, nom, prenom, motdepasse_hashe, datenaissance))
 
     #Commit de la connexion
     conn.commit()
