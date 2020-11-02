@@ -1,3 +1,10 @@
+$("#modal_changementPseudo").iziModal({
+    headerColor: '#00bfff',
+});
+$("#modal_changementMotDePasse").iziModal({
+    headerColor: '#00bfff',
+});
+
 
 function EnvoiFormulaireInscription(){
 
@@ -18,15 +25,9 @@ function EnvoiFormulaireInscription(){
     }
 }
 
-$("#modal_changementPseudo").iziModal({
-    headerColor: '#00bfff',
-});
-$("#modal_changementMotDePasse").iziModal({
-    headerColor: '#00bfff',
-});
-
 function EnvoyerOuPas()
 {
+    
     //TODO FAIRE UNE VERITABLE ALERTE
     if(window.Drapeau==false)
         alert("Le gif ou l'image n'est pas correctement formaté");
@@ -66,14 +67,15 @@ function changeApercu(e,baliseChanger)
         }
     }
 }
+
 function onerrorApercu(bal)
 {
     window.Drapeau=false;
     console.clear();
     bal.style.visibility= "hidden";
 }
+
 function succesApercu()
 {
     window.Drapeau=true;
-
 }

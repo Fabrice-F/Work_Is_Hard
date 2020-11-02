@@ -1,0 +1,211 @@
+/*======= CORPS PAGE ACCUEIL ========*/
+#corp{
+    width:90%;
+    padding: 10px ;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#blocGaucheCorpAccueil{
+    width: 80%;
+    height: auto;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+#blocDroitCorpAccueil{
+    width: 15%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+#btnLinkCreationPoste{
+    border: 2px solid black;
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--myBlack);
+    transition: all 0.5s;
+    text-decoration: none;
+    background:lightgreen;
+    margin-bottom: 25px;
+    font-size: 1.3vmax;
+}
+#btnLinkCreationPoste:active{
+    color: var(--myBlack);
+    background : transparent;
+    transition: all 0.5s;
+}
+#btnLinkCreationPoste:hover{
+    background : green;
+    transition: all 0.5s;
+    transform: translateY(-5px);
+    font-size: 1.5vmax;
+    color: white;
+    cursor: pointer;
+}
+/*======= FIN CORP PAGE ACCUEIL ========*/
+
+
+/*======= PARTIE POSTE ========*/
+.blocGif{
+    background: radial-gradient(circle, rgba(133,217,255,1) 0%, rgba(255,255,255,1) 100%);    
+    height: 500px;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.blocPartagePoste{
+    width: 10%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.btnPartagePoste{
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    background: white;
+    transition: all 0.5s;
+}
+.btnPartagePoste:hover{
+    background: var(--myTheme);
+}
+.btnPartagePoste:focus{
+    text-decoration: none;
+    outline: none;
+}
+
+.blocLegendImagePoste{
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.titrePoste{
+    font-size: 1.5vmax;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    text-shadow: white 2px 2px 2px;
+}
+.figuregif{
+    min-width: 550px;
+    max-width: 85%;
+}
+.gifSize{
+    min-width: 100%;
+    min-height: 350px;
+}
+.H3pseudoUtilsateurPoste{
+
+}
+.H4DatePoste{
+
+}
+
+.outilsAdmin{
+    width: 10%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.imgBtnPartagePoste{
+    width: 100%;
+    height: auto;
+}
+/*======= FIN PARTIE POSTE ========*/
+
+
+/*======= CHANGEMENT DE PAGE  ========*/
+
+#RowChangePage{
+    height: 50px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.changePageBlocGauche,.changePageBlocDroit{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.changePageBlocGauche{
+    justify-content: flex-start;
+}
+.changePageBlocDroit{
+    justify-content: flex-end;
+}
+
+.changePageLink{
+    border: 2px solid black;
+    height: 100%;
+    width: 150px;
+    border-radius: 5px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--myBlack);
+    transition: all 0.5s;
+    text-decoration: none;
+}
+.changePageLink:active{
+    color: var(--myBlack);
+    background : transparent;
+    transition: all 0.5s;
+}
+.changePageLink:hover{
+    background : var(--myTheme);
+    transition: all 0.5s;
+    transform: translateY(-5px);
+    font-size: 1.3vmax;
+    cursor: pointer;
+}
+/*======= FIN CHANGEMENT DE PAGE  ========*/
+
+
+/*============== MODAL COPIE ==============*/
+#modal_CopieOK{
+    height: 50px;
+    min-height: 50px;
+    font-size: 1.3em;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.conteneurModal{
+    height: 50px;
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#imgModal{
+    height: 60%;
+    width: auto;
+}
+/*============== FIN MODAL COPIE ==============*/

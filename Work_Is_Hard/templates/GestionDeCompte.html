@@ -4,82 +4,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/Library/iziModal.min.css">
-    <link rel="stylesheet" href="../static/css/Library/jquery.modal.min.css">
-
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/iziModal.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/GestionDeCompte.css') }}">
     <title>Mon compte</title>
 </head>
 <body>
-    
+    <div class="conteneur">
+        {% include  "components/header.html" %}
 
-    {% include  "components/header.html" %}
+        {% if user!= null%}
 
-    {% if user!= null%}
-            <form action="/logOut" method="GET" id="gestionCompte">
+                <div id="ConteneurgestionCompte">
 
-                <div class="rowForm">
-                    <label for="pseudo">Pseudo :</label>
-                    <input type="text" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
-                    <button type="button" data-izimodal-open="#modal_changementPseudo" data-izimodal-transitionin="fadeInDown">Changer pseudo</button>
+                    <div id="blocHautGestionCompte">
+                        
+                        <div id="contGauche">
+
+                            <div class="rowForm">
+                                <label for="pseudo">Pseudo :</label>
+                                <input type="text" id="pseudoUtilisateur" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
+                            </div>
+
+                            <div class="rowForm">
+                                <label for="pseudo">Nom :</label>
+                                <input type="text" name="nomUser" value="{{ user.NomUtilisateur }}" disabled>
+                            </div>
+
+                            <div class="rowForm">
+                                <label for="pseudo">Prenom:</label>
+                                <input type="text" name="prenomUser" value="{{ user.PrenomUtilisateur }}" disabled>
+                            </div>
+
+                            <div class="rowForm">
+                                <label for="pseudo">Age :</label>
+                                <input type="text" name="pseudoUser" value="{{ user.AgeUtilisateur }}" disabled>
+                            </div>
+
+                        </div>
+
+                        <div id="contDroit">
+                            <a class="btn-classique lien-Btn lien-Btn-size" id="btnChangePseudo-size" type="button" data-izimodal-open="#modal_changementPseudo" data-izimodal-transitionin="fadeInDown">Changer pseudo</a>
+                        </div>
+
+                    </div>
+
+                    <div id="blocBasGestionCompte">
+                        <a href="/" class="btn-classique lien-Btn lien-Btn-size">Retour</a>
+                        <a href="/logout" class="btn-classique lien-Btn lien-Btn-size" id="btnDeco">Deconnexion</a>
+                        <a class="btn-classique lien-Btn lien-Btn-size" type="button" data-izimodal-open="#modal_changementMotDePasse" data-izimodal-transitionin="fadeInDown">Changer mot de passe</a>
+                    </div>
+
                 </div>
 
-                <div class="rowForm">
-                    <label for="pseudo">Nom :</label>
-                    <input type="text" name="pseudo" value="{{ user.NomUtilisateur }}" disabled>
-                </div>
-                <div class="rowForm">
-                    <label for="pseudo">Prenom:</label>
-                    <input type="text" name="pseudo" value="{{ user.PrenomUtilisateur }}" disabled>
-                </div>
-                <div class="rowForm">
-                    <label for="pseudo">Age :</label>
-                    <input type="text" name="pseudo" value="{{ user.AgeUtilisateur }}" disabled>
-                </div>
-                <div class="rowForm">
-                    <button>Deconnexion</button>
-                    <button type="button" data-izimodal-open="#modal_changementMotDePasse" data-izimodal-transitionin="fadeInDown">Changer pseudo</button>
-                    <button >Enregistrer</button>
-                </div>
+        {% endif %} 
 
-            </form>
+        <footer>
+            <h2></h2>
+        </footer>
 
-            <!-- MODAL POUR LE CHANGEMENT DE PSEUDO -->
-            <div id="modal_changementPseudo" data-iziModal-title="Changer votre pseudo"  data-iziModal-subtitle="Changer votre pseudo puis cliquez sur valider ou annuler"  data-iziModal-icon="icon-home">
-                <div id="conteneur-modal">
-                    <input type="text" class="input-modal" value="{{ user.PseudoUtilisateur }}" disabled>
-                    <input type="text" class="input-modal" placeholder="Nouveau Pseudo">
-                </div>
-                <div id="conteneur-ChoiceModal">
-                    <button class="btnModal cancel">Annuler</button>
-                    <button class="btnModal submit">Valider</button>
-                </div>
-            </div>
+        <button id="buttonTheme">☽</button>
+    </div>
 
-            <div id="modal_changementMotDePasse" data-iziModal-title="Changer votre mot de passe"  data-iziModal-subtitle="Changer votre mots de passe puis cliquez sur valider ou annuler"  data-iziModal-icon="icon-home">
-                <div id="conteneur-modal">
-                    <input type="text" class="input-modal" placeholder="Ancien mot de passe">
-                    <input type="text" class="input-modal" placeholder="Nouveau mot de passe">
-                    <input type="text" class="input-modal" placeholder="Confirmation Nouveau mot de passe">
-                </div>
-                <div id="conteneur-ChoiceModal">
-                    <button class="btnModal cancel">Annuler</button>
-                    <button class="btnModal submit">Valider</button>
-                </div>
-            </div>
+    <!-- MODAL POUR LE CHANGEMENT DE PSEUDO -->
+    <div id="modal_changementPseudo" class="modal" data-iziModal-title="Changer votre pseudo"  data-iziModal-subtitle="Changer votre pseudo puis cliquez sur valider ou annuler"  data-iziModal-icon="icon-home">
+        <div id="conteneur-modal">
+            <input type="text" class="input-modal" value="{{ user.PseudoUtilisateur }}" disabled>
+            <input type="text" class="input-modal" placeholder="Nouveau Pseudo" name="PseudoVoulu" id="PseudoVoulu" required>
+            <div class="msgInModal" id="msgInModalPseudo"></div>
+        </div>
+        <div id="conteneur-ChoiceModal">
+            <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+            <button class="btnModal submit h-transRight" onclick="AjaxPseudo('msgInModalPseudo')">Valider</button>
+        </div>
+    </div>
 
+    <div id="modal_changementMotDePasse" class="modal" data-iziModal-title="Changer votre mot de passe"  data-iziModal-subtitle="Changer votre mots de passe puis cliquez sur valider ou annuler"  data-iziModal-icon="icon-home">
+        <div id="conteneur-modal">
+            <input type="password" class="input-modal" name="AncienMotDePasse" id="AncienMotDePasse" placeholder="Ancien mot de passe">
+            <input type="password" class="input-modal" name="NewMotDePasse" id="NewMotDePasse" placeholder="Nouveau mot de passe">
+            <input type="password" class="input-modal" name="ConfirmationMotDePasse" id="ConfirmationMotDePasse" placeholder="Confirmation Nouveau mot de passe">
+            <div class="msgInModal" id="msgInModalMdp"></div>
+        </div>
+        <div id="conteneur-ChoiceModal">
+            <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+            <button class="btnModal submit h-transRight" onclick="AjaxMotDePasse('msgInModalMdp')">Valider</button>
+        </div>
+    </div>
 
-    {% endif %} 
-
-    <footer>
-        <h2></h2>
-    </footer>
-
-    <button id="buttonTheme">☽</button>
 </body>
 
-<script src="../static/js/Library/jquery.min.js"></script>
-<script src="../static/js/Library/iziModal.min.js"></script>
-<script type="text/javascript" src="../static/js/main.js"></script>
+<script src="{{ url_for('static', filename= 'js/Library/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename= 'js/Library/iziModal.min.js') }}"></script>
+<script src="{{ url_for('static', filename= 'js/gestionDeCompte.js') }}"></script>
 
 </html>

@@ -1,0 +1,25 @@
+¤ Appliqer les script sql pour desactiver le case sensitive : 
+    PRAGMA case_sensitive_like = false;
+
+¤ Voir avec mr Ayoub si la bdd peu lui est transmise avec des données a l'intérieur (déja faite) ou l'application
+doit elle la créer et injectée des donnée au proéalable ?
+
+¤ Refactoring complet du code :
+    -Trie les fichier inutile
+    -Mieux organiser le css
+    -Mieux organiser le JS
+    
+¤ Faire un mode modérateur désactivable : 
+     En mode activer => oblige chaque poste à être accepté par un admin ou un modérateur
+     En mode désactiver => les postes sont directements mis sur le serveur
+
+
+¤ confirmation inscription par mail: 
+    - recoit un mail avec un lien contenant un token en parametre
+
+¤ Mots de passe oublié par mail:
+    - Possiblité de réinitialiser le mot de passe grace a son mail
+
+¤ Gestion de ban par IP en cas de test de connexion > 5 / 1min
+
+¤ responsiver les pages

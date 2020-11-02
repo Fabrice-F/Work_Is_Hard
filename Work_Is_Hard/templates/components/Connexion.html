@@ -1,9 +1,8 @@
-
 <link rel="stylesheet" href="{{ url_for('static', filename= 'css/components_style/Connexion.css') }}">
 
 
 {% if user == null%}
-    <div id="BlocConnexion">
+    <div class="BlocConnexion">
 
         <h2>Connexion</h2>
 
@@ -12,15 +11,15 @@
             <input type="text" name="pseudo" required>
             <label for="">Mot de passe :</label>
             <input type="password" name="password" required>
-            <button>Envoyer</button>
+            <button class="btn-classique">Envoyer</button>
         </form>
 
     </div>
 {% else %}
 
-    <section id="informationUtilisateur">
+
         
-        <form action="/logout" method="GET">
+        <form action="/logout" method="GET" class="BlocConnexion">
             <label for="pseudo">Pseudo :</label>
             <input type="text" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
             
@@ -30,9 +29,9 @@
             <label for="pseudo">Prenom :</label>
             <input type="text" name="pseudo" value="{{ user.PrenomUtilisateur }}" disabled>
             
-            <button>Deconnexion</button>
+            <button class="btn-classique">Deconnexion</button>
         </form>
 
-    </section>
+
 
 {% endif %} 

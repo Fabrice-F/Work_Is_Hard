@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/CreationDePoste.css') }}">
 
     <title>Creation de poste</title>
 </head>
@@ -22,13 +23,13 @@
                 <input type="text" oninput="changeApercu(this,'apercuImg')" name ="LienImg" id="LienImg">
             </div>
 
-            <button>ENVOYER</button>
+            <button class="btn-classique">ENVOYER</button>
         </form>
 
         <div id="posteApercu">
             <h2>APERCU DU POSTE</h2>
             <div id="apercuBlocGif">
-                <legend id="apercuLegend"></legend>
+                <legend id="apercuLegend" class="titrePoste"></legend>
                 <img class="gif" id="apercuImg" onerror="onerrorApercu(this)" onload="succesApercu()">
             </div>
         </div>
@@ -41,6 +42,6 @@
 
     <button id="buttonTheme">☽</button>
 </body>
-<script src="{{ url_for('static', filename= 'js/main.js') }}"></script>
+<script src="{{ url_for('static', filename= 'js/CreationDePoste.js') }}"></script>
 
 </html>

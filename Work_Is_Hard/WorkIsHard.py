@@ -114,7 +114,7 @@ def login():
     if len(resultArray)==1:
         result =  resultArray[0]
     else:
-        return render_template("Error/ErrorConnexion.html")
+        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
     userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5])
 
@@ -122,7 +122,7 @@ def login():
         session['utilisateur'] = userDemandeConnexion.__dict__
         return redirect(url_for('index'))
     else:
-        return render_template("Error/ErrorConnexion.html")
+        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
 
 @app.route('/logout')
@@ -181,13 +181,63 @@ def getPage(idPage):
 
 
 
+@app.route('/DemandeSiPseudoDisponible',methods=['POST'])
+def DemandeSiPseudoDisponible():
+    if 'utilisateur' not in session:
+        return redirect(url_for('index'))   
+
+    pseudoVoulu = request.form["PseudoVoulu"]
+    IsPseudoDisponible = IfPseudoDisponible(pseudoVoulu)
+    if IsPseudoDisponible :
+        UserId= session['utilisateur']["IdUtilisateur"]
+        UserPseudo= session['utilisateur']["PseudoUtilisateur"]
+        if UpdatePseudo(pseudoVoulu,UserPseudo,UserId):
+            return "True"
+        else:
+            return "Echec pendant la mise à jour du pseudo"
+    else:
+        return "Le pseudo n'est pas disponible"
+    return 
+
+@app.route('/DemandeChangementPassword',methods=['POST']) #methode appelé en AJAX
+def DemandeChangementPassword():
+    if 'utilisateur' not in session:
+        return redirect(url_for('index'))
+    
+    UserId= session['utilisateur']["IdUtilisateur"]
+    UserPseudo= session['utilisateur']["PseudoUtilisateur"]
+    UserPasswordCurrent= session['utilisateur']["MdpUtilisateur"]
+    AncienMotDePasseSaisie = hashMdp(request.form["AncienMotDePasse"])
+    NewMotDePasse = hashMdp(request.form["NewMotDePasse"])
+    ConfirmationMotDePasse = hashMdp(request.form["ConfirmationMotDePasse"])
+
+    if(NewMotDePasse !=ConfirmationMotDePasse):
+        return "Le nouveau mot de passe et la confirmation ne sont pas identique"
+    if(UserPasswordCurrent !=AncienMotDePasseSaisie):
+        return "L'ancien mot de passe est incorrect"
+
+    if UpdateMdp(NewMotDePasse,UserPseudo,UserId):
+        return "True"
+    else:
+        return "Echec pendant la mise à jour du mot de passe"
+
+
+@app.route('/testAjax')
+def test():
+    return "AJAX FONCTIONNEL"
+
+
 @app.route('/base')
 def accesBase():
     return render_template("heritageJinja/base.html")
 
+
 @app.route('/ChildBase1')
 def ChildBase1():
     return render_template("heritageJinja/ChildBase1.html")
+
+
+
 
 
 class Utilisateur:

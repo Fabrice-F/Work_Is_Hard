@@ -17,6 +17,9 @@ h1 {
     margin: 0px ;
     background: var(--myTheme);
 }
+h2{
+    text-align: center;
+}
 nav{
     width:100%;
     display: flex;
