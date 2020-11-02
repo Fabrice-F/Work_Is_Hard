@@ -30,3 +30,6 @@ doit elle la créer et injectée des donnée au proéalable ?
 ¤ Si poste supprimer mettre dans une table
 
 ¤ Administration si role identique voir le comportement voulu ( actuellement on ne fait pas la requete ajax mais modale s'ouvre )
+
+
+¤ retirer le mots de passe de la session utilisateur 

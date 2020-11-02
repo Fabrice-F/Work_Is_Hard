@@ -40,17 +40,16 @@ def MapSessionToUser(session):
 def MapArrayResultBddToArrayUtilisateur(arrayBdd):
     UsersArray = []
     for resultBdd in arrayBdd :
-        UsersArray.append(Utilisateur(resultBdd[0], resultBdd[1], resultBdd[2], resultBdd[3], resultBdd[4],resultBdd[5],resultBdd[6]))
+        UsersArray.append(Utilisateur(resultBdd[0], resultBdd[1], resultBdd[2], resultBdd[3], resultBdd[4],resultBdd[5]))
     return UsersArray
 
 
 
 
 class Utilisateur:
-    def __init__(self, identifiant, pseudo,mdp,nom,prenom,age,role):
+    def __init__(self, identifiant, pseudo,nom,prenom,age,role):
         self.IdUtilisateur=identifiant
         self.PseudoUtilisateur=pseudo
-        self.MdpUtilisateur=mdp
         self.NomUtilisateur=nom
         self.PrenomUtilisateur=prenom 
         self.AgeUtilisateur=age

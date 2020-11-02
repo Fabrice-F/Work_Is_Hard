@@ -21,7 +21,6 @@ def connexionUtilisateur(pseudo,mdp):
         request = f"""
         SELECT IdUtilisateur,
             PseudoUtilisateur,
-            MotDePasseUtilisateur,
             NomUtilisateur,
             Prenom,
             AgeUtilisateur,
@@ -166,17 +165,62 @@ def SelectAllUser():
         conn = OpenConnexion()
         c = conn.cursor()
         request  = f"""
-            SELECT *
+            SELECT IdUtilisateur,
+                PseudoUtilisateur,
+                NomUtilisateur,
+                Prenom,
+                AgeUtilisateur,
+                Fk_IdRole
             FROM Utilisateur
             WHERE Fk_IdRole 
             IS NOT 3
             ORDER BY PseudoUtilisateur """
         resultArray= c.execute(request).fetchall()
         return resultArray
-    
     except RuntimeError:
         closeConnexion(c,conn)
         return False
 
 
-    return
+def getUserCurrentPasswd(pseudo,Id):
+    try:
+        conn = OpenConnexion()
+        c= conn.cursor()
+
+        request=f"""
+            SELECT MotDePasseUtilisateur 
+            FROM Utilisateur 
+            WHERE PseudoUtilisateur LIKE ? 
+            AND IdUtilisateur = ? """
+
+        result = c.execute(request,(pseudo,Id,)).fetchone()
+
+        if len(result)!=1:
+            closeConnexion(c,conn)
+            return False
+        else:
+            closeConnexion(c,conn)
+            return result[0]
+    except RuntimeError:
+        closeConnexion(c,conn)
+        return False
+    
+def UpdateRole(Id,pseudo,Role):
+    try :
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request =f""" 
+        Update Utilisateur 
+        SET Fk_IdRole = 
+            (SELECT IdRole 
+            FROM Role 
+            WHERE NomRole Like ?)
+        WHERE IdUtilisateur = ?
+        AND PseudoUtilisateur LIKE ?
+        """
+        c.execute(request,(Role,Id,pseudo,))
+        conn.commit()
+        return True
+    except RuntimeError:
+        return False
+

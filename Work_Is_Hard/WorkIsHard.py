@@ -41,13 +41,15 @@ def ChangementRole():
         idUser = request.form["idUser"]    
         AncienRoleUser = request.form["AncienRoleUser"]    
         NouveauRoleUser = request.form["NouveauRoleUser"]    
-        mdpOfAdmin = hashMdp(request.form["AdminPwd"])
-        print(pseudoUser)
-        print(idUser)
-        print(AncienRoleUser)
-        print(NouveauRoleUser)
-        print(mdpOfAdmin)
-        return "True"
+        mdpOfAdminSaisie = hashMdp(request.form["AdminPwd"])
+        
+        mdpOfAdmin= getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if mdpOfAdminSaisie != mdpOfAdmin:
+            return "Le mot de passe entré est incorrect"
+
+        isUpdate= UpdateRole(idUser,pseudoUser,NouveauRoleUser)
+        return str(isUpdate)
     else :
         return redirect(url_for('index'))
 
@@ -60,8 +62,13 @@ def login():
     if result ==False:
         return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
-    userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5],result[6])
-    if userDemandeConnexion.PseudoUtilisateur==pseudo and userDemandeConnexion.MdpUtilisateur== mdp:
+    userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5])
+    mdpCurrentUser = getUserCurrentPasswd(userDemandeConnexion.PseudoUtilisateur,userDemandeConnexion.IdUtilisateur)
+    
+    if(mdpCurrentUser==False):
+        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
+
+    if userDemandeConnexion.PseudoUtilisateur==pseudo and mdpCurrentUser== mdp:
         session['utilisateur'] = userDemandeConnexion.__dict__
         return redirect(url_for('index'))
     else:

@@ -48,7 +48,7 @@
                     
 
                     <div class="outilsAdmin">
-                        {% if user!=undefined and user.RoleUtilisateur != "Posteur" %}
+                        {% if user!=undefined and user.IdRoleUtilisateur != 1 %}
                             <button title="Bouton outils administration" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt=""></button>
                         {% endif %}
                     </div>
