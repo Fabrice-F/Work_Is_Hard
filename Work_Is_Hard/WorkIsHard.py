@@ -33,71 +33,19 @@ def inscription():
 
 @app.route('/ConfirmationInscription', methods=['POST'])
 def ConfirmationInscription():
-    # Conncexion a la base de donnée
-    conn = sqlite3.connect('WorkIsHard.db')
-    c = conn.cursor()
-    
-
     # Récupération des informations de la page inscription.html
     pseudo = request.form["pseudo"]
     nom = request.form["nom"]
     prenom = request.form["prenom"]
-    motdepasse = request.form["motdepasse"]
-    confmdp = request.form["confmdp"]
     datenaissance = request.form["datenaissance"]
 
     #hash des mots de passes 
-    motdepasse_hashe = hashlib.sha256(motdepasse.encode('ascii')).hexdigest()
-    confmdp_hashe = hashlib.sha256(confmdp.encode('ascii')).hexdigest()
+    mdp = hashMdp(request.form["motdepasse"])
 
-
-    # print(pseudo)
-    # print(nom)
-    # print(prenom)
-    # print(motdepasse_hashe)
-    # print(confmdp_hashe)
-    # print(datenaissance) 
-
-    
-    # Insertion des données dans la BDD
-    c.execute("INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, AgeUtilisateur) VALUES (?, ?, ?, ?, ?)", (pseudo, nom, prenom, motdepasse_hashe, datenaissance))
-
-    #Commit de la connexion
-    conn.commit()
-
-    #Fermeture de connexion
-    conn.close()
-
-    return render_template("inscription.html")
-
-    
-
-    """print(pseudo)
-    print(nom)
-    print(prenom)
-    print(motdepasse)
-    print(confmdp)
-    print(datenaissance)
-
-    return render_template("inscription.html")
-    """
-
-    """hashage du mots de passe  
-       hashage de la confrmation  mots de passe
-       comparer si le hash du mot de passe est identique au hash de la fconfirmation """
-
-
-    """conn = sqlite3.connect('WorkIsHard.db')
-    c = conn.cursor()*
-
-
-    resultArray = c.execute(f"SELECT * FROM Utilisateur WHERE PseudoUtilisateur = '{pseudo}'").fetchall()
-    if len(resultArray)==1:
-        return render_template("Error/testErreur.html")
+    if confirmationInscription(pseudo, nom, prenom, mdp, datenaissance):
+        return redirect(url_for('index'))
     else:
-        return "Votre compte a bien été crée"
-    """
-
+        return "Error"
 
 
 

@@ -113,3 +113,19 @@ def UpdateMdp(mdp,userPseudo,userId):
         return True
     except RuntimeError:
         return False
+
+
+# TODO : Close la connexion
+def confirmationInscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request = f"""
+            INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, AgeUtilisateur) 
+            VALUES (?, ?, ?, ?, ?) 
+        """
+        c.execute(request, (pseudo, nom, prenom, motdepasse_hashe, datenaissance))
+        conn.commit()
+        return True
+    except RuntimeError:
+        return False
