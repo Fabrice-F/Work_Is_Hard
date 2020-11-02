@@ -29,10 +29,16 @@ img{
     padding: 0px;
 }
 
+.divRowAllInput{
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5vmax;
+}
+
 .divEnvoyerRoleUtilisateur{
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     padding:10px 0 10px 0 ;
 }
@@ -41,6 +47,9 @@ img{
     border :1px solid black;
     background: lightskyblue;
     margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
@@ -82,4 +91,13 @@ input[type='radio']:checked:after {
 
 .RoleAccentuation{
     font-weight: bold;
+}
+@media screen and (max-width: 52.375em) {
+    .divRowAllInput{
+        font-size: 15px;
+    }
+    .divEnvoyerRoleUtilisateur{
+        height: 50px;
+        padding:0 ;
+    }
 }

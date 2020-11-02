@@ -11,8 +11,6 @@
 {% block content %}
 <div class="container">
 
-    <h1>{{ nomRole }}</h1>
-
     <div id="tabs" class="tabs">
         <nav>
             <ul>
@@ -35,19 +33,25 @@
 
                         <div>
                             <form action="/ChangementRole" method="POST" >
-
-                                <label for="Posteur{{ otherUser.IdUtilisateur  }}">Posteur</label>
-                                <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Posteur" id="Posteur{{ otherUser.IdUtilisateur  }}" required {{ "checked" if otherUser.IdRoleUtilisateur==1  }} class="radioButtton-Posteur InputAttributionRole">
-
-                                <label for="Moderateur{{ otherUser.IdUtilisateur  }}">Modérateur</label>
-                                <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Modérateur" id="Moderateur{{ otherUser.IdUtilisateur  }}" required {{ "checked" if otherUser.IdRoleUtilisateur==2  }} class="radioButtton-Moderateur InputAttributionRole">
-                                
-                                <label for="Administrateur{{ otherUser.IdUtilisateur  }}">Administrateur</label>
-                                <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Administrateur" id="Administrateur{{ otherUser.IdUtilisateur  }}" required {{ 'checked' if otherUser.IdRoleUtilisateur==3  }} class="radioButtton-Administrateur InputAttributionRole">
-
+                                <div class="divRowAllInput">
+                                    <div>
+                                        <label for="Posteur{{ otherUser.IdUtilisateur  }}">Posteur</label>
+                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Posteur" id="Posteur{{ otherUser.IdUtilisateur  }}" required {{ "checked" if otherUser.IdRoleUtilisateur==1  }} class="radioButtton-Posteur InputAttributionRole">
+                                    </div>
+                                    <div>
+                                        <label for="Moderateur{{ otherUser.IdUtilisateur  }}">Modérateur</label>
+                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Modérateur" id="Moderateur{{ otherUser.IdUtilisateur  }}" required {{ "checked" if otherUser.IdRoleUtilisateur==2  }} class="radioButtton-Moderateur InputAttributionRole">
+                                    </div>
+                                    <div>
+                                        <label for="Administrateur{{ otherUser.IdUtilisateur  }}">Administrateur</label>
+                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Administrateur" id="Administrateur{{ otherUser.IdUtilisateur  }}" required {{ 'checked' if otherUser.IdRoleUtilisateur==3  }} class="radioButtton-Administrateur InputAttributionRole">
+                                    </div>
+                                </div>
                                 <div class="divEnvoyerRoleUtilisateur">
                                     <!-- <button class="btn-classique">MODIFIER</button> -->
-                                    <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" onclick="openModalChangeRole('{{ otherUser.IdUtilisateur  }}','{{ otherUser.PseudoUtilisateur }}', '{{ otherUser.NomRole }}' )">modifier</button>
+                                    <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" >Reset password</button>
+                                    <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" >Bannir</button>
+                                    <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" onclick="openModalChangeRole('{{ otherUser.IdUtilisateur  }}','{{ otherUser.PseudoUtilisateur }}', '{{ otherUser.NomRole }}' )">Modifier rôle</button>
                                     <input hidden type="button" id="OpenModal{{ otherUser.IdUtilisateur  }}" data-izimodal-open="#modal_changeRole" data-izimodal-transitionin="fadeInDown"/>
                                 </div>
                             </form>
