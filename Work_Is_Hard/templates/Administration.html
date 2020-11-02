@@ -16,7 +16,7 @@
             <ul>
                 <li><a href="#section-1" class="icon-role"><span>Attribution rôle</span></a></li>
                 <li><a href="#section-2" class="icon-moderation"><span>Mode modération</span></a></li>
-                <li><a href="#section-3" class="icon-params"><span>message information</span></a></li>
+                <li><a href="#section-3" class="icon-info"><span>message information</span></a></li>
                 <li><a href="#section-4" class="icon-params"><span>Paramètres</span></a></li>
             </ul>
         </nav>
@@ -59,7 +59,7 @@
                 {% endfor %}
             </section>
             <section id="section-2">
-                <div class="mediabox">
+                <div class="mediabox BoxMediaStyle">
                     <img src="../static/img/admin-ico.png" class="imgAttributionRole"/>
                     <h3>Asparagus Cucumber Cake</h3>
                     <p>Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd. </p>
@@ -75,22 +75,16 @@
                     <p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. </p>
                 </div>
             </section>
+
             <section id="section-3">
-                <div class="mediabox">
-                    <img src="../static/img/admin-ico.png" class="imgAttributionRole"/>
-                    <h3>Noodle Curry</h3>
-                    <p>Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea.Sushi gumbo beet greens corn soko endive gumbo gourd.</p>
+
+                <div class="mediabox ">
+                    <textarea name="txtAreaMsgInfo" id="txtAreaMsgInfo" placeholder="Écrivez votre Message ici, 255 caractères max..." maxlength="255" cols="30" rows="10"></textarea>
                 </div>
-                <div class="mediabox">
-                    <img src="../static/img/admin-ico.png" class="imgAttributionRole"/>
-                    <h3>Leek Wasabi</h3>
-                    <p>Sushi gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato.</p>
+                <div class="mediabox" id="divValideMsgInfo">
+                    <button class="btn-classique" data-izimodal-open="#modalMsgInfo" data-izimodal-transitionin="fadeInDown">ENVOYER MESSAGE</button>
                 </div>
-                <div class="mediabox">
-                    <img src="../static/img/admin-ico.png" class="imgAttributionRole"/>
-                    <h3>Green Tofu Wrap</h3>
-                    <p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut wasabi tofu broccoli mixture soup.</p>
-                </div>
+
             </section>
             <section id="section-4">
                 <div class="mediabox">
@@ -131,12 +125,30 @@
     </div>
 </div>
 
+<div id="modalMsgInfo" class="modal" data-iziModal-title="Message information"  data-iziModal-subtitle="Envoi message dans la rubrique information"  data-iziModal-icon="icon-home">
+    
+    <p id="msgRappeMsgInfo" class="paragrapheMsgInfo"></p>
+    <p id="msgAncienRoleMsgInfo" class="paragrapheMsgInfo"></p>
+    <p id="msgNouveauRoleMsgInfo" class="paragrapheMsgInfo"></p>
+
+    <div id="conteneur-modal">
+        <input type="password" class="input-modal" placeholder="confirmer avec mots de passe" id="mdpMsgInfo">
+        <div class="msgInModal" id="msgInModalMsgInfo"></div>
+    </div>
+
+    <div id="conteneur-ChoiceModal">
+        <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+        <button class="btnModal submit h-transRight" onclick="sendMsgInformation('msgInModalMsgInfo')" id="btnValideMsgInfo">Valider</button>
+    </div>
+</div>
+
 
 {% endblock %}
 
 
 {% block js %}
     <script src="{{ url_for('static', filename= 'js/Library/cbpFWTabs.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/common.js') }}"></script>
     <script src="{{ url_for('static', filename= 'js/Administration.js') }}"></script>
 
 {% endblock %}

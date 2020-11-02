@@ -76,13 +76,53 @@ input[type='radio']:checked:after {
     background-color: #468334;
 }
 
-/* ====== MODAL ===== */
-.modal{
-    height: 400px;
-    width: 500px;
-    max-height: 100%;
-    max-width: 100%;
+/*SECTION 3*/
+#txtAreaMsgInfo{
+    width: 100%;
+    font-size: 1.4vmax;
+    padding :15px;
 }
+#divValideMsgInfo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====== MODAL ===== */
+
 .paragrapheChangeRole{
     height: auto;
     margin: 20px;
@@ -92,12 +132,34 @@ input[type='radio']:checked:after {
 .RoleAccentuation{
     font-weight: bold;
 }
+
+
+
+
+
+/* ========================================= */
+/* =============== RESPONSIVE ============== */
+/* ========================================= */
+
 @media screen and (max-width: 52.375em) {
+    
     .divRowAllInput{
         font-size: 15px;
     }
+
     .divEnvoyerRoleUtilisateur{
         height: 50px;
         padding:0 ;
     }
+
+    #txtAreaMsgInfo{
+        font-size: 20px;
+        padding :5px;
+    }
+
+
+
+
+
+
 }

@@ -94,8 +94,12 @@
 	content: "\e976";
 }
 
+.icon-info:before {
+	content: "\e96e";
+}
+
 .icon-params:before {
-	content: "\e991";
+	content: "\e994";
 }
 
 .icon-moderation:before {

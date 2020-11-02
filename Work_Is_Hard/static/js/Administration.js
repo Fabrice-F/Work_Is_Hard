@@ -9,25 +9,17 @@ $("#modal_changeRole").iziModal({
     onClosing: disableBlockBackground,
 });
 
-function ActiveBlockBackground()
-{
-    document.body.style.pointerEvents="none";
-    document.getElementsByClassName("conteneur")[0].style.filter="blur(1.5rem)";
-    Array.from(document.getElementsByClassName("modal")).forEach(fenetreModal => {
-        fenetreModal.style.pointerEvents="auto";
-    });
-}
+$("#modalMsgInfo").iziModal({
+    closeButton: true,
+    headerColor: '#00bfff',
+    onOpening: ActiveBlockBackground,
+    onClosing: disableBlockBackground,
+});
 
-function disableBlockBackground()
-{
-    document.body.style.pointerEvents="auto";
-    document.getElementsByClassName("conteneur")[0].style.filter="blur(0)";
-    document.location.reload();
-}
 
+/* === PARTIE ATTRIBUTION ROLE === */
 function openModalChangeRole(idUser,pseudo,ancienRole)
 {
-
     NouveauRole = document.querySelector(`input[name="roleUtilisateur${idUser}"]:checked`).value;
     
     if(NouveauRole==ancienRole)
@@ -51,21 +43,15 @@ function openModalChangeRole(idUser,pseudo,ancienRole)
         ValidChangeRole(pseudo,idUser,ancienRole,NouveauRole);
     });
 
-    console.log(idUser)
-    console.log(pseudo)
-    console.log(ancienRole)
-    console.log(NouveauRole)
-    console.log("==================")
-
-
 }
 
+    // Implemente AJAX
 function ValidChangeRole(pseudo,id,ancienRole,NouveauRole)
 {
     AdminPwd = document.getElementById("mdpChangeRole").value
     baliseMessage ="msgInchangeRole";
     
-    if(AdminPwd=="")
+    if(isEmptyOrSpaces(AdminPwd))
     {
         PrintMessage(baliseMessage,"Le champs mot de passe est vide",true);
         return
@@ -94,13 +80,80 @@ function ValidChangeRole(pseudo,id,ancienRole,NouveauRole)
 }
 
 
-function PrintMessage(element,message,error=false)
+/* === PARTIE MESSAGER INFORMATION === */
+    // Implemente AJAX
+function sendMsgInformation(baliseMessageInModal)
 {
-    document.getElementById(element).style.color="Green";
-    document.getElementById(element).innerHTML=message;
-    if(error)
-        document.getElementById(element).style.color="Red";
-    setTimeout(function(){
-        document.getElementById(element).innerHTML="";
-    },3000);
+    Msg = document.getElementById("txtAreaMsgInfo").value;
+    MdpUser = document.getElementById("mdpMsgInfo").value;
+
+    if(isEmptyOrSpaces(Msg)){
+        PrintMessage(baliseMessageInModal,"Le message d'information est vide, veuillez le remplir",true);
+        return;
+    }
+
+    if(isEmptyOrSpaces(MdpUser)){
+        PrintMessage(baliseMessageInModal,"Le champs mot de passe est vide ...",true);
+        return;
+    }
+    SendAjax("/updateMsgInformation","message d'information",baliseMessageInModal,Msg,MdpUser);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function SendAjax(url,textSuccess,baliseMessage,...value)
+{
+    datas ="";
+
+    for (let i = 0; i < value.length; i++) {
+        variableName=  getVariableName(value[i])
+        datas = `${datas}${variableName}=${value[i]}` ; 
+        if(i+1!=value.length)
+            datas +="&"
+    }
+    
+    $.ajax({
+        url : url, // La ressource ciblée
+        type : 'POST', // Le type de la requête HTTP.
+        data : datas ,
+        dataType : 'text', // On désire recevoir du text
+        success : function(text, statut){ // contient le text renvoyé
+        if (text=="True"){
+            PrintMessage(baliseMessage,`Le ${textSuccess} a été actualisé, rechargement de la page dans 2 secondes...`);
+            setTimeout(function(){
+                window.location.reload();
+            },2000)
+        }
+        else 
+            PrintMessage(baliseMessage,text,true);
+        },
+        error : function(text, statut){ //  contient le text renvoyé
+            alert("error: " +text)
+        }
+    });
+
+}
+
+function getVariableName(v) {
+    for (var key in window) {
+        if (window[key] === v)
+            return key;
+    }
 }

@@ -30,41 +30,6 @@ def index():
 def inscription():
     return render_template("inscription.html")
 
-@app.route('/Administration')
-def Administration():
-
-    msgTmp = getLastMessageInformation()
-    if(msgTmp==False):
-        messageInfo = MessageInformation("vide","Aucun",datetime.now())
-    else :
-        messageInfo = MapResultToMessageInformation(msgTmp)
-
-    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
-        ArrayUser = SelectAllUser()
-        AllUser= MapArrayResultBddToArrayUtilisateur(ArrayUser)
-        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser,messageInfo=messageInfo)
-    else :
-        return redirect(url_for('index'))
-
-@app.route("/ChangementRole", methods=['POST'])
-def ChangementRole():
-    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:    
-        pseudoUser = request.form["pseudoUser"]
-        idUser = request.form["idUser"]    
-        AncienRoleUser = request.form["AncienRoleUser"]    
-        NouveauRoleUser = request.form["NouveauRoleUser"]    
-        mdpOfAdminSaisie = hashMdp(request.form["AdminPwd"])
-        
-        mdpOfAdmin= getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
-
-        if mdpOfAdminSaisie != mdpOfAdmin:
-            return "Le mot de passe entré est incorrect"
-
-        isUpdate= UpdateRole(idUser,pseudoUser,NouveauRoleUser)
-        return str(isUpdate)
-    else :
-        return redirect(url_for('index'))
-
 #TODO: Refaire le systeème de connexion
 @app.route('/login', methods=['POST'])
 def login():
@@ -176,6 +141,80 @@ def DemandeChangementPassword():
         return "True"
     else:
         return "Echec pendant la mise à jour du mot de passe"
+
+
+
+
+
+""" SECTION ADMINISTRATION  """
+
+@app.route('/Administration')
+def Administration():
+
+    msgTmp = getLastMessageInformation()
+    if(msgTmp==False):
+        messageInfo = MessageInformation("vide","Aucun",datetime.now())
+    else :
+        messageInfo = MapResultToMessageInformation(msgTmp)
+
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
+        ArrayUser = SelectAllUser()
+        AllUser= MapArrayResultBddToArrayUtilisateur(ArrayUser)
+        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser,messageInfo=messageInfo)
+    else :
+        return redirect(url_for('index'))
+
+@app.route("/ChangementRole", methods=['POST'])
+def ChangementRole():
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:    
+        pseudoUser = request.form["pseudoUser"]
+        idUser = request.form["idUser"]    
+        AncienRoleUser = request.form["AncienRoleUser"]    
+        NouveauRoleUser = request.form["NouveauRoleUser"]    
+        mdpOfAdminSaisie = hashMdp(request.form["AdminPwd"])
+        
+        mdpOfAdmin= getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if mdpOfAdminSaisie != mdpOfAdmin:
+            return "Le mot de passe entré est incorrect"
+
+        isUpdate= UpdateRole(idUser,pseudoUser,NouveauRoleUser)
+        return str(isUpdate)
+    else :
+        return redirect(url_for('index'))
+
+@app.route("/updateMsgInformation", methods=['POST'])
+def updateMsgInformation():
+
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:    
+        msg = request.form["Msg"]
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        userIdCurrent = session['utilisateur']["IdUtilisateur"]
+        if updateMessageInformation(msg,userIdCurrent) :
+            return "True"
+        else:
+            return "Le message n'as pas pu être actualisé"
+    else :
+        return redirect(url_for('index'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/testAjax')
 def test():

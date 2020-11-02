@@ -266,5 +266,21 @@ def getLastMessageInformation():
 
     except RuntimeError :
         closeConnexion(c,conn)
-        print("error")
+        return False
+
+def updateMessageInformation(msg,idUser):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+            INSERT INTO MessageInformation 
+                (ContenuMessageInformation,
+                Fk_IdUtilisateurMessageInformation,
+                DateMessageInformation)
+            VALUES(?,?,?);"""
+        result= c.execute(request,(msg,idUser,datetime.now()))
+        conn.commit()
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
         return False
