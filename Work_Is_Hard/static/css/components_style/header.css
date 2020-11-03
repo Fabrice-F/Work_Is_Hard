@@ -1,13 +1,13 @@
-header{
+#blocHeader{
     width:100%;
-    height: 100px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0 20px 0;
 }
-h1 {
+
+#titreHeader {
     width: 100%;
     border: 2px var(--myBlack) solid;
     height: 50px;
@@ -15,16 +15,32 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0px ;
     background: var(--myTheme);
 }
-h2{
-    text-align: center;
-}
-nav{
-    width:100%;
+.navStyle{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 1.5em;
+    justify-content: flex-end;
+    background: transparent;
+}
+.Menu{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+@media screen and (max-width: 962px) {
+    .navStyle{
+        border-bottom: 1px ridge black;
+    }
+    .Menu{
+        align-items: center;
+    }
+    .nav-link{
+        border: 1px ridge black;
+        margin:10px;
+        width: 30%;
+        text-align: center;
+        background: var(--myTheme);
+    }
 }

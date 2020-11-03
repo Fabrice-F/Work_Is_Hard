@@ -6,7 +6,9 @@
     flex-direction: column;
     justify-content: space-between;
 }
-
+.nav-style{
+    font-size: 1.5em;
+}
 /* === SECTION 1 ===*/
 .blocImgAndNomUserAttributionRole{
     width: 100%;
@@ -149,7 +151,7 @@ input[type='radio']:after {
 /* =============== RESPONSIVE ============== */
 /* ========================================= */
 
-@media screen and (max-width: 52.375em) {
+@media screen and ( max-width: 768px) {
     
     .divRowAllInput{
         font-size: 15px;
@@ -164,10 +166,5 @@ input[type='radio']:after {
         font-size: 20px;
         padding :5px;
     }
-
-
-
-
-
 
 }
