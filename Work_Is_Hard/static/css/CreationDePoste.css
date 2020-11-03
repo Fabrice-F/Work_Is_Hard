@@ -71,8 +71,6 @@
     visibility: hidden;
 }
 
-
-
 @media (max-width: 992px) { 
     #conteneurCreationPoste{
         width: 100%;
@@ -81,7 +79,6 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
-        background: red;
     } 
     #formPosteGIf{
         width: 100%;
@@ -99,7 +96,6 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
-        background: red;
     } 
     .rowForm{
         display: flex;

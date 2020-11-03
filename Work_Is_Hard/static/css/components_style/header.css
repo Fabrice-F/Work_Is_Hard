@@ -22,6 +22,9 @@
     justify-content: flex-end;
     background: transparent;
 }
+.navStyle{
+    font-size: 1.5vmax;
+}
 .Menu{
     width: 100%;
     display: flex;
