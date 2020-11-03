@@ -30,6 +30,8 @@
     margin: 0px;
     padding: 0px 10px 10px 10px;
     font-size: 25px;
+    word-wrap: break-word;
+
 }
 
 #blocNbPosteInformation{
@@ -68,6 +70,10 @@
     #conteneurInformation{
         display: flex;
         flex-direction: column;
+    }
+    #blocMessageInformation{
+        margin-bottom: 20px;
+
     }
     #blocNbPosteInformation{
         flex-direction: row;

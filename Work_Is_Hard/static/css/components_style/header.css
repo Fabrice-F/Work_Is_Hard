@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
     background: var(--myTheme);
+    font-size: 1.5vmax;
 }
 .navStyle{
     display: flex;
@@ -33,6 +34,13 @@
 
 
 @media screen and (max-width: 1000px) {
+    #titreHeader {
+        font-size: 30px;
+        word-wrap: break-word;
+        height: auto;
+        text-align: center;
+    }
+    
     .navStyle{
         border-bottom: 1px ridge black;
     }
