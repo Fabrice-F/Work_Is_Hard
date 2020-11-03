@@ -29,7 +29,7 @@
 }
 
 
-@media screen and (max-width: 962px) {
+@media screen and (max-width: 1000px) {
     .navStyle{
         border-bottom: 1px ridge black;
     }
