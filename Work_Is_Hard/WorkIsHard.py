@@ -59,8 +59,11 @@ def logout():
 @app.route('/GestionDeCompte')
 def GestionDeCompte():
     if 'utilisateur' in session:
-        msg = getLastMessageInformation()
-        messageInfo = MapResultToMessageInformation(msg)
+        msgTmp = getLastMessageInformation()
+        if(msgTmp==False):
+            messageInfo = MessageInformation("vide","Aucun",datetime.now())
+        else :
+            messageInfo = MapResultToMessageInformation(msgTmp)
         return render_template("GestionDeCompte.html",user=session['utilisateur'],messageInfo=messageInfo)
     else:
         return render_template("inscription.html")
@@ -68,7 +71,12 @@ def GestionDeCompte():
 @app.route('/CreationDePoste')
 def CreationDePoste():
     if 'utilisateur' in session:
-        return render_template("CreationDePoste.html",user=session['utilisateur'])
+        msgTmp = getLastMessageInformation()
+        if(msgTmp==False):
+            messageInfo = MessageInformation("vide","Aucun",datetime.now())
+        else :
+            messageInfo = MapResultToMessageInformation(msgTmp)
+        return render_template("CreationDePoste.html",user=session['utilisateur'],messageInfo=messageInfo)
     else:
         return redirect(url_for('index'))
 

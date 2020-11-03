@@ -17,6 +17,12 @@ html ,body{
     align-items: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.bodyConteneur{
+    background: lightcoral;
+    border: 1px solid black;
+}
+
 .conteneur{
     height: auto;
     width: 100%;
@@ -26,18 +32,8 @@ html ,body{
     align-items: center;
     background: lightgrey;
 }
-.contener{
-    background: lightcoral;
-    border: 1px solid black;
-}
 
 
-.ConteneurPrincipal{ /* preparer pour l'heritage jinja */
-
-    height: 3000px;
-    min-height: 3000px;
-    border: 1px solid black;
-}
 /*  ligne pour les formulaires 
     contenant généralement un label et un input */
 .rowForm{
