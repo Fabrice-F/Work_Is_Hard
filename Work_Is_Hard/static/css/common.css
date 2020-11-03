@@ -16,11 +16,11 @@ html ,body{
     justify-content: space-between;
     align-items: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
+/*     background: rgba(0, 0, 0, 0.434); */
 }
 
 .bodyConteneur{
-    background: lightcoral;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .conteneur{
@@ -30,7 +30,6 @@ html ,body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background: lightgrey;
 }
 
 
@@ -157,3 +156,22 @@ html ,body{
         min-width: 200px;
     }
 }
+
+
+/*#region scrollbar*/
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track-piece {
+    background: rgba(116, 116, 116, 0.164);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--myTheme);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #000;
+}
+/*#endregion scrollbar*/

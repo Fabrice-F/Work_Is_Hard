@@ -2,11 +2,13 @@
 
 <div id="conteneurInformation">
     
+    {% if messageInfo !=null %}
     <div id="blocMessageInformation">
         <p id="titreMessageInfoInformation">Informations :</p>
-        <p id="messageInfoInformation">{{messageInfo.ContenuMessageInformation if messageInfo!=null }}</p>
+        <p id="messageInfoInformation">{{messageInfo.ContenuMessageInformation }}</p>
     </div>
-
+    {% endif %}
+    
     {% if nbPosteTotal != null%}
         <div id="blocNbPosteInformation">
             <label id="labelNbPosteInformation">Postes totals :</label>

@@ -23,12 +23,13 @@
     font-weight: bold;
     font-family: Georgia, 'Times New Roman', Times ;
     padding: 10px 10px 10px 10px;
-    text-decoration: underline wheat ;
+    font-size: 20px;
 }
 #messageInfoInformation{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0px;
     padding: 0px 10px 10px 10px;
+    font-size: 25px;
 }
 
 #blocNbPosteInformation{

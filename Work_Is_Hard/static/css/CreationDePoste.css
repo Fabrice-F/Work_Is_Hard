@@ -55,9 +55,11 @@
 .titrePosteApercu{
     font-size: 1.5vmax;
     text-align: center;
+    word-wrap: break-word;
     color: black;
     font-weight: bold;
     text-shadow: white 2px 2px 2px;
+    background: red;
 }
 .gif{
     min-width: 100%;

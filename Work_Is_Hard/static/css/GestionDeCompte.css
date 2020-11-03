@@ -9,7 +9,7 @@
     align-items: center;
     border-radius: 5px;
     box-shadow: black 10px 10px 10px;
-    min-width: 600px;
+    min-width: 700px;
 }
 
 #blocHautGestionCompte{
@@ -28,9 +28,13 @@
 }
 .labelGestionCompte{
     font-weight: bold;
+    font-size: 20px;
+
 }
 .inputGestionCompte{
     text-align: right;
+    font-size: 25px;
+    width:40%;
 }
 #contDroit{
     width: 50%;

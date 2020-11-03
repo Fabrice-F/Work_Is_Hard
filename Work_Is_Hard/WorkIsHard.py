@@ -103,13 +103,19 @@ def getPage(idPage):
     resultArray = getPosteByPage(idPage)
     NbPageMax = CalculNbPageMax(nbPosteTotal,nbPosteByPage)
 
+    msgTmp = getLastMessageInformation()
+    if(msgTmp==False):
+        messageInfo = MessageInformation("vide","Aucun",datetime.now())
+    else :
+        messageInfo = MapResultToMessageInformation(msgTmp)
+
     for result in resultArray:
         posteArray.append(Poste(result[0],result[1],result[2],result[3]))
 
     if 'utilisateur' in session:
-        return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,user=session['utilisateur'])
+        return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,messageInfo=messageInfo,user=session['utilisateur'])
     else:
-        return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax )
+        return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,messageInfo=messageInfo )
 
 @app.route('/DemandeSiPseudoDisponible',methods=['POST'])
 def DemandeSiPseudoDisponible():
@@ -212,7 +218,7 @@ def updateMsgInformation():
     else :
         return redirect(url_for('index'))
 
-
+""" FIN SECTION ADMINISTRATION  """
 
 
 
