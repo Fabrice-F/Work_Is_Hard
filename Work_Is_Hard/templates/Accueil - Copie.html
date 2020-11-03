@@ -1,11 +1,22 @@
-{% extends "heritageJinja/base.html" %}
-{% block css %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/izmir.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/iziModal.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/cssanimation.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Accueil.css') }}">
-{% endblock %}
 
-{% block title %}Accueil{% endblock %}
+    <title>Accueil</title>
+</head>
+<body>
 
-{% block content %}
+    {% include  "components/header.html" %}
+    {% include  "components/Information.html" %}
+
     <div id="corp">
         <section id="blocGaucheCorpAccueil">
             {% for poste in posteArray %}
@@ -87,8 +98,17 @@
         </div>
     </div>    
 
-{% endblock %}
+    <footer>
+        <h2></h2>
+    </footer>
 
-{% block js %}
-    <script type="text/javascript" src="{{ url_for('static', filename= 'js/Accueil.js') }}"></script>
-{% endblock %}
+    <button id="buttonTheme">☽</button>
+
+</body>
+
+<script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/iziModal.min.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/letteranimation.min.js') }}"></script>
+ --><script type="text/javascript" src="{{ url_for('static', filename= 'js/Accueil.js') }}"></script>
+
+</html>

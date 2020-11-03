@@ -1,72 +1,49 @@
-<!DOCTYPE html>
+{% extends "heritageJinja/base.html" %}
 
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/iziModal.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/GestionDeCompte.css') }}">
-    <title>Mon compte</title>
-</head>
-<body>
-    <div class="conteneur">
-        {% include  "components/header.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/GestionDeCompte.css') }}"> 
+{% endblock %}
 
-        {% if user!= null%}
+{% block title %}Mon compte{% endblock %}
 
-                <div id="ConteneurgestionCompte">
+    
+{% block content %}
 
-                    <div id="blocHautGestionCompte">
-                        
-                        <div id="contGauche">
-
-                            <div class="rowForm">
-                                <label for="pseudo">Pseudo :</label>
-                                <input type="text" id="pseudoUtilisateur" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
-                            </div>
-
-                            <div class="rowForm">
-                                <label for="pseudo">Nom :</label>
-                                <input type="text" name="nomUser" value="{{ user.NomUtilisateur }}" disabled>
-                            </div>
-
-                            <div class="rowForm">
-                                <label for="pseudo">Prenom:</label>
-                                <input type="text" name="prenomUser" value="{{ user.PrenomUtilisateur }}" disabled>
-                            </div>
-
-                            <div class="rowForm">
-                                <label for="pseudo">Age :</label>
-                                <input type="text" name="pseudoUser" value="{{ user.AgeUtilisateur }}" disabled>
-                            </div>
-
-                        </div>
-
-                        <div id="contDroit">
-                            <a class="btn-classique lien-Btn lien-Btn-size" id="btnChangePseudo-size" type="button" data-izimodal-open="#modal_changementPseudo" data-izimodal-transitionin="fadeInDown">Changer pseudo</a>
-                        </div>
-
+    {% if user!= null%}
+        <div id="ConteneurgestionCompte">
+            <div id="blocHautGestionCompte">
+                
+                <div id="contGauche">
+                    <div class="rowForm">
+                        <label for="pseudo">Pseudo :</label>
+                        <input type="text" id="pseudoUtilisateur" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
                     </div>
-
-                    <div id="blocBasGestionCompte">
-                        <a href="/" class="btn-classique lien-Btn lien-Btn-size">Retour</a>
-                        <a href="/logout" class="btn-classique lien-Btn lien-Btn-size" id="btnDeco">Deconnexion</a>
-                        <a class="btn-classique lien-Btn lien-Btn-size" type="button" data-izimodal-open="#modal_changementMotDePasse" data-izimodal-transitionin="fadeInDown">Changer mot de passe</a>
+                    <div class="rowForm">
+                        <label for="pseudo">Nom :</label>
+                        <input type="text" name="nomUser" value="{{ user.NomUtilisateur }}" disabled>
                     </div>
-
+                    <div class="rowForm">
+                        <label for="pseudo">Prenom:</label>
+                        <input type="text" name="prenomUser" value="{{ user.PrenomUtilisateur }}" disabled>
+                    </div>
+                    <div class="rowForm">
+                        <label for="pseudo">Age :</label>
+                        <input type="text" name="pseudoUser" value="{{ user.AgeUtilisateur }}" disabled>
+                    </div>
                 </div>
+                <div id="contDroit">
+                    <a class="btn-classique lien-Btn lien-Btn-size" id="btnChangePseudo-size" type="button" data-izimodal-open="#modal_changementPseudo" data-izimodal-transitionin="fadeInDown">Changer pseudo</a>
+                </div>
+            </div>
+            <div id="blocBasGestionCompte">
+                <a href="/" class="btn-classique lien-Btn lien-Btn-size">Retour</a>
+                <a href="/logout" class="btn-classique lien-Btn lien-Btn-size" id="btnDeco">Deconnexion</a>
+                <a class="btn-classique lien-Btn lien-Btn-size" type="button" data-izimodal-open="#modal_changementMotDePasse" data-izimodal-transitionin="fadeInDown">Changer mot de passe</a>
+            </div>
+        </div>
+    {% endif %} 
 
-        {% endif %} 
 
-        <footer>
-            <h2></h2>
-        </footer>
-
-        <button id="buttonTheme">☽</button>
-    </div>
 
     <!-- MODAL POUR LE CHANGEMENT DE PSEUDO -->
     <div id="modal_changementPseudo" class="modal" data-iziModal-title="Changer votre pseudo"  data-iziModal-subtitle="Changer votre pseudo puis cliquez sur valider ou annuler"  data-iziModal-icon="icon-home">
@@ -93,12 +70,8 @@
             <button class="btnModal submit h-transRight" onclick="AjaxMotDePasse('msgInModalMdp')">Valider</button>
         </div>
     </div>
+{% endblock %}
 
-</body>
-
-<script src="{{ url_for('static', filename= 'js/Library/jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename= 'js/Library/iziModal.min.js') }}"></script>
-    <script src="{{ url_for('static', filename= 'js/common.js') }}"></script>
-<script src="{{ url_for('static', filename= 'js/gestionDeCompte.js') }}"></script>
-
-</html>
+{% block js %}
+    <script src="{{ url_for('static', filename= 'js/gestionDeCompte.js') }}"></script>
+{% endblock %}

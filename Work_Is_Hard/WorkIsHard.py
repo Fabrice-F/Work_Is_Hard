@@ -59,7 +59,9 @@ def logout():
 @app.route('/GestionDeCompte')
 def GestionDeCompte():
     if 'utilisateur' in session:
-        return render_template("GestionDeCompte.html",user=session['utilisateur'])
+        msg = getLastMessageInformation()
+        messageInfo = MapResultToMessageInformation(msg)
+        return render_template("GestionDeCompte.html",user=session['utilisateur'],messageInfo=messageInfo)
     else:
         return render_template("inscription.html")
 

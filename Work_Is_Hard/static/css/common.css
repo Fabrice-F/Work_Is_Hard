@@ -18,18 +18,24 @@ html ,body{
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .conteneur{
-    height: 100%;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    background: lightgrey;
 }
+.contener{
+    background: lightcoral;
+    border: 1px solid black;
+}
+
+
 .ConteneurPrincipal{ /* preparer pour l'heritage jinja */
 
     height: 3000px;
     min-height: 3000px;
-    width: 90%;
     border: 1px solid black;
 }
 /*  ligne pour les formulaires 

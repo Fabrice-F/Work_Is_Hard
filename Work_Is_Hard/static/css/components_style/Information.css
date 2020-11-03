@@ -1,10 +1,10 @@
 #conteneurInformation{
     min-height:auto;
-    width: 90%;
-    margin: 20px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 50px;
 }
 
 #blocMessageInformation{
