@@ -78,7 +78,7 @@
         width: 70%;
     }
     #blocBasGestionCompte{
-        flex-direction: column;
+        flex-direction: column-reverse;
         justify-content: space-evenly;
         padding: 0;
         height: auto;
