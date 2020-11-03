@@ -26,7 +26,12 @@
     flex-direction: column;
     justify-content: space-between;
 }
-
+.labelGestionCompte{
+    font-weight: bold;
+}
+.inputGestionCompte{
+    text-align: right;
+}
 #contDroit{
     width: 50%;
     height: 100%;
@@ -50,10 +55,40 @@
 
 @media (max-width: 768px) { 
     #ConteneurgestionCompte{
-
-        background: green;
         width: 100%;
         min-width: 100%;
     }
-
+    #blocHautGestionCompte{
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    #contGauche{
+        height: 80%;
+        width: 100%;
+    }
+    #contDroit{
+        border: 0;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #btnChangePseudo-size{
+        height: 100%;
+        width: 70%;
+    }
+    #blocBasGestionCompte{
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: 0;
+        height: auto;
+    }
+    .lien-Btn-size{
+        margin: 5px;
+        min-height: 40px;
+    }
+    .inputGestionCompte{
+        width: 70%;
+        text-align: right;
+    }
 }

@@ -56,7 +56,7 @@ html ,body{
     transition: all 0.5s;
     padding: 5px;
     border: 2px ridge black;
-    font-size: 1.3vmax;
+    font-size: 1.0vmax;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -146,4 +146,13 @@ html ,body{
 .msgInModal{
     color: green;
     min-height: 20px;
+}
+
+@media (max-width: 768px) { 
+    .btn-classique{
+        font-size: 15px;
+        width: auto;
+        padding: 5px;
+        min-width: 200px;
+    }
 }
