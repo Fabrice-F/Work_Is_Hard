@@ -1,47 +1,38 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
+{% extends "heritageJinja/base.html" %}
+
+{% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/CreationDePoste.css') }}">
+{% endblock %}
 
-    <title>Creation de poste</title>
-</head>
-<body>
-    {% include  "components/header.html" %}
+{% block title %}Creation de poste{% endblock %}
+
+{% block content %}
     <div id="conteneurCreationPoste">
-        <form action="/publiePost" method="POST" onsubmit="return EnvoyerOuPas()"  id="formPosteGIf">
-
+    
+        <form action="/publiePost" method="POST" onsubmit="return EnvoyerOuPas()" id="formPosteGIf" >
             <div class="rowForm">
                 <label for="LienImg">Titre du poste :</label>
-                <input type="text" oninput="changeApercu(this,'apercuLegend')" name ="TitrePoste" id="TitrePoste">
+                <input type="text" maxlength="90" placeholder="90 caratères max ..." class="labelpubliePost" oninput="changeApercu(this,'apercuLegend')" name ="TitrePoste" id="TitrePoste">
             </div>
-
             <div class="rowForm">
                 <label for="LienImg">Lien img / gif :</label>
-                <input type="text" oninput="changeApercu(this,'apercuImg')" name ="LienImg" id="LienImg">
+                <input type="text" class="labelpubliePost" oninput="changeApercu(this,'apercuImg')" name ="LienImg" id="LienImg">
             </div>
-
             <button class="btn-classique">ENVOYER</button>
         </form>
+
+
 
         <div id="posteApercu">
             <h2>APERCU DU POSTE</h2>
             <div id="apercuBlocGif">
-                <legend id="apercuLegend" class="titrePoste"></legend>
+                <legend id="apercuLegend" class="titrePosteApercu"></legend>
                 <img class="gif" id="apercuImg" onerror="onerrorApercu(this)" onload="succesApercu()">
             </div>
         </div>
-        
     </div>
-    
-    <footer>
-        <h2></h2>
-    </footer>
+{% endblock %}
 
-    <button id="buttonTheme">☽</button>
-</body>
-<script src="{{ url_for('static', filename= 'js/CreationDePoste.js') }}"></script>
-
-</html>
+{% block js %}
+    <script src="{{ url_for('static', filename= 'js/CreationDePoste.js') }}"></script>
+{% endblock %}

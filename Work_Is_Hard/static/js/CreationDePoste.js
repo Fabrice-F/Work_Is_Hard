@@ -20,10 +20,6 @@ function EnvoyerOuPas()
     return false;
 }
 
-function isEmptyOrSpaces(str){
-    return str === null || str.match(/^ *$/) !== null;
-}
-
 function changeApercu(e,baliseChanger)
 {
     parent = document.getElementById(baliseChanger).parentElement;

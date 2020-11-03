@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends "heritageJinja/base.html" %}
+
+    
+{% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/ErrorPage.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/cssanimation.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Library/catto.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/common.css') }}">
+{% endblock %}
 
-    <title>Erreur</title>
+{% block title %}Erreur{% endblock %}
 
-    </head>
-    <body>
+{% block content %}
 
-        {% include  "components/header.html" %}
 
         <div id="corpErrorPage">
 
@@ -24,10 +19,9 @@
             </div>
 
         </div>
-        
-        <footer></footer>
 
-        <button id="buttonTheme">☽</button>
-    </body>
+{% endblock %}
 
-</html>
+
+{% block js %}
+{% endblock %}

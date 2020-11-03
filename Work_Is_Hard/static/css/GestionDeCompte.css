@@ -1,14 +1,5 @@
-.conteneur{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
 #ConteneurgestionCompte{
-    height: 80%;
+    height: 600px;
     width: 50%;
     background: var(--myTheme);
     border: 2px solid black;
@@ -18,6 +9,7 @@
     align-items: center;
     border-radius: 5px;
     box-shadow: black 10px 10px 10px;
+    min-width: 700px;
 }
 
 #blocHautGestionCompte{
@@ -34,7 +26,16 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.labelGestionCompte{
+    font-weight: bold;
+    font-size: 20px;
 
+}
+.inputGestionCompte{
+    text-align: right;
+    font-size: 25px;
+    width:40%;
+}
 #contDroit{
     width: 50%;
     height: 100%;
@@ -56,59 +57,42 @@
     align-items: center;
 }
 
-
-/*============== MODAL CHANGE PSEUDO & CHANGE PASSWORD ==============*/
-
-.modal{
-    background: var(--myWhite);
-}
-
-#conteneur-modal{
-    height: 80%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-.input-modal{
-    margin: 20px;
-    height: 75px;
-    width: 90%;
-    background: lightblue;
-    font-size: 1.7vmax;
-    text-align: center ;
-}
-#conteneur-ChoiceModal{
-    height :40px;
-    width: 100%;
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    margin-bottom: 5px;
-}
-.btnModal{
-    width: 45%;
-    height: 90%;
-    border-radius: 5px;
-    font-size: 1.7vmax;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.btnModal:hover{
-    cursor: pointer;
-}
-.cancel{
-    background: white;
-}
-.submit{
-    background: lightblue;
-}
-.iziModal .iziModal-header-subtitle{
-    font-size: 15px;
-}
-.msgInModal{
-    color: green;
-    min-height: 20px;
+@media screen and (max-width: 768px) { 
+    #ConteneurgestionCompte{
+        width: 100%;
+        min-width: 100%;
+    }
+    #blocHautGestionCompte{
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    #contGauche{
+        height: 80%;
+        width: 100%;
+    }
+    #contDroit{
+        border: 0;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #btnChangePseudo-size{
+        height: 100%;
+        width: 70%;
+    }
+    #blocBasGestionCompte{
+        flex-direction: column-reverse;
+        justify-content: space-evenly;
+        padding: 0;
+        height: auto;
+    }
+    .lien-Btn-size{
+        margin: 5px;
+        min-height: 40px;
+    }
+    .inputGestionCompte{
+        width: 70%;
+        text-align: right;
+    }
 }

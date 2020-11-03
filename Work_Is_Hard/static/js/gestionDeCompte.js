@@ -9,24 +9,11 @@ $("#modal_changementMotDePasse").iziModal({
     onClosing: disableBlockBackground,
 });
 
-function ActiveBlockBackground()
-{
-    document.body.style.pointerEvents="none";
-    document.getElementsByClassName("conteneur")[0].style.filter="blur(1.5rem)";
-    Array.from(document.getElementsByClassName("modal")).forEach(fenetreModal => {
-        fenetreModal.style.pointerEvents="auto";
-    });
-}
 
-function disableBlockBackground()
-{
-    document.body.style.pointerEvents="auto";
-    document.getElementsByClassName("conteneur")[0].style.filter="blur(0)";
-}
 
 function AjaxPseudo(baliseMessage)
 {
-    if (document.getElementById("PseudoVoulu").value=="")
+    if (isEmptyOrSpaces(document.getElementById("PseudoVoulu").value))
     {
         PrintMessage(baliseMessage,"Le champs nouveau pseudo n'est pas remplit",true);
         return;
@@ -59,19 +46,20 @@ function AjaxPseudo(baliseMessage)
         }
     });
 }
+
 function AjaxMotDePasse(baliseMessage)
 {
-    if (document.getElementById("AncienMotDePasse").value=="")
+    if (isEmptyOrSpaces(document.getElementById("AncienMotDePasse").value))
     {
         PrintMessage(baliseMessage,"Le champs ancien de mots de passe n'est pas remplit",true);
         return;
     }
-    if (document.getElementById("NewMotDePasse").value=="")
+    if (isEmptyOrSpaces(document.getElementById("NewMotDePasse").value))
     {
         PrintMessage(baliseMessage,"Le champs nouveau mot de passe n'est pas remplit",true);
         return;
     }
-    if (document.getElementById("ConfirmationMotDePasse").value=="")
+    if (isEmptyOrSpaces(document.getElementById("ConfirmationMotDePasse").value))
     {
         PrintMessage(baliseMessage,"Le champs confirmation mot de passe n'est pas remplit",true);
         return;
@@ -94,7 +82,7 @@ function AjaxMotDePasse(baliseMessage)
         success : function(text, statut){ // contient le text renvoyé
         if (text=="True"){
             PrintMessage(baliseMessage,"Le mots de passe a été actualisé avec succès, merci de vous reconnecter...");
-            document.getElementById("pseudoUtilisateur").value=PseudoVoulu;
+            document.getElementById("msgInchangeRole").value=PseudoVoulu;
             setTimeout(function(){
                 document.getElementById("btnDeco").click();
             },2000)
@@ -110,15 +98,3 @@ function AjaxMotDePasse(baliseMessage)
 
 
 
-
-
-function PrintMessage(element,message,error=false)
-{
-    document.getElementById(element).style.color="Green";
-    document.getElementById(element).innerHTML=message;
-    if(error)
-        document.getElementById(element).style.color="Red";
-    setTimeout(function(){
-        document.getElementById(element).innerHTML="";
-    },3000);
-}

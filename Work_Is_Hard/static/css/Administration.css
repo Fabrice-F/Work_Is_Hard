@@ -1,0 +1,170 @@
+.BoxMediaStyle{
+    border :1px solid black;
+    background: lightskyblue;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.nav-style{
+    font-size: 1.5em;
+}
+/* === SECTION 1 ===*/
+.blocImgAndNomUserAttributionRole{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.imgAttributionRole{
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    margin-right: 15px;
+    padding: 0px;
+}
+.nomUserAttributionRole{
+    margin: 0px;
+    padding: 0px;
+}
+.divRowAllInput{
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5vmax;
+}
+.rowInputChangeRole{
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.divEnvoyerRoleUtilisateur{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding:10px 0 10px 0 ;
+}
+input[type='radio']{
+    visibility: hidden;
+}
+input[type='radio']:after {
+    content: '';
+
+    display: flex;
+    visibility: visible;
+    border: 2px solid white;
+    height: 100%;
+    width: 25px;
+    background-color: rgb(238, 238, 238);
+}
+.radioButtton-Posteur:checked:after{
+    background-color: #f8f399;
+}
+.radioButtton-Moderateur:checked:after{
+    background-color: #bf00ff;
+}
+.radioButtton-Administrateur:checked:after{
+    background-color: #468334;
+}
+
+
+
+/* === SECTION 3 ===*/
+#txtAreaMsgInfo{
+    width: 100%;
+    font-size: 1.4vmax;
+    padding :15px;
+    resize: none;
+}
+#divValideMsgInfo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+@media (max-width: 768px) { 
+    .divRowAllInput{
+        flex-direction: column;
+        align-items: flex-start;
+        margin:20px;
+    }
+
+    .rowInputChangeRole{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 10px
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====== MODAL ===== */
+
+.paragrapheChangeRole{
+    height: auto;
+    margin: 20px;
+    font-size: 1.2vmax;
+}
+
+.RoleAccentuation{
+    font-weight: bold;
+}
+
+
+
+
+
+/* ========================================= */
+/* =============== RESPONSIVE ============== */
+/* ========================================= */
+
+@media screen and ( max-width: 768px) {
+    
+    .divRowAllInput{
+        font-size: 15px;
+    }
+
+    .divEnvoyerRoleUtilisateur{
+        height: 50px;
+        padding:0 ;
+    }
+
+    #txtAreaMsgInfo{
+        font-size: 20px;
+        padding :5px;
+    }
+
+}

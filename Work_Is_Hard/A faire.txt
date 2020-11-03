@@ -2,7 +2,7 @@
     PRAGMA case_sensitive_like = false;
 
 ¤ Voir avec mr Ayoub si la bdd peu lui est transmise avec des données a l'intérieur (déja faite) ou l'application
-doit elle la créer et injectée des donnée au proéalable ?
+doit elle la créer et injectée des donnée au proéalable ? => mail envoyé le 03/11/2020
 
 ¤ Refactoring complet du code :
     -Trie les fichier inutile
@@ -22,4 +22,4 @@ doit elle la créer et injectée des donnée au proéalable ?
 
 ¤ Gestion de ban par IP en cas de test de connexion > 5 / 1min
 
-¤ responsiver les pages
+¤ Si poste supprimer mettre dans une table
