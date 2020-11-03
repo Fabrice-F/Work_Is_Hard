@@ -1,11 +1,14 @@
-.PseudoUserAttributionRole{
-    height: auto;
+.BoxMediaStyle{
+    border :1px solid black;
+    background: lightskyblue;
+    margin: 5px;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: red;
+    flex-direction: column;
+    justify-content: space-between;
 }
-.conte{
+
+/* === SECTION 1 ===*/
+.blocImgAndNomUserAttributionRole{
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -17,24 +20,22 @@
     margin: 0;
     margin-right: 15px;
     padding: 0px;
-    font-size: 2.5vmax;
 }
-
-h3{
+.nomUserAttributionRole{
     margin: 0px;
     padding: 0px;
 }
-img{
-    margin: 0px;
-    padding: 0px;
-}
-
 .divRowAllInput{
     display: flex;
     justify-content: space-around;
     font-size: 1.5vmax;
 }
-
+.rowInputChangeRole{
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .divEnvoyerRoleUtilisateur{
     width: 100%;
     display: flex;
@@ -42,30 +43,19 @@ img{
     align-items: center;
     padding:10px 0 10px 0 ;
 }
-
-.BoxMediaStyle{
-    border :1px solid black;
-    background: lightskyblue;
-    margin: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+input[type='radio']{
+    visibility: hidden;
 }
-
-
-input[type='radio']:checked:after {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    top: -2px;
-    left: -1px;
-    position: relative;
+input[type='radio']:after {
     content: '';
-    display: inline-block;
+
+    display: flex;
     visibility: visible;
     border: 2px solid white;
+    height: 100%;
+    width: 25px;
+    background-color: rgb(238, 238, 238);
 }
-
 .radioButtton-Posteur:checked:after{
     background-color: #f8f399;
 }
@@ -76,11 +66,14 @@ input[type='radio']:checked:after {
     background-color: #468334;
 }
 
-/*SECTION 3*/
+
+
+/* === SECTION 3 ===*/
 #txtAreaMsgInfo{
     width: 100%;
     font-size: 1.4vmax;
     padding :15px;
+    resize: none;
 }
 #divValideMsgInfo{
     width: 100%;
@@ -90,7 +83,22 @@ input[type='radio']:checked:after {
 
 
 
+@media (max-width: 768px) { 
+    .divRowAllInput{
+        flex-direction: column;
+        align-items: flex-start;
+        margin:20px;
+    }
 
+    .rowInputChangeRole{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 10px
+    }
+}
 
 
 

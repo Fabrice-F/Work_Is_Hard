@@ -12,7 +12,7 @@ function PrintMessage(element,message,error=false)
 function ActiveBlockBackground()
 {
     document.body.style.pointerEvents="none";
-    document.getElementsByClassName("conteneur")[0].style.filter="blur(1.5rem)";
+    document.getElementsByClassName("bodyConteneur")[0].style.filter="blur(1.5rem)";
     Array.from(document.getElementsByClassName("modal")).forEach(fenetreModal => {
         fenetreModal.style.pointerEvents="auto";
     });

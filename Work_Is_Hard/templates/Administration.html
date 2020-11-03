@@ -24,25 +24,25 @@
 
                     <div class="mediabox BoxMediaStyle">
 
-                        <div class="conte">
+                        <div class="blocImgAndNomUserAttributionRole">
                             <img src="../static/img/admin-ico.png" class="imgAttributionRole"/>
-                            <h3>{{ otherUser.PseudoUtilisateur }} </h3>
+                            <h3 class="nomUserAttributionRole">{{ otherUser.PseudoUtilisateur }} </h3>
                         </div>
 
                         <div>
                             <form action="/ChangementRole" method="POST" >
                                 <div class="divRowAllInput">
-                                    <div>
+                                    <div class="rowInputChangeRole">
                                         <label for="Posteur{{ otherUser.IdUtilisateur  }}">Posteur</label>
-                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Posteur" id="Posteur{{ otherUser.IdUtilisateur  }}" required {{ "checked" if otherUser.IdRoleUtilisateur==1  }} class="radioButtton-Posteur InputAttributionRole">
+                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Posteur" id="Posteur{{ otherUser.IdUtilisateur  }}" required {{ "checked" if otherUser.IdRoleUtilisateur==1  }} class="radioButtton-Posteur">
                                     </div>
-                                    <div>
+                                    <div class="rowInputChangeRole">
                                         <label for="Moderateur{{ otherUser.IdUtilisateur  }}">Modérateur</label>
-                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Modérateur" id="Moderateur{{ otherUser.IdUtilisateur  }}" required {{ "checked" if otherUser.IdRoleUtilisateur==2  }} class="radioButtton-Moderateur InputAttributionRole">
+                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Modérateur" id="Moderateur{{ otherUser.IdUtilisateur  }}" required {{ "checked" if otherUser.IdRoleUtilisateur==2  }} class="radioButtton-Moderateur">
                                     </div>
-                                    <div>
+                                    <div class="rowInputChangeRole">
                                         <label for="Administrateur{{ otherUser.IdUtilisateur  }}">Administrateur</label>
-                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Administrateur" id="Administrateur{{ otherUser.IdUtilisateur  }}" required {{ 'checked' if otherUser.IdRoleUtilisateur==3  }} class="radioButtton-Administrateur InputAttributionRole">
+                                        <input type="radio" name="roleUtilisateur{{ otherUser.IdUtilisateur  }}" value="Administrateur" id="Administrateur{{ otherUser.IdUtilisateur  }}" required {{ 'checked' if otherUser.IdRoleUtilisateur==3  }} class="radioButtton-Administrateur">
                                     </div>
                                 </div>
                                 <div class="divEnvoyerRoleUtilisateur">
@@ -77,7 +77,7 @@
             <section id="section-3">
 
                 <div class="mediabox ">
-                    <textarea name="txtAreaMsgInfo" id="txtAreaMsgInfo" placeholder="Écrivez votre Message ici, 255 caractères max..." maxlength="255" cols="30" rows="10"></textarea>
+                    <textarea name="txtAreaMsgInfo" id="txtAreaMsgInfo"  placeholder="Écrivez votre Message ici, 255 caractères max..." maxlength="255" cols="30" rows="10"></textarea>
                 </div>
                 <div class="mediabox" id="divValideMsgInfo">
                     <button class="btn-classique" data-izimodal-open="#modalMsgInfo" data-izimodal-transitionin="fadeInDown">ENVOYER MESSAGE</button>
