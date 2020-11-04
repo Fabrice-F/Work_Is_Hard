@@ -4,9 +4,6 @@ from markupsafe import escape
 import hashlib , sqlite3
 from datetime import *
 from ConstanteAndTools import *
-import threading
-
-lock = threading.Lock()
 
 
 TempsSession = 60 
