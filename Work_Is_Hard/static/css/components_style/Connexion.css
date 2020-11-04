@@ -1,13 +1,15 @@
 /*========= BLOC DE CONNEXION ==========*/
 .BlocConnexion{
     background: var(--myTheme);
-    height: 200px;
+    height: 250px;
     width: 100%;
     border: 2px var(--myBlack) solid;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 h2{
@@ -42,4 +44,11 @@ label{
 }
 input{
     width: 90%;
+}
+
+@media screen and (max-width: 960px) { 
+
+    h2{
+        font-size: 20px;
+    }
 }

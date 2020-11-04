@@ -1,19 +1,35 @@
 #corpErrorPage{
     height: 80%;
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-
+    box-sizing: content-box;
 }
 #messageErrorPage{
     color: red;
     font-size: 2.0em;
-    width: 80%;
+    width: 60%;
     margin: 0;
     display: flex;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: justify;
 }
 #blocConnexionErrorPage{
-    width: 15%;
+    width: 300px;
+}
+
+@media screen and (max-width: 960px) { 
+
+    #corpErrorPage{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    #blocConnexionErrorPage{
+        width: 100%;
+        margin-bottom: 50px;
+    }
+    #messageErrorPage{
+        width: 100%;
+        text-align: justify;
+    }
 }
