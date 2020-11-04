@@ -22,4 +22,10 @@ doit elle la créer et injectée des donnée au proéalable ? => mail envoyé le
 
 ¤ Gestion de ban par IP en cas de test de connexion > 5 / 1min
 
+¤ responsiver les pages
+
+¤ Obligatoirement un minimum de caracteres sur le mdp 
+¤ Pseudo Obligatoirement non vide
+
+¤ Message redirigé vers l'accueil et prevenir de confirmation d'inscription
 ¤ Si poste supprimer mettre dans une table

@@ -4,6 +4,10 @@ from markupsafe import escape
 import hashlib , sqlite3
 from datetime import *
 from ConstanteAndTools import *
+import threading
+
+lock = threading.Lock()
+
 
 TempsSession = 60 
 app = Flask(__name__)
@@ -29,6 +33,25 @@ def index():
 @app.route('/inscription')
 def inscription():
     return render_template("inscription.html")
+
+
+@app.route('/ConfirmationInscription', methods=['POST'])
+def ConfirmationInscription():
+    # Récupération des informations de la page inscription.html
+    pseudo = request.form["pseudo"]
+    nom = request.form["nom"]
+    prenom = request.form["prenom"]
+    datenaissance = request.form["datenaissance"]
+
+    #hash des mots de passes 
+    mdp = hashMdp(request.form["motdepasse"])
+
+    if confirmationInscription(pseudo, nom, prenom, mdp, datenaissance):
+        return redirect(url_for('index'))
+    else:
+        return "Error"
+
+
 
 #TODO: Refaire le systeème de connexion
 @app.route('/login', methods=['POST'])
