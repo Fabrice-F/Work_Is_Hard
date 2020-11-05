@@ -73,6 +73,10 @@ html ,body{
     background: var(--myTheme);
     color: white;
 }
+.btn-classique:focus{
+    text-decoration: none;
+    outline: none;
+}
 
 /* classe utilisé quand une balise lien (a) veut avoir l'apparaence d'un bouton */
 
@@ -153,7 +157,8 @@ html ,body{
         font-size: 15px;
         width: auto;
         padding: 5px;
-        min-width: 200px;
+        min-width: 90%;
+        height: auto;
     }
     .input-modal{
         font-size: 20px;

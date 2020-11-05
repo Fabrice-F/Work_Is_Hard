@@ -223,26 +223,6 @@ def UpdateRole(Id,pseudo,Role):
     except RuntimeError:
         return False
 
-""" Quand activer les postes doivent d'abord passer par la modération
-    sinon il sont postés directement sur le site"""
-def UpdateModeModeration(booleen):
-    try:
-        conn = OpenConnexion()
-        c= conn.cursor()
-
-        request = f"""
-        UPDATE Parametre 
-        SET ModeModeration = ? 
-        WHERE IdParametre = 1
-        """
-        c.execute(request,(booleen,))
-        conn.commit()
-        closeConnexion(c,conn)
-        return True
-    except RuntimeError:
-        closeConnexion(c,conn)
-        return False
-
 def getLastMessageInformation():
     try:
         conn = OpenConnexion()
@@ -296,6 +276,40 @@ def updateMessageInformation(msg,idUser):
                 DateMessageInformation)
             VALUES(?,?,?);"""
         result= c.execute(request,(msg,idUser,datetime.now()))
+        conn.commit()
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
+
+def getModeModeration():
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+            SELECT ModeModeration
+            FROM Parametre"""
+        result= c.execute(request).fetchone()[0]
+        return result
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
+def updateModeModeration(isActive,userId):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+            UPDATE Parametre
+            SET ModeModeration = ?,
+                Fk_IdUtilisateurLastModification = ?,
+                DateModification =DateTime('now','localtime')
+            WHERE 3 =
+            (SELECT U.Fk_IdRole 
+            FROM Utilisateur AS U 
+            WHERE U.IdUtilisateur =?)"""
+        c.execute(request,(isActive,userId,userId))
         conn.commit()
         return True
     except RuntimeError :

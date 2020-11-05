@@ -29,12 +29,11 @@ def getVisitorIp(requestRoute):
 def MapSessionToUser(session):
     idUser= session["IdUtilisateur"]
     Pseudo=session["PseudoUtilisateur"]
-    Mdp=session["MdpUtilisateur"]
     Nom=session["NomUtilisateur"]
     Prenom=session["PrenomUtilisateur"]
     Age=session["AgeUtilisateur"]
     IdRole= session["IdRoleUtilisateur"]
-    User= Utilisateur(idUser,Pseudo,Mdp,Nom,Prenom,Age,IdRole)
+    User= Utilisateur(idUser,Pseudo,Nom,Prenom,Age,IdRole)
     return User
 
 def MapArrayResultBddToArrayUtilisateur(arrayBdd):

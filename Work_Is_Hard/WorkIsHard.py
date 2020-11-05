@@ -31,7 +31,6 @@ def index():
 def inscription():
     return render_template("inscription.html")
 
-
 @app.route('/ConfirmationInscription', methods=['POST'])
 def ConfirmationInscription():
     # Récupération des informations de la page inscription.html
@@ -47,8 +46,6 @@ def ConfirmationInscription():
         return redirect(url_for('index'))
     else:
         return "Error"
-
-
 
 #TODO: Refaire le systeème de connexion
 @app.route('/login', methods=['POST'])
@@ -106,6 +103,13 @@ def publiePost():
         TitrePoste = request.form["TitrePoste"]
         LienImg = request.form["LienImg"]
         UserId = session['utilisateur']["IdUtilisateur"]
+
+        #TODO: si getModeModeration() == 0 InsertPoste direct
+        #sinon insert dans poste à Moderer
+
+        if (getModeModeration()==1):
+            return "Le poste doit passer par la modération avant d'être publié !"
+
         if InsertPoste(UserId,TitrePoste,LienImg):
             return redirect(url_for('index'))
         else:
@@ -180,23 +184,20 @@ def DemandeChangementPassword():
 
 
 
-
-
 """ SECTION ADMINISTRATION  """
 
 @app.route('/Administration')
 def Administration():
-
-    msgTmp = getLastMessageInformation()
-    if(msgTmp==False):
-        messageInfo = MessageInformation("vide","Aucun",datetime.now())
-    else :
-        messageInfo = MapResultToMessageInformation(msgTmp)
-
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
+        isModeModeractionActive = bool(getModeModeration())
+        msgTmp = getLastMessageInformation()
+        if(msgTmp==False):
+            messageInfo = MessageInformation("vide","Aucun",datetime.now())
+        else :
+            messageInfo = MapResultToMessageInformation(msgTmp)
         ArrayUser = SelectAllUser()
         AllUser= MapArrayResultBddToArrayUtilisateur(ArrayUser)
-        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser,messageInfo=messageInfo)
+        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser,messageInfo=messageInfo,isModeModeractionActive=isModeModeractionActive)
     else :
         return redirect(url_for('index'))
 
@@ -237,6 +238,27 @@ def updateMsgInformation():
             return "Le message n'as pas pu être actualisé"
     else :
         return redirect(url_for('index'))
+
+
+@app.route('/changementModeModeration',methods=['POST'])
+def changementModeModeration():
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
+        user = MapSessionToUser(session['utilisateur'])
+        modeModerationVoulut = 1 if request.form["ModeModerationVoulu"] == "true" else 0
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if updateModeModeration(modeModerationVoulut,user.IdUtilisateur):
+            return "True"
+        else:
+            return "Echec pendant la mise à jour du mode modération" 
+    else :
+        return redirect(url_for('index'))
+
 
 """ FIN SECTION ADMINISTRATION  """
 

@@ -70,6 +70,84 @@ input[type='radio']:after {
 
 
 
+/* === SECTION 2 ===*/
+
+.conteneurModeModeration{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 200px;
+    background: var(--myTheme);
+    border: 1px solid black;
+    box-shadow: 10px 10px 10px black;
+}
+#msgModeModeration{
+    font-size: 4vmax;
+}
+#msgErrorModeModeration{
+    color: red;
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    height: 50px;
+    min-height: auto;
+}
+.onoffswitch {
+    position: relative; width: 150px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 50px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 43px; padding: 0; line-height: 43px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ACTIVER";
+    padding-left: 10px;
+    background-color: #3C8000; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "DESACTIVER";
+    padding-right: 10px;
+    background-color: #F7DEDE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 36px; margin: 3.5px; height: 36px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 103px;
+    border: 2px solid #999999; border-radius: 100px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+.paragrapheModeModeration{
+    margin: 10px 0 0 15px;
+}
+#msgNouveauRole_ModeModeration{
+    text-transform: uppercase;
+    font-weight: bold;
+    color: orangered;
+}
 /* === SECTION 3 ===*/
 #txtAreaMsgInfo{
     width: 100%;
@@ -85,6 +163,19 @@ input[type='radio']:after {
 
 
 
+@media (max-width: 960px) { 
+    .conteneurModeModeration{
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: auto;
+        padding: 20px;
+        min-width: 225px;
+    }
+    #msgModeModeration{
+        text-align: center;
+    }
+}
 @media (max-width: 768px) { 
     .divRowAllInput{
         flex-direction: column;
