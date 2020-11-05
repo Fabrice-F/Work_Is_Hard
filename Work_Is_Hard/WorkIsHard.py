@@ -304,7 +304,6 @@ def updatePosteAttenteModeration():
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
         idPostePAM = request.form["idPoste"]
         isPostAccept= request.form["isPostAccept"]
-        print(isPostAccept)
         if isPostAccept =="true":
             acceptPostePAM(idPostePAM)
             return "True"

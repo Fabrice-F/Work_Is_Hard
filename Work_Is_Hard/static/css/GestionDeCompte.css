@@ -1,6 +1,6 @@
 #ConteneurgestionCompte{
     height: 600px;
-    width: 50%;
+    width: 70%;
     background: var(--myTheme);
     border: 2px solid black;
     display: flex;
@@ -33,8 +33,8 @@
 }
 .inputGestionCompte{
     text-align: right;
-    font-size: 25px;
-    width:40%;
+    font-size: 22px;
+    width:50%;
 }
 #contDroit{
     width: 50%;

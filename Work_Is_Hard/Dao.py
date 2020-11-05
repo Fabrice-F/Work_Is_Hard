@@ -22,7 +22,7 @@ def connexionUtilisateur(pseudo,mdp):
             PseudoUtilisateur,
             NomUtilisateur,
             Prenom,
-            AgeUtilisateur,
+            DateNaissanceUtilisateur,
             Fk_IdRole
         FROM Utilisateur
         WHERE PseudoUtilisateur = ?"""
@@ -223,7 +223,7 @@ def SelectAllUser():
                 PseudoUtilisateur,
                 NomUtilisateur,
                 Prenom,
-                AgeUtilisateur,
+                DateNaissanceUtilisateur,
                 Fk_IdRole
             FROM Utilisateur
             WHERE Fk_IdRole 
@@ -308,7 +308,7 @@ def confirmationInscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance
         conn = OpenConnexion()
         c = conn.cursor()
         request = f"""
-            INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, AgeUtilisateur) 
+            INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, DateNaissanceUtilisateur) 
             VALUES (?, ?, ?, ?, ?) 
         """
         c.execute(request, (pseudo, nom, prenom, motdepasse_hashe, datenaissance))

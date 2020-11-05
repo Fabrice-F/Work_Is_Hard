@@ -28,7 +28,6 @@
     margin: 0;
     padding: 0;
     width: 80%;
-    background: lightgoldenrodyellow;
     word-wrap: break-word;
     text-align: center;
     font-size: 1.5vmax;
@@ -36,7 +35,6 @@
 .img-User-InfosPAM{
     height: 60%;
     width: 40%;
-    background: chocolate;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,7 +70,6 @@
 .blocValidPAM{
     width: 80%;    
     height: 10%;
-    background: chartreuse;
     display: flex;
     justify-content: space-between;
 }
@@ -106,6 +103,7 @@
 }
 
 #RowChangePage{
+    margin-top: 100px;
     width: 90%;
     height: 100px;
     display: flex;

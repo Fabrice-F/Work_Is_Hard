@@ -31,7 +31,7 @@ def MapSessionToUser(session):
     Pseudo=session["PseudoUtilisateur"]
     Nom=session["NomUtilisateur"]
     Prenom=session["PrenomUtilisateur"]
-    Age=session["AgeUtilisateur"]
+    Age=session["DateNaissanceUtilisateur"]
     IdRole= session["IdRoleUtilisateur"]
     User= Utilisateur(idUser,Pseudo,Nom,Prenom,Age,IdRole)
     return User
@@ -65,7 +65,7 @@ class Utilisateur:
         self.PseudoUtilisateur=pseudo
         self.NomUtilisateur=nom
         self.PrenomUtilisateur=prenom 
-        self.AgeUtilisateur=age
+        self.DateNaissanceUtilisateur=age
         self.IdRoleUtilisateur=role
         self.NomRole = self.getNomRole()
     def getNomRole(self):
