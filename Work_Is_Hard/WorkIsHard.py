@@ -103,17 +103,18 @@ def publiePost():
         TitrePoste = request.form["TitrePoste"]
         LienImg = request.form["LienImg"]
         UserId = session['utilisateur']["IdUtilisateur"]
-
-        #TODO: si getModeModeration() == 0 InsertPoste direct
-        #sinon insert dans poste à Moderer
+        imgPosteOk=imageConfirmPoste()
 
         if (getModeModeration()==1):
-            return "Le poste doit passer par la modération avant d'être publié !"
-
-        if InsertPoste(UserId,TitrePoste,LienImg):
-            return redirect(url_for('index'))
+            if InsertPosteAttenteModeration(UserId,TitrePoste,LienImg):
+                return render_template("informations.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk,message="Votre poste a été pris en compte et est en attente de validation")
+            else:
+                return render_template("Error/ErrorPage.html",messageError="Un problème à eut lieu lors de l'enregistrement du poste")
         else:
-            return "problème d'insertion à la base de donnée"
+            if InsertPoste(UserId,TitrePoste,LienImg):
+                return render_template("informations.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk ,message="Votre poste à été intégré !")
+            else:
+                return render_template("Error/ErrorPage.html",messageError="Un problème à eut lieu lors de l'enregistrement du poste")
     else:
         return redirect(url_for('index'))
 
@@ -258,6 +259,47 @@ def changementModeModeration():
             return "Echec pendant la mise à jour du mode modération" 
     else :
         return redirect(url_for('index'))
+
+
+@app.route('/Moderation<idPage>')
+def Moderation(idPage):
+
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        numPage= int(idPage)
+        postesAM = []
+        nbPosteAttenteModerationTotal = getNbPosteAttenteModeration()
+        resultArray = getPosteAttenteModerationByPage(idPage)
+        NbPageMax = CalculNbPageMax(nbPosteAttenteModerationTotal,nbPosteByPage)
+
+        for result in resultArray:
+            postesAM.append(PosteAttenteModeration(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
+        
+        return render_template("Moderation.html",user=session['utilisateur'],postesAM=postesAM,NbPageMax=NbPageMax,page= numPage)
+    else:
+        return redirect(url_for('index'))
+
+
+
+@app.route('/Bannissement',methods=['POST'])
+def Bannissement():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        userBanId = request.form["userId"]
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if BanUser(userBanId):
+            return "True"
+        else:
+            return "L'utilisateur n'as pas pu être banni"
+    else:
+        return redirect(url_for('index'))
+
+# @app.route('/updatePosteAttenteModeration',methods=['POST'])
+# def updatePosteAttenteModeration():
 
 
 """ FIN SECTION ADMINISTRATION  """

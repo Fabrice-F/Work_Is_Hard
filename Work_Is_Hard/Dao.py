@@ -1,6 +1,5 @@
 from flask import Flask, url_for, render_template
 import hashlib , sqlite3
-from datetime import *
 import ConstanteAndTools
 
 nbPosteByPage=3
@@ -38,7 +37,6 @@ def connexionUtilisateur(pseudo,mdp):
         closeConnexion(c,conn)
         return False
     
-#TODO fermer les connexions !!
 def InsertPoste(UserId,TitrePoste,LienImg):
     try:
         conn= OpenConnexion()
@@ -48,8 +46,26 @@ def InsertPoste(UserId,TitrePoste,LienImg):
                     TitrePoste,                    
                     AdressePoste,
                     DatePoste)
-                VALUES (?,?,?,?);"""
-        c.execute(request,(UserId,TitrePoste,LienImg,datetime.now()))
+                VALUES (?,?,?,DateTime('now','localtime'))"""
+        c.execute(request,(UserId,TitrePoste,LienImg,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError:
+        closeConnexion(c,conn)
+        return False
+
+def InsertPosteAttenteModeration(UserId,TitrePoste,LienImg):
+    try:
+        conn= OpenConnexion()
+        c = conn.cursor()
+        request =f"""INSERT INTO PosteAttenteModération
+                        (Fk_IdUtilisateur,
+                        TitrePosteAttenteModeration,
+                        AdressePosteAttenteModeration,
+                        DatePosteAttenteModeration)
+                    VALUES (?,?,?,DateTime('now','localtime'))"""
+        c.execute(request,(UserId,TitrePoste,LienImg,))
         conn.commit()
         closeConnexion(c,conn)
         return True
@@ -107,6 +123,44 @@ def getPosteByPage(idPage):
         resultArray = c.execute(request,(idPage,)).fetchall()
         closeConnexion(c,conn)
         return resultArray
+    except RuntimeError:
+        closeConnexion(c,conn)
+        return False
+
+def getPosteAttenteModerationByPage(idPage):
+    try:
+        conn= OpenConnexion()
+        c= conn.cursor()
+        request =f"""SELECT IdPosteAttenteModération,
+                        TitrePosteAttenteModeration,
+                        AdressePosteAttenteModeration,
+                        strftime('%d-%m-%Y à %H:%M:%S',DatePosteAttenteModeration),
+                        U.IdUtilisateur,
+                        U.PseudoUtilisateur,
+                        U.Fk_IdRole
+                    FROM PosteAttenteModération AS PAM
+                    INNER JOIN Utilisateur AS U ON 
+                        U.IdUtilisateur = PAM.Fk_IdUtilisateur
+                    LIMIT 
+                        {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage}"""
+        resultArray = c.execute(request,(idPage,)).fetchall()
+        closeConnexion(c,conn)
+        return resultArray
+    except RuntimeError:
+        closeConnexion(c,conn)
+        return False
+
+def getNbPosteAttenteModeration():
+    try:
+        conn = conn= OpenConnexion()
+        c = conn.cursor()
+        request =f"""SELECT 
+                        count(IdPosteAttenteModération) 
+                    FROM 
+                        PosteAttenteModération"""
+        result = c.execute(request).fetchone()[0]
+        closeConnexion(c,conn)
+        return result
     except RuntimeError:
         closeConnexion(c,conn)
         return False
@@ -248,7 +302,6 @@ def getLastMessageInformation():
         closeConnexion(c,conn)
         return False
 
-
 # TODO : Close la connexion
 def confirmationInscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance):
     try:
@@ -260,6 +313,7 @@ def confirmationInscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance
         """
         c.execute(request, (pseudo, nom, prenom, motdepasse_hashe, datenaissance))
         conn.commit()
+        closeConnexion(c,conn)
         return True
     except RuntimeError :
         closeConnexion(c,conn)
@@ -274,14 +328,14 @@ def updateMessageInformation(msg,idUser):
                 (ContenuMessageInformation,
                 Fk_IdUtilisateurMessageInformation,
                 DateMessageInformation)
-            VALUES(?,?,?);"""
-        result= c.execute(request,(msg,idUser,datetime.now()))
+            VALUES(?,?,DateTime('now','localtime'))"""
+        result= c.execute(request,(msg,idUser,))
         conn.commit()
+        closeConnexion(c,conn)
         return True
     except RuntimeError :
         closeConnexion(c,conn)
         return False
-
 
 def getModeModeration():
     try:
@@ -291,6 +345,7 @@ def getModeModeration():
             SELECT ModeModeration
             FROM Parametre"""
         result= c.execute(request).fetchone()[0]
+        closeConnexion(c,conn)
         return result
     except RuntimeError :
         closeConnexion(c,conn)
@@ -309,8 +364,32 @@ def updateModeModeration(isActive,userId):
             (SELECT U.Fk_IdRole 
             FROM Utilisateur AS U 
             WHERE U.IdUtilisateur =?)"""
-        c.execute(request,(isActive,userId,userId))
+        c.execute(request,(isActive,userId,userId,))
         conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
+
+def BanUser(userId):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+
+        request=f"""
+        PRAGMA foreign_keys = ON;"""
+        c.execute(request)
+        conn.commit()
+
+        request=f"""
+        DELETE FROM Utilisateur
+        WHERE IdUtilisateur = ?"""
+        c.execute(request,(userId,))
+        
+        conn.commit()
+        closeConnexion(c,conn)
         return True
     except RuntimeError :
         closeConnexion(c,conn)
