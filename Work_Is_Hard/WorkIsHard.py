@@ -265,6 +265,7 @@ def changementModeModeration():
 def Moderation(idPage):
 
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        isModeModeractionActive = bool(getModeModeration())
         numPage= int(idPage)
         postesAM = []
         nbPosteAttenteModerationTotal = getNbPosteAttenteModeration()
@@ -274,7 +275,7 @@ def Moderation(idPage):
         for result in resultArray:
             postesAM.append(PosteAttenteModeration(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
         
-        return render_template("Moderation.html",user=session['utilisateur'],postesAM=postesAM,NbPageMax=NbPageMax,page= numPage)
+        return render_template("Moderation.html",user=session['utilisateur'],postesAM=postesAM,NbPageMax=NbPageMax,page= numPage,isModeModeractionActive=isModeModeractionActive)
     else:
         return redirect(url_for('index'))
 
@@ -298,8 +299,20 @@ def Bannissement():
     else:
         return redirect(url_for('index'))
 
-# @app.route('/updatePosteAttenteModeration',methods=['POST'])
-# def updatePosteAttenteModeration():
+@app.route('/updatePosteAttenteModeration',methods=['POST'])
+def updatePosteAttenteModeration():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        idPostePAM = request.form["idPoste"]
+        isPostAccept= request.form["isPostAccept"]
+        print(isPostAccept)
+        if isPostAccept =="true":
+            acceptPostePAM(idPostePAM)
+            return "True"
+        else :
+            deletePostePAM(idPostePAM)
+            return "True"
+    else:
+        return redirect(url_for('index'))
 
 
 """ FIN SECTION ADMINISTRATION  """

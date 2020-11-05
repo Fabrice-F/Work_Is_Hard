@@ -3,9 +3,15 @@
 #msgIsModeModerationActive{
     text-align: center;
 }
+
 #etatModeModeration{
     font-weight: bold;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, Courier, monospace;
+}
+
+#msgAucunPoste{
+    color: lightblue;
+    margin: 50px;
 }
 .BlocPAM{
     height: 500px;
@@ -144,11 +150,33 @@
 #msgRappePAM,#msgNouveauRole_PAM{
     margin:20px 0 0 20px
 }
+
 #msgNouveauRole_PAM{
     font-weight: bold;
 }
 
+#modal_confirmStatusPAM{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 30px;
+}
+.conteneurModal{
+    height: 30px;
+    min-height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#paragrapheConfirmStatusPAM{
+    text-align: center;
+    margin-top:30px ;
+}
 @media screen and (max-width: 960px) { 
+    #modal_confirmStatusPAM{
+        height: 30px;
+        font-size: 12px;
+    }
     .titrePAM{
         width: 90%;
         font-size:20px;
@@ -172,6 +200,7 @@
     .H4DatePAM,.H4RolePAM{
         font-size: 15px;
     }
+
 }
 @media screen and (max-width: 300px) { 
     .BlocPAM{

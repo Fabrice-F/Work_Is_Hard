@@ -394,3 +394,44 @@ def BanUser(userId):
     except RuntimeError :
         closeConnexion(c,conn)
         return False
+
+def acceptPostePAM(idPostePAM):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+                INSERT INTO Poste (Fk_IdUtilisateur,
+                    TitrePoste,
+                    AdressePoste,
+                    DatePoste)
+                SELECT Fk_IdUtilisateur,
+                    TitrePosteAttenteModeration,
+                    AdressePosteAttenteModeration,
+                    DatePosteAttenteModeration
+                    FROM PosteAttenteModération
+                    WHERE IdPosteAttenteModération = ?"""
+        c.execute(request,(idPostePAM,))
+        conn.commit()
+        closeConnexion(c,conn)
+        deletePostePAM(idPostePAM)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
+def deletePostePAM(idPostePAM):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+                DELETE FROM 
+                    PosteAttenteModération 
+                WHERE 
+                    IdPosteAttenteModération = ? """
+        c.execute(request,(idPostePAM,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False

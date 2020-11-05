@@ -9,8 +9,12 @@
 {% block title %}Moderation{% endblock %}
 
 {% block content %}
-    <h2 id="msgIsModeModerationActive">le mode moderation est actuellement: <span id="etatModeModeration"> {{ user.IdRoleUtilisateur }} </span></h2>
+    <h2 id="msgIsModeModerationActive">le mode moderation est actuellement: <span id="etatModeModeration"> {{ 'ACTIVÉ' if isModeModeractionActive else 'DÉSACTIVÉ'}} </span></h2>
     
+    {% if postesAM|length ==0 %}
+        <h2 id="msgAucunPoste">AUCUN POSTE A MODÉRER</span></h2>
+    {% endif %}
+
     {% for poste in postesAM %}
         <div class="BlocPAM">
             <h3 class="titrePAM">{{ poste.titrePAM }} </h3>
@@ -79,6 +83,13 @@
         </div>
     
     </div>
+
+    <div id="modal_confirmStatusPAM"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
+        <!-- Modal content -->
+        <div class="conteneurModal">
+            <p id="paragrapheConfirmStatusPAM" >Le poste à été actualiser, actualisation dans 3s...</p>
+        </div>
+    </div>    
 
 {% endblock %}
 
