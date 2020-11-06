@@ -1,0 +1,98 @@
+<!-- Rappel : PAM = Poste Attente Modération  -->
+
+{% extends "heritageJinja/base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Moderation.css') }}"> 
+{% endblock %}
+
+{% block title %}Moderation{% endblock %}
+
+{% block content %}
+    <h2 id="msgIsModeModerationActive">le mode moderation est actuellement: <span id="etatModeModeration"> {{ 'ACTIVÉ' if isModeModeractionActive else 'DÉSACTIVÉ'}} </span></h2>
+    
+    {% if postesAM|length ==0 %}
+        <h2 id="msgAucunPoste">AUCUN POSTE A MODÉRER</span></h2>
+    {% endif %}
+
+    {% for poste in postesAM %}
+        <div class="BlocPAM">
+            <h3 class="titrePAM">{{ poste.titrePAM }} </h3>
+            <div class="img-User-InfosPAM">
+                <img src="{{ poste.adressePAM }}" class="imgPAM">
+
+                <figcaption class="legendImgPAM">
+                    <h3 class="H3pseudoUserPAM">{{ 'vous' if user.IdUtilisateur == poste.UserIdPAM else poste.UserPseudoPAM }}</h3>
+                    <h4 class="H4DatePAM">{{ poste.datePAM }}</h4>
+                    <h4 class="H4RolePAM">{{ poste.UserNomRole }}</h4>
+                </figcaption>
+            </div>
+            <div class="blocValidPAM">
+                <button class="btn-PAM" id="btnRefusePAM" onclick="choixValidPAM(false,'{{poste.IdPAM }}')">✖</button>
+                <button class="btn-PAM" id="btnAcceptePAM" onclick="choixValidPAM(true,'{{poste.IdPAM }}')">✔</button>
+                {% if poste.UserRolePAM < user.IdRoleUtilisateur %}
+                    <button class="btn-PAM" id="btnBanUserPAM"  onclick="openModalBanUser('{{ poste.UserIdPAM}}', '{{ poste.UserPseudoPAM}}')" title="BANNIR L'UTILISATEUR">⚠</button>
+                {% endif %}
+            </div>
+        </div>
+
+    {% endfor %}
+
+    <div id="RowChangePage">
+        {% if page == null %}
+            <div class="changePageBlocGauche">
+            </div>
+            <div class="changePageBlocDroit">
+                <a class="btn-changePagePAM" href="/Moderation2">Suivant</a>
+            </div>
+
+        {% else %}
+                <div class="changePageBlocGauche">
+                    {% if page-1 >= 1 %}
+                    <a class="btn-changePagePAM" href="/Moderation{{ page-1 if page-1 >= 1 else '1' }}" >Precedent</a>
+                    {% endif %}
+                </div>
+
+
+                <div class="changePageBlocDroit">
+                    {% if page+1 <= NbPageMax %}
+                        <a class="btn-changePagePAM" href="/Moderation{{ page+1 }}">Suivant</a>
+                    {% endif %}     
+                </div>
+
+        {% endif %} 
+    </div>
+
+
+
+
+
+    <div id="modalPAM" class="modal" data-iziModal-title="Mode modération"  data-iziModal-subtitle="Change le mode de modération du site"  data-iziModal-icon="icon-home">
+    
+        <p id="msgRappePAM" class="paragraphePAM"></p>
+        <p id="msgNouveauRole_PAM" class="paragraphePAM"></p>
+    
+        <div id="conteneur-modal">
+            <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpPAM">
+            <div class="msgInModal" id="msgInModalPAM"></div>
+        </div>
+    
+        <div id="conteneur-ChoiceModal">
+            <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+            <button class="btnModal submit h-transRight" id="btnValidePAM">Valider</button>
+        </div>
+    
+    </div>
+
+    <div id="modal_confirmStatusPAM"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
+        <!-- Modal content -->
+        <div class="conteneurModal">
+            <p id="paragrapheConfirmStatusPAM" >Le poste à été actualiser, actualisation dans 3s...</p>
+        </div>
+    </div>    
+
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename= 'js/Moderation.js') }}"></script>
+{% endblock %}

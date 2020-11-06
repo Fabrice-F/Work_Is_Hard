@@ -1,23 +1,3 @@
-$("#modal_changementPseudo").iziModal({
-    headerColor: '#00bfff',
-});
-$("#modal_changementMotDePasse").iziModal({
-    headerColor: '#00bfff',
-});
-
-
-function EnvoiFormulaireInscription(){
-
-    var mdp = document.getElementById("mot_de_passe").value;
-    var confirmation_mdp = document.getElementById("confirm_mdp").value;
-
-    if(mdp == confirmation_mdp){
-        return true;
-    }else{
-        alert("les mots de passe sont differents");
-        return false;
-    }
-}
 
 function EnvoyerOuPas()
 {

@@ -1,5 +1,5 @@
-/* Role */
 
+/* === GENERAL A LA PAGE  === */
 new CBPFWTabs( document.getElementById( 'tabs' ) );
 
 $("#modal_changeRole").iziModal({
@@ -10,6 +10,13 @@ $("#modal_changeRole").iziModal({
 });
 
 $("#modalMsgInfo").iziModal({
+    closeButton: true,
+    headerColor: '#00bfff',
+    onOpening: ActiveBlockBackground,
+    onClosing: disableBlockBackground,
+});
+
+$("#modalModeModeration").iziModal({
     closeButton: true,
     headerColor: '#00bfff',
     onOpening: ActiveBlockBackground,
@@ -80,7 +87,7 @@ function ValidChangeRole(pseudo,id,ancienRole,NouveauRole)
 }
 
 
-/* === PARTIE MESSAGER INFORMATION === */
+/* === PARTIE MESSAGE INFORMATION === */
 function sendMsgInformation(baliseMessageInModal)
 {
     Msg = document.getElementById("txtAreaMsgInfo").value;
@@ -96,4 +103,34 @@ function sendMsgInformation(baliseMessageInModal)
         return;
     }
     SendAjax("/updateMsgInformation","message d'information",baliseMessageInModal,Msg,MdpUser);
+}
+
+
+function openModalModeModeration(inputToggle,isModeActiveBdd)
+{
+    statusActuel = isModeActiveBdd ? 'activé' : 'désactivé' ;
+    ModeModerationVoulu = document.getElementById(inputToggle).checked;
+    if(String(ModeModerationVoulu).toLowerCase()==String(isModeActiveBdd).toLowerCase())
+    {
+        PrintMessage("msgErrorModeModeration",`Le mode modération est déja ${statusActuel} actuellement !`,true);
+        return;
+    } 
+
+    statusVoulu = ModeModerationVoulu ? 'activé' : 'désactivé' ;
+    document.getElementById("msgRappeModeModeration").innerHTML="Étes vous sur de vouloir passer en mode ?"
+    document.getElementById("msgNouveauRole_ModeModeration").innerHTML=statusVoulu;
+    $('#modalModeModeration').iziModal('open');
+}
+
+function sendModeModeration(baliseMsgInModal,baliseInputModeModerationVoulut)
+{
+    MdpUser = document.getElementById("mdpModeModeration").value;
+    ModeModerationVoulu = document.getElementById(baliseInputModeModerationVoulut).checked;
+    if(isEmptyOrSpaces(MdpUser)){
+        PrintMessage(baliseMsgInModal,"Le champs mot de passe est vide ...",true);
+        return;
+    }
+
+    ModeModerationVoulu = String(ModeModerationVoulu);
+    SendAjax("/changementModeModeration","mode modération",baliseMsgInModal,MdpUser,ModeModerationVoulu)
 }

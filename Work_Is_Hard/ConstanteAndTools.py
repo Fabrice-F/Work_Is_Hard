@@ -1,7 +1,7 @@
 import math
 import hashlib 
 from flask import request
-
+import random
 
 """ Comme les constantes n'existe pas en python:
 en dehors de creer une classe avec getter setter
@@ -29,12 +29,11 @@ def getVisitorIp(requestRoute):
 def MapSessionToUser(session):
     idUser= session["IdUtilisateur"]
     Pseudo=session["PseudoUtilisateur"]
-    Mdp=session["MdpUtilisateur"]
     Nom=session["NomUtilisateur"]
     Prenom=session["PrenomUtilisateur"]
-    Age=session["AgeUtilisateur"]
+    Age=session["DateNaissanceUtilisateur"]
     IdRole= session["IdRoleUtilisateur"]
-    User= Utilisateur(idUser,Pseudo,Mdp,Nom,Prenom,Age,IdRole)
+    User= Utilisateur(idUser,Pseudo,Nom,Prenom,Age,IdRole)
     return User
 
 def MapArrayResultBddToArrayUtilisateur(arrayBdd):
@@ -46,7 +45,19 @@ def MapArrayResultBddToArrayUtilisateur(arrayBdd):
 def MapResultToMessageInformation(result):
     return MessageInformation(result[0],result[1],result[2])
 
-
+def imageConfirmPoste():
+    arrayImg= [
+        "https://media.giphy.com/media/kRXnZwKrPTwVq/giphy.gif",
+        "https://media.giphy.com/media/OE6FE4GZF78nm/giphy.gif",
+        "https://media.giphy.com/media/QYwB8ai7mtORGRAxJZ/giphy.gif",
+        "https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif",
+        "https://media.giphy.com/media/3oEjI5VtIhHvK37WYo/giphy.gif",
+        "https://media.giphy.com/media/2lfllWGtBaXOSrErQb/giphy.gif",
+        "https://media.giphy.com/media/3HAYjf986boJO698zIY/giphy.gif",
+        "https://media.giphy.com/media/jL6OeIhk3zPi/giphy.gif",
+        "https://media.giphy.com/media/7TtvTUMm9mp20/giphy.gif"
+    ]
+    return random.choice(arrayImg)
 
 class Utilisateur:
     def __init__(self, identifiant, pseudo,nom,prenom,age,role):
@@ -54,7 +65,7 @@ class Utilisateur:
         self.PseudoUtilisateur=pseudo
         self.NomUtilisateur=nom
         self.PrenomUtilisateur=prenom 
-        self.AgeUtilisateur=age
+        self.DateNaissanceUtilisateur=age
         self.IdRoleUtilisateur=role
         self.NomRole = self.getNomRole()
     def getNomRole(self):
@@ -71,6 +82,27 @@ class Poste:
         self.titrePoste=titre
         self.adressePoste=adresse
         self.datePoste=date 
+
+class PosteAttenteModeration:
+    def __init__(self,Id,titre,adresse,date,idUserPoste,UserPseudo,UserRole):
+        self.IdPAM=Id
+        self.titrePAM=titre            
+        self.adressePAM=adresse      
+        self.datePAM=date  
+        self.UserIdPAM=idUserPoste
+        self.UserPseudoPAM=UserPseudo
+        self.UserRolePAM=UserRole
+        self.UserNomRole = self.getNomRole()
+    
+    def getNomRole(self):
+        if self.UserRolePAM ==1:
+            return "Posteur"
+        elif self.UserRolePAM ==2:
+            return "Modérateur"
+        else:
+            return "Administrateur"
+
+
 
 class MessageInformation :
     def __init__(self, contenu,pseudo,date):

@@ -152,15 +152,6 @@ figcaption{
 }
 
 
-
-
-.H3pseudoUtilsateurPoste{
-
-}
-.H4DatePoste{
-
-}
-
 .outilsAdmin{
     width: 10%;
     height: 90%;
@@ -297,7 +288,7 @@ figcaption{
     }
     .titrePoste{
         margin: 0;
-        font-size: 20px;
+        font-size: 15px;
         max-height: 50px;
         overflow-y:  auto;
         word-wrap: break-word;
@@ -340,6 +331,11 @@ figcaption{
     .changePageLink:hover{
         font-size: 1.4em;
     }
-
+    .H3pseudoUtilsateurPoste{
+        font-size: 20px;
+    }
+    .H4DatePoste{
+        font-size: 15px;
+    }
 }
 

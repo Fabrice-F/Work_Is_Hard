@@ -31,7 +31,6 @@ def index():
 def inscription():
     return render_template("inscription.html")
 
-
 @app.route('/ConfirmationInscription', methods=['POST'])
 def ConfirmationInscription():
     # Récupération des informations de la page inscription.html
@@ -47,8 +46,6 @@ def ConfirmationInscription():
         return redirect(url_for('index'))
     else:
         return "Error"
-
-
 
 #TODO: Refaire le systeème de connexion
 @app.route('/login', methods=['POST'])
@@ -106,10 +103,18 @@ def publiePost():
         TitrePoste = request.form["TitrePoste"]
         LienImg = request.form["LienImg"]
         UserId = session['utilisateur']["IdUtilisateur"]
-        if InsertPoste(UserId,TitrePoste,LienImg):
-            return redirect(url_for('index'))
+        imgPosteOk=imageConfirmPoste()
+
+        if (getModeModeration()==1):
+            if InsertPosteAttenteModeration(UserId,TitrePoste,LienImg):
+                return render_template("informations.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk,message="Votre poste a été pris en compte et est en attente de validation")
+            else:
+                return render_template("Error/ErrorPage.html",messageError="Un problème à eut lieu lors de l'enregistrement du poste")
         else:
-            return "problème d'insertion à la base de donnée"
+            if InsertPoste(UserId,TitrePoste,LienImg):
+                return render_template("informations.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk ,message="Votre poste à été intégré !")
+            else:
+                return render_template("Error/ErrorPage.html",messageError="Un problème à eut lieu lors de l'enregistrement du poste")
     else:
         return redirect(url_for('index'))
 
@@ -180,23 +185,20 @@ def DemandeChangementPassword():
 
 
 
-
-
 """ SECTION ADMINISTRATION  """
 
 @app.route('/Administration')
 def Administration():
-
-    msgTmp = getLastMessageInformation()
-    if(msgTmp==False):
-        messageInfo = MessageInformation("vide","Aucun",datetime.now())
-    else :
-        messageInfo = MapResultToMessageInformation(msgTmp)
-
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
+        isModeModeractionActive = bool(getModeModeration())
+        msgTmp = getLastMessageInformation()
+        if(msgTmp==False):
+            messageInfo = MessageInformation("vide","Aucun",datetime.now())
+        else :
+            messageInfo = MapResultToMessageInformation(msgTmp)
         ArrayUser = SelectAllUser()
         AllUser= MapArrayResultBddToArrayUtilisateur(ArrayUser)
-        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser,messageInfo=messageInfo)
+        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser,messageInfo=messageInfo,isModeModeractionActive=isModeModeractionActive)
     else :
         return redirect(url_for('index'))
 
@@ -237,6 +239,80 @@ def updateMsgInformation():
             return "Le message n'as pas pu être actualisé"
     else :
         return redirect(url_for('index'))
+
+
+@app.route('/changementModeModeration',methods=['POST'])
+def changementModeModeration():
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
+        user = MapSessionToUser(session['utilisateur'])
+        modeModerationVoulut = 1 if request.form["ModeModerationVoulu"] == "true" else 0
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if updateModeModeration(modeModerationVoulut,user.IdUtilisateur):
+            return "True"
+        else:
+            return "Echec pendant la mise à jour du mode modération" 
+    else :
+        return redirect(url_for('index'))
+
+
+@app.route('/Moderation<idPage>')
+def Moderation(idPage):
+
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        isModeModeractionActive = bool(getModeModeration())
+        numPage= int(idPage)
+        postesAM = []
+        nbPosteAttenteModerationTotal = getNbPosteAttenteModeration()
+        resultArray = getPosteAttenteModerationByPage(idPage)
+        NbPageMax = CalculNbPageMax(nbPosteAttenteModerationTotal,nbPosteByPage)
+
+        for result in resultArray:
+            postesAM.append(PosteAttenteModeration(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
+        
+        return render_template("Moderation.html",user=session['utilisateur'],postesAM=postesAM,NbPageMax=NbPageMax,page= numPage,isModeModeractionActive=isModeModeractionActive)
+    else:
+        return redirect(url_for('index'))
+
+
+
+@app.route('/Bannissement',methods=['POST'])
+def Bannissement():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        userBanId = request.form["userId"]
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if BanUser(userBanId):
+            return "True"
+        else:
+            return "L'utilisateur n'as pas pu être banni"
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/updatePosteAttenteModeration',methods=['POST'])
+def updatePosteAttenteModeration():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        idPostePAM = request.form["idPoste"]
+        isPostAccept= request.form["isPostAccept"]
+        if isPostAccept =="true":
+            acceptPostePAM(idPostePAM)
+            return "True"
+        else :
+            deletePostePAM(idPostePAM)
+            return "True"
+    else:
+        return redirect(url_for('index'))
+
 
 """ FIN SECTION ADMINISTRATION  """
 

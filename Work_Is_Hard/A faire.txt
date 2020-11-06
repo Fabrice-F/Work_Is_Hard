@@ -1,6 +1,8 @@
 ¤ Appliqer les script sql pour desactiver le case sensitive : 
     PRAGMA case_sensitive_like = false;
+    delete from sqlite_sequence where name='your_table';
 
+    
 ¤ Voir avec mr Ayoub si la bdd peu lui est transmise avec des données a l'intérieur (déja faite) ou l'application
 doit elle la créer et injectée des donnée au proéalable ? => mail envoyé le 03/11/2020
 
@@ -22,10 +24,11 @@ doit elle la créer et injectée des donnée au proéalable ? => mail envoyé le
 
 ¤ Gestion de ban par IP en cas de test de connexion > 5 / 1min
 
-¤ responsiver les pages
-
 ¤ Obligatoirement un minimum de caracteres sur le mdp 
 ¤ Pseudo Obligatoirement non vide
 
 ¤ Message redirigé vers l'accueil et prevenir de confirmation d'inscription
-¤ Si poste supprimer mettre dans une table
+
+
+
+¤ En cas de changement de role l'utilisateur a encore la session en mémoire coté serveur
