@@ -378,7 +378,6 @@ def updateModeModeration(isActive,userId):
         closeConnexion(c,conn)
         return False
 
-
 def BanUser(userId):
     try:
         conn = OpenConnexion()
@@ -425,6 +424,23 @@ def acceptPostePAM(idPostePAM):
         closeConnexion(c,conn)
         return False
 
+def deletePoste(idPoste):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+                DELETE FROM 
+                    Poste 
+                WHERE 
+                    IdPoste = ? """
+        c.execute(request,(idPoste,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
 def deletePostePAM(idPostePAM):
     try:
         conn = OpenConnexion()
@@ -441,3 +457,24 @@ def deletePostePAM(idPostePAM):
     except RuntimeError :
         closeConnexion(c,conn)
         return False
+
+def UpdateTitrePoste(IdPoste,newTitre):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+                UPDATE 
+                    Poste 
+                SET 
+                    TitrePoste = ? 
+                WHERE 
+                    IdPoste = ? """
+        c.execute(request,(newTitre,IdPoste,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
+

@@ -184,6 +184,46 @@ def DemandeChangementPassword():
         return "Echec pendant la mise à jour du mot de passe"
 
 
+@app.route('/CorrectionTitrePoste',methods=['POST']) #methode appelé en AJAX
+def CorrectionTitrePoste():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        idPoste = request.form["IdPoste"]
+        NewTitrePoste = request.form["NewTitrePoste"]
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if UpdateTitrePoste(idPoste,NewTitrePoste):
+            return "True"
+        else:
+            return "Le titre n'as pas pu être mis à jour"
+    else:
+        return redirect(url_for('index'))
+
+
+
+
+@app.route('/SuppressionPosteAccueil',methods=['POST']) #methode appelé en AJAX
+def SuppressionPosteAccueil():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        idPoste = request.form["IdPoste"]
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if deletePoste(idPoste):
+            return "True"
+        else:
+            return "Le titre n'as pas pu être mis à jour"
+    else:
+        return redirect(url_for('index'))
+
 
 """ SECTION ADMINISTRATION  """
 
@@ -240,7 +280,6 @@ def updateMsgInformation():
     else :
         return redirect(url_for('index'))
 
-
 @app.route('/changementModeModeration',methods=['POST'])
 def changementModeModeration():
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
@@ -260,7 +299,6 @@ def changementModeModeration():
     else :
         return redirect(url_for('index'))
 
-
 @app.route('/Moderation<idPage>')
 def Moderation(idPage):
 
@@ -278,8 +316,6 @@ def Moderation(idPage):
         return render_template("Moderation.html",user=session['utilisateur'],postesAM=postesAM,NbPageMax=NbPageMax,page= numPage,isModeModeractionActive=isModeModeractionActive)
     else:
         return redirect(url_for('index'))
-
-
 
 @app.route('/Bannissement',methods=['POST'])
 def Bannissement():
