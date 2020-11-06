@@ -93,12 +93,15 @@ def getLastPoste():
         request = f"""SELECT U.PseudoUtilisateur,
                         P.TitrePoste,
                         P.AdressePoste,
-                        strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste)
+                        strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste),
+                        P.IdPoste,
+                        U.IdUtilisateur,
+                        U.Fk_IdRole
                     FROM Poste AS P
                     INNER JOIN Utilisateur AS U ON
                         U.IdUtilisateur = P.Fk_IdUtilisateur 
                     ORDER BY IdPoste DESC
-                    LIMIT {nbPosteByPage} ;"""
+                    LIMIT {nbPosteByPage}"""
         resultArray = c.execute(request).fetchall()
         closeConnexion(c,conn)
         return resultArray
@@ -113,7 +116,10 @@ def getPosteByPage(idPage):
         request =f"""SELECT U.PseudoUtilisateur,
                 P.TitrePoste,
                 P.AdressePoste,
-                strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste)
+                strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste),
+                P.IdPoste,
+                U.IdUtilisateur,
+                U.Fk_IdRole
             FROM Poste AS P
             INNER JOIN Utilisateur AS U ON
             U.IdUtilisateur = P.Fk_IdUtilisateur

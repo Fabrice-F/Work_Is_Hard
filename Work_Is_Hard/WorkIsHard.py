@@ -22,7 +22,7 @@ def index():
         messageInfo = MapResultToMessageInformation(msgTmp)
     posteArray = []
     for result in resultArray:
-        posteArray.append(Poste(result[0],result[1],result[2],result[3]))
+        posteArray.append(Poste(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
     if 'utilisateur' in session:
         return render_template("Accueil.html",posteArray=posteArray,nbPosteTotal =nbPosteTotal,messageInfo=messageInfo,user=session['utilisateur'])
     return render_template("Accueil.html",posteArray=posteArray ,nbPosteTotal=nbPosteTotal,messageInfo=messageInfo)
@@ -135,7 +135,7 @@ def getPage(idPage):
         messageInfo = MapResultToMessageInformation(msgTmp)
 
     for result in resultArray:
-        posteArray.append(Poste(result[0],result[1],result[2],result[3]))
+        posteArray.append(Poste(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
 
     if 'utilisateur' in session:
         return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,messageInfo=messageInfo,user=session['utilisateur'])

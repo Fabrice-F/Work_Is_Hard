@@ -17,13 +17,13 @@
 
     {% for poste in postesAM %}
         <div class="BlocPAM">
-            <h3 class="titrePAM">{{ poste.titrePAM }} </h3>
+            <h3 class="titrePAM">{{ poste.TitrePAM }} </h3>
             <div class="img-User-InfosPAM">
-                <img src="{{ poste.adressePAM }}" class="imgPAM">
+                <img src="{{ poste.AdressePAM }}" class="imgPAM">
 
                 <figcaption class="legendImgPAM">
-                    <h3 class="H3pseudoUserPAM">{{ 'vous' if user.IdUtilisateur == poste.UserIdPAM else poste.UserPseudoPAM }}</h3>
-                    <h4 class="H4DatePAM">{{ poste.datePAM }}</h4>
+                    <h3 class="H3pseudoUserPAM">{{ 'Vous' if user.IdUtilisateur == poste.UserIdPAM else poste.UserPseudoPAM }}</h3>
+                    <h4 class="H4DatePAM">{{ poste.DatePAM }}</h4>
                     <h4 class="H4RolePAM">{{ poste.UserNomRole }}</h4>
                 </figcaption>
             </div>
