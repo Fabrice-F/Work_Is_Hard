@@ -52,6 +52,9 @@ def ConfirmationInscription():
 def login():
     pseudo = request.form["pseudo"]
     mdp = hashMdp(request.form["password"])
+    if mdp.isspace():
+        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
+    
     result = connexionUtilisateur(pseudo,mdp)
     if result ==False:
         return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
@@ -62,7 +65,7 @@ def login():
     if(mdpCurrentUser==False):
         return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
 
-    if userDemandeConnexion.PseudoUtilisateur==pseudo and mdpCurrentUser== mdp:
+    if userDemandeConnexion.PseudoUtilisateur==pseudo and mdpCurrentUser== mdp and not mdp.isspace():
         session['utilisateur'] = userDemandeConnexion.__dict__
         return redirect(url_for('index'))
     else:
@@ -193,7 +196,7 @@ def updateTitrePoste():
         MdpUserSaisie = hashMdp(request.form["MdpUser"])
         mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
 
-        if MdpUserSaisie!=mdpCurrentUser :
+        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace() :
             return " Le mot de passe saisie est incorrect"
 
         if UpdateTitrePoste(idPoste,NewTitrePoste):
@@ -214,7 +217,7 @@ def SuppressionPosteAccueil():
         MdpUserSaisie = hashMdp(request.form["MdpUser"])
         mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
 
-        if MdpUserSaisie!=mdpCurrentUser :
+        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace() :
             return " Le mot de passe saisie est incorrect"
 
         if deletePoste(idPoste):
@@ -269,7 +272,7 @@ def updateMsgInformation():
         MdpUserSaisie = hashMdp(request.form["MdpUser"])
         mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
 
-        if MdpUserSaisie!=mdpCurrentUser :
+        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace() :
             return " Le mot de passe saisie est incorrect"
 
         userIdCurrent = session['utilisateur']["IdUtilisateur"]
@@ -289,7 +292,7 @@ def changementModeModeration():
         MdpUserSaisie = hashMdp(request.form["MdpUser"])
         mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
 
-        if MdpUserSaisie!=mdpCurrentUser :
+        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace() :
             return " Le mot de passe saisie est incorrect"
 
         if updateModeModeration(modeModerationVoulut,user.IdUtilisateur):
@@ -325,7 +328,7 @@ def Bannissement():
         MdpUserSaisie = hashMdp(request.form["MdpUser"])
         mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
 
-        if MdpUserSaisie!=mdpCurrentUser :
+        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace():
             return " Le mot de passe saisie est incorrect"
 
         if BanUser(userBanId):
@@ -360,7 +363,7 @@ def updateTitrePAM():
         MdpUserSaisie = hashMdp(request.form["MdpUser"])
         mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
 
-        if MdpUserSaisie!=mdpCurrentUser :
+        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace() :
             return " Le mot de passe saisie est incorrect"
 
         if UpdateTitrePostePAM(idPoste,NewTitrePoste):
