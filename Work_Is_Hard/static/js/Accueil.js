@@ -67,13 +67,13 @@ function sendChangementTitre(idPoste)
     baliseMsgInModal = "msgInModalChangementTitrePoste";
     NewTitrePoste= document.getElementById("NouveauTitrePoste").value;
     MdpUser= document.getElementById("mdpChangementTitrePoste").value;
-    IdPoste = String(idPoste);
+    IdPoste = new String(idPoste);
     if(isEmptyOrSpaces(MdpUser))
     {
         PrintMessage(baliseMsgInModal,"Le mots de passe est vide",true);
         return;
     }
-    SendAjax("/CorrectionTitrePoste","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser);
+    SendAjax("/updateTitrePoste","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser);
 }
 
 function SuppressionPoste(idPoste,PseudoPosteur)
@@ -98,8 +98,8 @@ function sendDeletePoste(idPoste){
         return;
     }
 
-    IdPoste=String(idPoste);
-    SendAjax("/SuppressionPosteAccueil","Status du poste",baliseMsgInModal,IdPoste,MdpUser);
+    IdPoste=new String(idPoste);
+    SendAjax("/SuppressionPosteAccueil","status du poste",baliseMsgInModal,IdPoste,MdpUser);
 }
 
 function BanUser(idUserPoste,PseudoPosteur)
@@ -130,6 +130,6 @@ function sendBanUser(idUserPoste)
         return;
     }
 
-    userId=String(idUserPoste);
-    SendAjax("/Bannissement","Status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
+    userId=new String(idUserPoste);
+    SendAjax("/Bannissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
 }

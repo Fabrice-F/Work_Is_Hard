@@ -4,12 +4,19 @@ $("#modalPAM").iziModal({
     onClosing: disableBlockBackground,
 });
 
-$("#modal_confirmStatusPAM").iziModal({
-    background: '#00bfff',
-    closeButton: true,
-    bottom: '0px',
-    onOpening: ModalTimeClose
+
+$("#modalConfirmationStatusChoixPAM").iziModal({
+    headerColor: '#00bfff',
+    onOpening: ActiveBlockBackground,
+    onClosing: disableBlockBackground,
 });
+
+$("#modalChangementTitrePoste").iziModal({
+    headerColor: '#00bfff',
+    onOpening: ActiveBlockBackground,
+    onClosing: disableBlockBackground,
+});
+
 
 function openModalBanUser(userId,userPseudo){
     //TODO : test si l'utilisateur de la session 
@@ -34,40 +41,59 @@ function sendBanissementPAM(baliseMsgInModal,user_id)
         PrintMessage(baliseMsgInModal,"Votre mots de passe est vide ...",true);
         return;
     }
-    userId = String(user_id)
+    userId = new String(user_id)
     SendAjax("/Bannissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
 }
 
 function choixValidPAM(isPostAccept,idPoste){
 
-    $.ajax({
-        url : "/updatePosteAttenteModeration", // La ressource ciblée
-        type : 'POST', // Le type de la requête HTTP.
-        data : `idPoste=${idPoste}&isPostAccept=${isPostAccept}`,
-        dataType : 'text', // On désire recevoir du text
-        success : function(text, statut){ // contient le text renvoyé
-        if (text=="True"){
+    status = isPostAccept ? "Accepté" : "Refusé" ;
+    document.getElementById("msgConfirmationStatusChoixPAM").innerHTML=status;
 
-            document.getElementById("paragrapheConfirmStatusPAM").innerHTML="Le poste à été actualiser, actualisation dans 3s...";
-            $("#modal_confirmStatusPAM").iziModal('open');
-            
-            setTimeout(function(){
-                window.location.reload();
-            },3000)
-        }
-        else 
-            document.getElementById("paragrapheConfirmStatusPAM").innerHTML =text;
-            $("#modal_confirmStatusPAM").iziModal('open');
-        },
-        error : function(text, statut){ //  contient le text renvoyé
-            alert("error: " +text)
-        }
+    $("#modalConfirmationStatusChoixPAM").iziModal('open');
+    
+    document.getElementById("btnValideConfirmationStatusChoixPAM").addEventListener("click",function(){
+        sendChoixValidPAM(isPostAccept,idPoste);
     });
 }
 
-function ModalTimeClose()
+function sendChoixValidPAM(isPostAccept,idPoste)
 {
-    setTimeout(function(){
-        $('#modal_confirmStatusPAM').iziModal('close');
-    },2000); 
+
+    baliseMsgInModal="msgInModalConfirmationStatusChoixPAM";
+
+    IdPoste = new String(idPoste);
+    IsPostAccept = new String(isPostAccept);
+    SendAjax("/updatePosteAttenteModeration","poste",baliseMsgInModal,IdPoste,IsPostAccept)
+}
+
+
+function changeTitrePAM(idPoste)
+{
+    AncientitrePostePAM=document.getElementById("titrePAM"+idPoste).innerHTML;
+    document.getElementById("AncienTitrePoste").innerHTML =AncientitrePostePAM;
+    document.getElementById("NouveauTitrePoste").value =AncientitrePostePAM;
+
+    $("#modalChangementTitrePoste").iziModal('open');
+
+    document.getElementById("btnValideChangementTitrePoste").addEventListener("click",function(){
+        sendNewTitrePAM(idPoste);
+    });
+}
+
+function sendNewTitrePAM(idPoste){
+
+    baliseMsgInModal="msgInModalChangementTitrePoste";
+    newTitrePoste = document.getElementById("NouveauTitrePoste").value;
+
+    MdpUser = document.getElementById("mdpChangementTitrePoste").value;
+
+    if(isEmptyOrSpaces(MdpUser)){
+        PrintMessage(baliseMsgInModal,"Votre mots de passe est vide ...",true);
+        return;
+    }
+
+    IdPoste = new String(idPoste);
+    NewTitrePoste = new String(newTitrePoste);
+    SendAjax("/updateTitrePAM","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser)
 }

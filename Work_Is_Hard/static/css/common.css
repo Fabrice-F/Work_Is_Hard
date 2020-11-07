@@ -166,6 +166,10 @@ html ,body{
     .btnModal{
         font-size: 20px;
     }
+    .msgInModal{
+        min-height: 40px;
+        text-align: center;
+    }
 }
 
 

@@ -477,4 +477,23 @@ def UpdateTitrePoste(IdPoste,newTitre):
         closeConnexion(c,conn)
         return False
 
+def UpdateTitrePostePAM(IdPoste,newTitre):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+                UPDATE 
+                    PosteAttenteModération 
+                SET 
+                    TitrePosteAttenteModeration = ? 
+                WHERE 
+                    IdPosteAttenteModération = ? """
+        c.execute(request,(newTitre,IdPoste,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
 
