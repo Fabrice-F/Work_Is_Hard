@@ -19,7 +19,11 @@ def hashMdp(motdePassClaire):
 
 def messageErrorConnexion():
     msg=f"""L'identifiant ou le mot de passe avec lesquels vous avez tenté de vous
-    connecter est incorrect ..."""
+    connecter sont incorrect ..."""
+    return msg
+
+def messageErrorChampsVide():
+    msg=f"""L'un des champs que vous avez renseigné est vide ..."""
     return msg
 
 def getVisitorIp(requestRoute):
@@ -58,6 +62,16 @@ def imageConfirmPoste():
         "https://media.giphy.com/media/7TtvTUMm9mp20/giphy.gif"
     ]
     return random.choice(arrayImg)
+
+
+def isNullOrEmpty(*stringAVerifier):
+    boolNullorEmpty=False
+    print(stringAVerifier)
+    for string in stringAVerifier:
+        if string.isspace() or string.strip()==False or len(string)==0:
+            boolNullorEmpty =True
+    return boolNullorEmpty
+
 
 class Utilisateur:
     def __init__(self, identifiant, pseudo,nom,prenom,age,role):
