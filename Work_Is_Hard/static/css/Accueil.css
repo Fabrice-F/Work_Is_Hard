@@ -160,7 +160,21 @@ figcaption{
     justify-content: flex-start;
     align-items: center;
 }
-
+#my-select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background:url(../img/admin-ico.png) center no-repeat;
+    background-size: cover;
+    color: transparent;
+}
+#my-select:hover{
+    background-color: var(--myTheme);
+}
+.optionModerationAccueil {
+    color: black;
+    padding:50px;
+    margin:50px;
+}
 .imgBtnPartagePoste{
     width: 100%;
     height: auto;
@@ -239,6 +253,18 @@ figcaption{
     width: auto;
 }
 /*============== FIN MODAL COPIE ==============*/
+/*============== MODAL ==============*/
+.paragrapheChangementTitrePoste,.paragrapheSuppressionPoste, .paragrapheBan{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+#SupplemmentSuppressionPoste,#SupplemmentBan{
+    font-weight: bold;
+}
+#AncienTitrePoste{
+    font-weight: bold;
+}
+/*============== FIN MODAL ==============*/
 
 
 @media screen and (max-width: 960px) { 

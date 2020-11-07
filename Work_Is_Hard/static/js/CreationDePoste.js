@@ -27,10 +27,11 @@ function changeApercu(e,baliseChanger)
     balise = document.getElementById(baliseChanger);
     imageApercu = document.getElementById("apercuImg");
     if(baliseChanger =="apercuLegend"){
-        balise.innerHTML=e.value;
+        balise.innerHTML=e.value.replace(/[&\/\\#,+()$~%.:*<>{}]/g, '');
     }
     else{
-        if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(e.value))
+        //e= e.value.replace(/[#,+()$~%.'":*?<>{}]/g, '');
+        if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(e.value)) //replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
         {
             imageApercu.src=e.value;
             imageApercu.style.visibility= "visible";

@@ -9,9 +9,9 @@
 {% block content %}
     <div id="corp">
         <section id="blocGaucheCorpAccueil">
-            {% for poste in posteArray %}
+            {% for poste in posteArray   %}
                 <div class="blocGif" >
-
+                    
                     <div class="blocPartagePoste">
                         <button title ="Copier le lien du gif" class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
                         <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
@@ -21,12 +21,12 @@
                     </div>
 
                     <div class="blocLegendImagePoste">
-                        <legend class="titrePoste">{{ poste.titrePoste }}</legend> 
+                        <legend id="titrePoste{{poste.IdPoste}}" class="titrePoste">{{ poste.TitrePoste }}</legend> 
                         <figure class="figuregif" >
-                            <img src="{{ poste.adressePoste }}" class="gifSize">
+                            <img src="{{ poste.AdressePoste }}" class="gifSize">
                             <figcaption>
-                                    <h3 class="H3pseudoUtilsateurPoste">{{poste.PseudoUtilisateurPoste}}</h3>
-                                    <h4 class="H4DatePoste">{{poste.datePoste}}</h4>
+                                    <h3 class="H3pseudoUtilsateurPoste">{{'Vous' if user!=undefined and user.IdUtilisateur == poste.IdUser else  poste.PseudoUtilisateurPoste}}</h3>
+                                    <h4 class="H4DatePoste">{{poste.DatePoste}}</h4>
                             </figcaption>
                         </figure>
                     </div>
@@ -34,7 +34,18 @@
 
                     <div class="outilsAdmin">
                         {% if user!=undefined and user.IdRoleUtilisateur != 1 %}
-                            <button title="Bouton outils administration" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt=""></button>
+                            <div>
+                                <select id="my-select" class="h-jello btnPartagePoste" onchange="moderationDirection(this.value,'{{ poste.IdPoste }}','{{ poste.IdUser }}','{{ poste.PseudoUtilisateurPoste }}')">
+                                    <option value="" selected disabled>-- Que souhaitez vous faire !? --</option>
+                                    <option class="optionModerationAccueil" value="1">Correction titre</option>
+                                    <option class="optionModerationAccueil" value="2">Suppression poste</option>                                   
+                                    {% if poste.IdRoleUserPoste < user.IdRoleUtilisateur %}
+                                        <option class="optionModerationAccueil" value="3">Bannir utilisateur</option>
+                                    {% endif%}
+                                </select>
+                            </div>                          
+
+                            <!-- <button title="Outils administration" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt="icone administrateur"></button> -->
                         {% endif %}
                     </div>
 
@@ -83,8 +94,80 @@
         </div>
     </div>    
 
+    {% if user!=undefined and user.IdRoleUtilisateur != 1 %}
+
+        <div id="modalChangementTitrePoste" class="modal" data-iziModal-title="Changement titre"  data-iziModal-subtitle="Changer le titre du poste ?"  data-iziModal-icon="icon-home">
+    
+            <p id="msgTitrePoste" class="paragrapheChangementTitrePoste">L'ancien titre était :</p>
+            <p id="AncienTitrePoste" class="paragrapheChangementTitrePoste"></p>
+        
+            <div id="conteneur-modal">
+                <input type="text" class="input-modal" id="NouveauTitrePoste" maxlength="90">
+                <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpChangementTitrePoste">
+                <div class="msgInModal" id="msgInModalChangementTitrePoste"></div>
+            </div>
+        
+            <div id="conteneur-ChoiceModal">
+                <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+                <button class="btnModal submit h-transRight" id="btnValideChangementTitrePoste">Valider</button>
+            </div>
+    
+        </div>
+
+        <div id="modalSuppressionPoste" class="modal" data-iziModal-title="Supression du poste"  data-iziModal-subtitle="Vous allez supprimer le poste"  data-iziModal-icon="icon-home">
+    
+            <p id="RappelSuppressionPoste" class="paragrapheSuppressionPoste">Êtes vous sur de vouloir supprimer le poste de :</p>
+            <p id="SupplemmentSuppressionPoste" class="paragrapheSuppressionPoste"></p>
+        
+            <div id="conteneur-modal">
+                <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpSuppressionPoste">
+                <div class="msgInModal" id="msgInModalSuppressionPoste"></div>
+            </div>
+        
+            <div id="conteneur-ChoiceModal">
+                <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+                <button class="btnModal submit h-transRight" id="btnValideSuppressionPoste">Valider</button>
+            </div>
+    
+        </div>
+
+
+        <div id="modalBan" class="modal" data-iziModal-title="Ban de l'utilisateur"  data-iziModal-subtitle="Vous allez bannir l'utilisateur"  data-iziModal-icon="icon-home">
+    
+            <p id="RappelBan" class="paragrapheBan">Êtes vous sur de vouloir bannir : </p>
+            <p id="SupplemmentBan" class="paragrapheBan"></p>
+        
+            <div id="conteneur-modal">
+                <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpBan">
+                <div class="msgInModal" id="msgInModalBan"></div>
+            </div>
+        
+            <div id="conteneur-ChoiceModal">
+                <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+                <button class="btnModal submit h-transRight" id="btnValideBan">Valider</button>
+            </div>
+    
+        </div>
+
+
+    {% endif %}
+
 {% endblock %}
 
 {% block js %}
     <script type="text/javascript" src="{{ url_for('static', filename= 'js/Accueil.js') }}"></script>
+    {% if user!=undefined and user.IdRoleUtilisateur != 1 %}
+        <script>
+            $("#modalChangementTitrePoste").iziModal({
+                headerColor: '#00bfff',
+                onOpening: ActiveBlockBackground,
+                onClosing: disableBlockBackground,
+            });
+            $("#modalSuppressionPoste").iziModal({
+                headerColor: '#00bfff',
+                onOpening: ActiveBlockBackground,
+                onClosing: disableBlockBackground,
+            });
+        </script>
+    {% endif %}
 {% endblock %}

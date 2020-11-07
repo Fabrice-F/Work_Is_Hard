@@ -77,21 +77,25 @@ class Utilisateur:
             return "Administrateur"
 
 class Poste:
-    def __init__(self, pseudo,titre, adresse,date):
+    def __init__(self, pseudo,titre, adresse,date,idPoste,idUser,idRoleUser):
         self.PseudoUtilisateurPoste=pseudo
-        self.titrePoste=titre
-        self.adressePoste=adresse
-        self.datePoste=date 
+        self.TitrePoste=titre
+        self.AdressePoste=adresse
+        self.DatePoste=date 
+        self.IdPoste=idPoste
+        self.IdUser=idUser
+        self.IdRoleUserPoste=idRoleUser
+
 
 class PosteAttenteModeration:
-    def __init__(self,Id,titre,adresse,date,idUserPoste,UserPseudo,UserRole):
+    def __init__(self,Id,titre,adresse,date,idUserPoste,userPseudo,userRole):
         self.IdPAM=Id
-        self.titrePAM=titre            
-        self.adressePAM=adresse      
-        self.datePAM=date  
+        self.TitrePAM=titre            
+        self.AdressePAM=adresse      
+        self.DatePAM=date  
         self.UserIdPAM=idUserPoste
-        self.UserPseudoPAM=UserPseudo
-        self.UserRolePAM=UserRole
+        self.UserPseudoPAM=userPseudo
+        self.UserRolePAM=userRole
         self.UserNomRole = self.getNomRole()
     
     def getNomRole(self):
@@ -107,5 +111,5 @@ class PosteAttenteModeration:
 class MessageInformation :
     def __init__(self, contenu,pseudo,date):
         self.ContenuMessageInformation=contenu
-        self.pseudo=pseudo
+        self.Pseudo=pseudo
         self.DateMessageInformation=date 

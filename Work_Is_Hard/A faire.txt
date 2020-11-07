@@ -32,3 +32,7 @@ doit elle la créer et injectée des donnée au proéalable ? => mail envoyé le
 
 
 ¤ En cas de changement de role l'utilisateur a encore la session en mémoire coté serveur
+
+⚠ empecher les utilisateur de mettre des apostrophe dans leur nom pseudo ou prenom !! 
+
+⚠ empecher de rentrer des balises  !! 

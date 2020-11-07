@@ -131,6 +131,6 @@ function sendModeModeration(baliseMsgInModal,baliseInputModeModerationVoulut)
         return;
     }
 
-    ModeModerationVoulu = String(ModeModerationVoulu);
+    ModeModerationVoulu = new String(ModeModerationVoulu);
     SendAjax("/changementModeModeration","mode modération",baliseMsgInModal,MdpUser,ModeModerationVoulu)
 }

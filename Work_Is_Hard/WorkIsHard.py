@@ -22,7 +22,7 @@ def index():
         messageInfo = MapResultToMessageInformation(msgTmp)
     posteArray = []
     for result in resultArray:
-        posteArray.append(Poste(result[0],result[1],result[2],result[3]))
+        posteArray.append(Poste(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
     if 'utilisateur' in session:
         return render_template("Accueil.html",posteArray=posteArray,nbPosteTotal =nbPosteTotal,messageInfo=messageInfo,user=session['utilisateur'])
     return render_template("Accueil.html",posteArray=posteArray ,nbPosteTotal=nbPosteTotal,messageInfo=messageInfo)
@@ -135,7 +135,7 @@ def getPage(idPage):
         messageInfo = MapResultToMessageInformation(msgTmp)
 
     for result in resultArray:
-        posteArray.append(Poste(result[0],result[1],result[2],result[3]))
+        posteArray.append(Poste(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
 
     if 'utilisateur' in session:
         return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,messageInfo=messageInfo,user=session['utilisateur'])
@@ -183,6 +183,46 @@ def DemandeChangementPassword():
     else:
         return "Echec pendant la mise à jour du mot de passe"
 
+
+@app.route('/updateTitrePoste',methods=['POST']) #methode appelé en AJAX
+def updateTitrePoste():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        idPoste = request.form["IdPoste"]
+        NewTitrePoste = request.form["NewTitrePoste"]
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if UpdateTitrePoste(idPoste,NewTitrePoste):
+            return "True"
+        else:
+            return "Le titre n'as pas pu être mis à jour"
+    else:
+        return redirect(url_for('index'))
+
+
+
+
+@app.route('/SuppressionPosteAccueil',methods=['POST']) #methode appelé en AJAX
+def SuppressionPosteAccueil():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        idPoste = request.form["IdPoste"]
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if deletePoste(idPoste):
+            return "True"
+        else:
+            return "Le titre n'as pas pu être mis à jour"
+    else:
+        return redirect(url_for('index'))
 
 
 """ SECTION ADMINISTRATION  """
@@ -240,7 +280,6 @@ def updateMsgInformation():
     else :
         return redirect(url_for('index'))
 
-
 @app.route('/changementModeModeration',methods=['POST'])
 def changementModeModeration():
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
@@ -260,7 +299,6 @@ def changementModeModeration():
     else :
         return redirect(url_for('index'))
 
-
 @app.route('/Moderation<idPage>')
 def Moderation(idPage):
 
@@ -278,8 +316,6 @@ def Moderation(idPage):
         return render_template("Moderation.html",user=session['utilisateur'],postesAM=postesAM,NbPageMax=NbPageMax,page= numPage,isModeModeractionActive=isModeModeractionActive)
     else:
         return redirect(url_for('index'))
-
-
 
 @app.route('/Bannissement',methods=['POST'])
 def Bannissement():
@@ -302,14 +338,35 @@ def Bannissement():
 @app.route('/updatePosteAttenteModeration',methods=['POST'])
 def updatePosteAttenteModeration():
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
-        idPostePAM = request.form["idPoste"]
-        isPostAccept= request.form["isPostAccept"]
+        idPostePAM = request.form["IdPoste"]
+        isPostAccept= request.form["IsPostAccept"]
+
         if isPostAccept =="true":
             acceptPostePAM(idPostePAM)
             return "True"
         else :
             deletePostePAM(idPostePAM)
             return "True"
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/updateTitrePAM',methods=['POST']) #methode appelé en AJAX
+def updateTitrePAM():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
+        idPoste = request.form["IdPoste"]
+        NewTitrePoste = request.form["NewTitrePoste"]
+
+        MdpUserSaisie = hashMdp(request.form["MdpUser"])
+        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+
+        if MdpUserSaisie!=mdpCurrentUser :
+            return " Le mot de passe saisie est incorrect"
+
+        if UpdateTitrePostePAM(idPoste,NewTitrePoste):
+            return "True"
+        else:
+            return "Le titre n'as pas pu être mis à jour"
     else:
         return redirect(url_for('index'))
 

@@ -93,12 +93,15 @@ def getLastPoste():
         request = f"""SELECT U.PseudoUtilisateur,
                         P.TitrePoste,
                         P.AdressePoste,
-                        strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste)
+                        strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste),
+                        P.IdPoste,
+                        U.IdUtilisateur,
+                        U.Fk_IdRole
                     FROM Poste AS P
                     INNER JOIN Utilisateur AS U ON
                         U.IdUtilisateur = P.Fk_IdUtilisateur 
                     ORDER BY IdPoste DESC
-                    LIMIT {nbPosteByPage} ;"""
+                    LIMIT {nbPosteByPage}"""
         resultArray = c.execute(request).fetchall()
         closeConnexion(c,conn)
         return resultArray
@@ -113,7 +116,10 @@ def getPosteByPage(idPage):
         request =f"""SELECT U.PseudoUtilisateur,
                 P.TitrePoste,
                 P.AdressePoste,
-                strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste)
+                strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste),
+                P.IdPoste,
+                U.IdUtilisateur,
+                U.Fk_IdRole
             FROM Poste AS P
             INNER JOIN Utilisateur AS U ON
             U.IdUtilisateur = P.Fk_IdUtilisateur
@@ -372,7 +378,6 @@ def updateModeModeration(isActive,userId):
         closeConnexion(c,conn)
         return False
 
-
 def BanUser(userId):
     try:
         conn = OpenConnexion()
@@ -419,6 +424,23 @@ def acceptPostePAM(idPostePAM):
         closeConnexion(c,conn)
         return False
 
+def deletePoste(idPoste):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+                DELETE FROM 
+                    Poste 
+                WHERE 
+                    IdPoste = ? """
+        c.execute(request,(idPoste,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
 def deletePostePAM(idPostePAM):
     try:
         conn = OpenConnexion()
@@ -435,3 +457,43 @@ def deletePostePAM(idPostePAM):
     except RuntimeError :
         closeConnexion(c,conn)
         return False
+
+def UpdateTitrePoste(IdPoste,newTitre):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+                UPDATE 
+                    Poste 
+                SET 
+                    TitrePoste = ? 
+                WHERE 
+                    IdPoste = ? """
+        c.execute(request,(newTitre,IdPoste,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
+def UpdateTitrePostePAM(IdPoste,newTitre):
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request=f"""
+                UPDATE 
+                    PosteAttenteModération 
+                SET 
+                    TitrePosteAttenteModeration = ? 
+                WHERE 
+                    IdPosteAttenteModération = ? """
+        c.execute(request,(newTitre,IdPoste,))
+        conn.commit()
+        closeConnexion(c,conn)
+        return True
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False
+
+
