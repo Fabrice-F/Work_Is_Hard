@@ -7,24 +7,32 @@
 {% block title %}Creation de poste{% endblock %}
 
 {% block content %}
+
+    <h2 id="msgPubliePoste" class="titreH2">Saisissez dans la partie ci-dessous le titre et l'adresse du poste</h2>
+    <p id="msgRedirectPubliePoste" >Pour plus d'informations sur manière de poster rendez vous <a href="#">ici</a></p>
     <div id="conteneurCreationPoste">
     
         <form action="/publiePost" method="POST" onsubmit="return EnvoyerOuPas()" id="formPosteGIf" >
             <div class="rowForm">
                 <label for="LienImg">Titre du poste :</label>
-                <input type="text" maxlength="90" placeholder="90 caratères max ..." class="labelpubliePost" oninput="changeApercu(this,'apercuLegend')" name ="TitrePoste" id="TitrePoste">
+                <input type="text" maxlength="90" placeholder="90 caratères max ..." class="labelpubliePost"  name ="TitrePoste" id="TitrePoste">
             </div>
             <div class="rowForm">
                 <label for="LienImg">Lien img / gif :</label>
-                <input type="text" class="labelpubliePost" oninput="changeApercu(this,'apercuImg')" name ="LienImg" id="LienImg">
+                <input type="text" class="labelpubliePost" placeholder="https://www.exempleSite/gif1.gif ou .jpg etc..." name ="LienImg" id="LienImg">
+                <button type="button" class="btn-classique" id="btnClear">Effacer</button>
             </div>
+
+            <p id="msgPubliePost"></p>
+
             <button class="btn-classique">ENVOYER</button>
+            
         </form>
 
 
 
         <div id="posteApercu">
-            <h2>APERCU DU POSTE</h2>
+            <h2 class="titreH2">APERCU DU POSTE</h2>
             <div id="apercuBlocGif">
                 <legend id="apercuLegend" class="titrePosteApercu"></legend>
                 <img class="gif" id="apercuImg" onerror="onerrorApercu(this)" onload="succesApercu()">

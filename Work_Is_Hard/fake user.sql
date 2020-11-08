@@ -7,9 +7,6 @@ DateNaissanceUtilisateur,
 Fk_IdRole)
 
 VALUES
-('Posteur1','e10adc3949ba59abbe56e057f20f883e','Alan','Mathis','16/05/2020',1),
-('Moderateur1','e10adc3949ba59abbe56e057f20f883e','Eric','Bower','03/02/2020',2),
-('Administrateur1','e10adc3949ba59abbe56e057f20f883e','Megan','Cornish','08/02/2019',3),
 ('Posteur2','e10adc3949ba59abbe56e057f20f883e','Sue','McGrath','18/09/2019',1),
 ('Moderateur2','e10adc3949ba59abbe56e057f20f883e','Victor','Simpson','12/03/2020',2),
 ('Administrateur2','e10adc3949ba59abbe56e057f20f883e','Jennifer','Lambert','18/09/2020',3),

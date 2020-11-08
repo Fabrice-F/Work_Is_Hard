@@ -92,6 +92,11 @@ function sendNewTitrePAM(idPoste){
         PrintMessage(baliseMsgInModal,"Votre mots de passe est vide ...",true);
         return;
     }
+    
+    if(isEmptyOrSpaces(newTitrePoste)){
+        PrintMessage(baliseMsgInModal,"Le titre est vide ...",true);
+        return;
+    }
 
     IdPoste = new String(idPoste);
     NewTitrePoste = new String(newTitrePoste);

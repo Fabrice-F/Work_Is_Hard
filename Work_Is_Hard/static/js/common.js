@@ -1,7 +1,7 @@
 
 // prend l'id d'une balise paragraphe : exemple =>  "inputMessageModalExemple"
 // Ne pas oublier les guillements !
-function PrintMessage(element,message,error=false)
+function PrintMessage(element,message,error=false,time=3000)
 {
     document.getElementById(element).style.color="Green";
     document.getElementById(element).innerHTML=message;
@@ -9,7 +9,7 @@ function PrintMessage(element,message,error=false)
         document.getElementById(element).style.color="Red";
     setTimeout(function(){
         document.getElementById(element).innerHTML="";
-    },3000);
+    },time);
 }
 
 function ActiveBlockBackground()

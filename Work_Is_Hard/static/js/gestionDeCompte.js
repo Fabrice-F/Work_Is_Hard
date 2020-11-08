@@ -82,7 +82,6 @@ function AjaxMotDePasse(baliseMessage)
         success : function(text, statut){ // contient le text renvoyé
         if (text=="True"){
             PrintMessage(baliseMessage,"Le mots de passe a été actualisé avec succès, merci de vous reconnecter...");
-            document.getElementById("msgInchangeRole").value=PseudoVoulu;
             setTimeout(function(){
                 document.getElementById("btnDeco").click();
             },2000)

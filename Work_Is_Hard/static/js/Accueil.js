@@ -68,11 +68,23 @@ function sendChangementTitre(idPoste)
     NewTitrePoste= document.getElementById("NouveauTitrePoste").value;
     MdpUser= document.getElementById("mdpChangementTitrePoste").value;
     IdPoste = new String(idPoste);
+    
     if(isEmptyOrSpaces(MdpUser))
     {
         PrintMessage(baliseMsgInModal,"Le mots de passe est vide",true);
         return;
     }
+
+    if(isEmptyOrSpaces(NewTitrePoste))
+    {
+        PrintMessage(baliseMsgInModal,"Le titre est vide",true);
+        return;
+    }
+
+
+
+
+
     SendAjax("/updateTitrePoste","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser);
 }
 
