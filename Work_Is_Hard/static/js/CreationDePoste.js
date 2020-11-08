@@ -21,12 +21,15 @@ function EnvoyerOuPas()
     return false;
 }
 
-function changeApercu(e,baliseChanger)
+/*function changeApercu(e,baliseChanger)
 {
     parent = document.getElementById(baliseChanger).parentElement;
     balise = document.getElementById(baliseChanger);
     imageApercu = document.getElementById("apercuImg");
+
+
     if(baliseChanger =="apercuLegend"){
+        console.log(e.textContent || e.innerText);
         balise.innerHTML=e.value.replace(/[&\/\\#,+()$~%.:*<>{}]/g, '');
     }
     else{
@@ -37,7 +40,38 @@ function changeApercu(e,baliseChanger)
             imageApercu.style.visibility= "visible";
         }
     }
-}
+}*/
+
+
+$('#TitrePoste').on('input', function() {
+    var c = this.selectionStart,
+        v = $(this).val();
+    if((/[\/\\()~*<>{}]/g).test(v)) {
+        $(this).val(v.replace(/[&\/\\#,+()$~%.:*<>{}]/g, ''));
+        c--;
+    }
+    this.setSelectionRange(c, c);
+    document.getElementById("apercuLegend").innerHTML=this.value;
+});
+
+$('#LienImg').on('input', function() {
+    var c = this.selectionStart,
+        v = $(this).val();
+    if((/[,()~*<>{}]/g).test(v)) {
+        $(this).val(v.replace(/[&\/\\#,+()$~%.:*<>{}]/g, ''));
+        c--;
+    }
+    this.setSelectionRange(c, c);
+    if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(this.value)) //replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    {
+        imageApercu = document.getElementById("apercuImg");
+        imageApercu.src=this.value;
+        imageApercu.style.visibility= "visible";
+        document.getElementById("LienImg").disabled = true;
+    }
+});
+
+
 
 function onerrorApercu(bal)
 {
