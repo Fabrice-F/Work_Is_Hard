@@ -1,0 +1,77 @@
+{% extends "heritageJinja/base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/GestionDeCompte.css') }}"> 
+{% endblock %}
+
+{% block title %}Mon compte{% endblock %}
+
+    
+{% block content %}
+
+    {% if user!= null%}
+        <div id="ConteneurgestionCompte">
+            <div id="blocHautGestionCompte">
+                
+                <div id="contGauche">
+                    <div class="rowForm">
+                        <label class="labelGestionCompte">Pseudo:</label>
+                        <input type="text" class="inputGestionCompte" id="pseudoUtilisateur" name="pseudo" value="{{ user.PseudoUtilisateur }}" disabled>
+                    </div>
+                    <div class="rowForm">
+                        <label class="labelGestionCompte">Nom:</label>
+                        <input type="text" class="inputGestionCompte" name="nomUser" value="{{ user.NomUtilisateur }}" disabled>
+                    </div>
+                    <div class="rowForm">
+                        <label class="labelGestionCompte">Prenom:</label>
+                        <input type="text" class="inputGestionCompte" name="prenomUser" value="{{ user.PrenomUtilisateur }}" disabled>
+                    </div>
+                    <div class="rowForm">
+                        <label class="labelGestionCompte">Date de naissance:</label>
+                        <input type="text" class="inputGestionCompte" name="pseudoUser" value="{{ user.DateNaissanceUtilisateur }}" disabled>
+                    </div>
+                </div>
+                <div id="contDroit">
+                    <a class="btn-classique lien-Btn lien-Btn-size" id="btnChangePseudo-size" type="button" data-izimodal-open="#modal_changementPseudo" data-izimodal-transitionin="fadeInDown">Changer pseudo</a>
+                </div>
+            </div>
+            <div id="blocBasGestionCompte">
+                <a href="/" class="btn-classique lien-Btn lien-Btn-size">Retour</a>
+                <a href="/logout" class="btn-classique lien-Btn lien-Btn-size" id="btnDeco">Deconnexion</a>
+                <a class="btn-classique lien-Btn lien-Btn-size" type="button" data-izimodal-open="#modal_changementMotDePasse" data-izimodal-transitionin="fadeInDown">Changer mot de passe</a>
+            </div>
+        </div>
+    {% endif %} 
+
+
+
+    <!-- MODAL POUR LE CHANGEMENT DE PSEUDO -->
+    <div id="modal_changementPseudo" class="modal" data-iziModal-title="Changer votre pseudo"  data-iziModal-subtitle="Changer votre pseudo puis cliquez sur valider ou annuler"  data-iziModal-icon="icon-home">
+        <div id="conteneur-modal">
+            <input type="text" class="input-modal" value="{{ user.PseudoUtilisateur }}" disabled>
+            <input type="text" class="input-modal" placeholder="Nouveau Pseudo" name="PseudoVoulu" id="PseudoVoulu" required>
+            <div class="msgInModal" id="msgInModalPseudo"></div>
+        </div>
+        <div id="conteneur-ChoiceModal">
+            <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+            <button class="btnModal submit h-transRight" onclick="AjaxPseudo('msgInModalPseudo')">Valider</button>
+        </div>
+    </div>
+
+    <div id="modal_changementMotDePasse" class="modal" data-iziModal-title="Changer votre mot de passe"  data-iziModal-subtitle="Changer votre mots de passe puis cliquez sur valider ou annuler"  data-iziModal-icon="icon-home">
+        <div id="conteneur-modal">
+            <input type="password" class="input-modal" name="AncienMotDePasse" id="AncienMotDePasse" placeholder="Ancien mot de passe">
+            <input type="password" class="input-modal" name="NewMotDePasse" id="NewMotDePasse" placeholder="Nouveau mot de passe">
+            <input type="password" class="input-modal" name="ConfirmationMotDePasse" id="ConfirmationMotDePasse" placeholder="Confirmation Nouveau mot de passe">
+            <div class="msgInModal" id="msgInModalMdp"></div>
+        </div>
+        <div id="conteneur-ChoiceModal">
+            <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+            <button class="btnModal submit h-transRight" onclick="AjaxMotDePasse('msgInModalMdp')">Valider</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename= 'js/gestionDeCompte.js') }}"></script>
+{% endblock %}

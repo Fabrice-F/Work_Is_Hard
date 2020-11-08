@@ -1,12 +1,13 @@
-header{
-    width:90%;
-    height: 100px;
+#blocHeader{
+    width:100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 25px;
+    margin: 20px 0 20px 0;
 }
-h1 {
+
+#titreHeader {
     width: 100%;
     border: 2px var(--myBlack) solid;
     height: 50px;
@@ -14,13 +15,45 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0px ;
     background: var(--myTheme);
+    font-size: 1.5vmax;
 }
-nav{
-    width:100%;
+.navStyle{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 1.5em;
+    justify-content: flex-end;
+    background: transparent;
+}
+.navStyle{
+    font-size: 1.5vmax;
+}
+.Menu{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@media screen and (max-width: 1000px) {
+    #titreHeader {
+        font-size: 30px;
+        word-wrap: break-word;
+        height: auto;
+        text-align: center;
+    }
+    
+    .navStyle{
+        border-bottom: 1px ridge black;
+    }
+    .Menu{
+        align-items: center;
+    }
+    .nav-link{
+        border: 1px ridge black;
+        margin:10px;
+        text-align: center;
+        background: var(--myTheme);
+        color: black !important ;
+        font-weight: bold !important ;
+        font-size: 16px;
+        width: 60% !important; 
+    }
 }

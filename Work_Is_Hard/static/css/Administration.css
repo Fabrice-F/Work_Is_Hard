@@ -1,0 +1,261 @@
+.BoxMediaStyle{
+    border :1px solid black;
+    background: var(--myTheme);
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.nav-style{
+    font-size: 1.5em;
+}
+/* === SECTION 1 ===*/
+.blocImgAndNomUserAttributionRole{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.imgAttributionRole{
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    margin-right: 15px;
+    padding: 0px;
+}
+.nomUserAttributionRole{
+    margin: 0px;
+    padding: 0px;
+}
+.divRowAllInput{
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5vmax;
+}
+.rowInputChangeRole{
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.divEnvoyerRoleUtilisateur{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding:10px 0 10px 0 ;
+}
+input[type='radio']{
+    visibility: hidden;
+}
+input[type='radio']:after {
+    content: '';
+
+    display: flex;
+    visibility: visible;
+    border: 2px solid white;
+    height: 100%;
+    width: 25px;
+    background-color: rgb(238, 238, 238);
+}
+.radioButtton-Posteur:checked:after{
+    background-color: #f8f399;
+}
+.radioButtton-Moderateur:checked:after{
+    background-color: #bf00ff;
+}
+.radioButtton-Administrateur:checked:after{
+    background-color: #468334;
+}
+
+
+
+/* === SECTION 2 ===*/
+
+.conteneurModeModeration{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 200px;
+    background: var(--myTheme);
+    border: 1px solid black;
+    box-shadow: 10px 10px 10px black;
+}
+#msgModeModeration{
+    font-size: 4vmax;
+}
+#msgErrorModeModeration{
+    color: red;
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    height: 50px;
+    min-height: auto;
+}
+.onoffswitch {
+    position: relative; width: 150px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 50px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 43px; padding: 0; line-height: 43px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ACTIVER";
+    padding-left: 10px;
+    background-color: #3C8000; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "DESACTIVER";
+    padding-right: 10px;
+    background-color: #F7DEDE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 36px; margin: 3.5px; height: 36px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 103px;
+    border: 2px solid #999999; border-radius: 100px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+.paragrapheModeModeration{
+    margin: 10px 0 0 15px;
+}
+#msgNouveauRole_ModeModeration{
+    text-transform: uppercase;
+    font-weight: bold;
+    color: orangered;
+}
+/* === SECTION 3 ===*/
+#txtAreaMsgInfo{
+    width: 100%;
+    font-size: 1.4vmax;
+    padding :15px;
+    resize: none;
+}
+#divValideMsgInfo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+@media (max-width: 960px) { 
+    .conteneurModeModeration{
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: auto;
+        padding: 20px;
+        min-width: 225px;
+    }
+    #msgModeModeration{
+        text-align: center;
+    }
+}
+@media (max-width: 768px) { 
+    .divRowAllInput{
+        flex-direction: column;
+        align-items: flex-start;
+        margin:20px;
+    }
+
+    .rowInputChangeRole{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 10px
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====== MODAL ===== */
+
+.paragrapheChangeRole{
+    height: auto;
+    margin: 20px;
+    font-size: 1.2vmax;
+}
+
+.RoleAccentuation{
+    font-weight: bold;
+}
+
+
+
+
+
+/* ========================================= */
+/* =============== RESPONSIVE ============== */
+/* ========================================= */
+
+@media screen and ( max-width: 768px) {
+    
+    .divRowAllInput{
+        font-size: 15px;
+    }
+
+    .divEnvoyerRoleUtilisateur{
+        height: 50px;
+        padding:0 ;
+    }
+
+    #txtAreaMsgInfo{
+        font-size: 20px;
+        padding :5px;
+    }
+
+}

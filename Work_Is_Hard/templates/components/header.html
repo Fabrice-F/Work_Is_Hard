@@ -1,11 +1,35 @@
 <link rel="stylesheet" href="{{ url_for('static', filename= 'css/components_style/header.css') }}">
 
-<header>
-    <h1>Travailler c'est trop dur</h1>
-    <nav>
-        <a href="/">Accueil</a>
-        <a href="/login">Mon compte</a>
-        <a href="/inscription">Inscription</a>
-        <a href="http://">A propos</a>
+<header id="blocHeader">
+
+    <h1 id="titreHeader">WORK IS HARD</h1>
+
+    <nav class="navbar navbar-expand-lg navbar-light navStyle">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            Menu<span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav Menu">
+                <a class="nav-item nav-link h-grow" href="/">Accueil</a>
+                <a class="nav-item nav-link h-grow" href="#">Aléatoire</a>
+                <a class="nav-item nav-link h-grow" href="#">A propos</a>
+
+                {% if user == null%}
+                    <a href="/inscription" class="nav-item nav-link h-grow">Inscription</a>
+                {% else %}    
+                    <a href="/GestionDeCompte" class="nav-item nav-link h-grow">Mon compte</a>
+                {% endif %} 
+
+                {% if user != null and user.IdRoleUtilisateur == 2 %}
+                    <a href="/Moderation1" class="nav-item nav-link h-grow">Moderation</a>
+                {% elif user != null and user.IdRoleUtilisateur == 3 %}
+                    <a href="/Moderation1" class="nav-item nav-link h-grow">Moderation</a>    
+                    <a href="/Administration" class="nav-item nav-link h-grow">Administration</a>
+                {% endif %} 
+
+            </div>
+        </div>
     </nav>
+
 </header>
+

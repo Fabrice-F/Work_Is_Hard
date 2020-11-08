@@ -1,0 +1,39 @@
+{% extends "heritageJinja/base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/informations.css') }}"> 
+{% endblock %}
+
+{% block title %}informations{% endblock %}
+
+{% block content %}
+
+    <h2> {{ message }} </h2>
+
+    {% if imgPosteOk !=null %}
+        <img src="{{ imgPosteOk }}">
+    {% endif %}
+
+    {% if redirect !=null %}
+        <p>redirection vers l'accueil dans <span id="secondeRedirect">5</span>s ...</p>
+    {% endif %}
+
+{% endblock %}
+
+{% block js %}
+    {% if redirect !=null %}
+        <script>
+            var timeleft = 5;
+            var downloadTimer = setInterval(function(){
+                timeleft--;
+                document.getElementById("secondeRedirect").textContent = timeleft;
+                if(timeleft <= 0)
+                    clearInterval(downloadTimer);
+            },1000);
+            setTimeout(function(){
+                window.location.href = "/";
+            },5000);
+        </script>
+    {% endif %}
+
+{% endblock %}

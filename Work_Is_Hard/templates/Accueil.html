@@ -1,60 +1,173 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Main.css') }}"> <!-- Flask fait le lien avec le css -->
-    <title>Accueil</title>
-</head>
-<body>
+{% extends "heritageJinja/base.html" %}
 
-    {% include  "components/header.html" %}
-    
-<!-- TEST CONDITION :
-    {% if 2-2 == 4  %} 
-        <p>ouii</p>
-    {% else %}
-        <p>noon</p>
-    {% endif %} 
--->
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Accueil.css') }}">
+{% endblock %}
 
-    <section id="information">
+{% block title %}Accueil{% endblock %}
 
-    </section>
-
+{% block content %}
     <div id="corp">
-        
-        <section id="Main">
+        <section id="blocGaucheCorpAccueil">
+            {% for poste in posteArray   %}
+                <div class="blocGif" >
+                    
+                    <div class="blocPartagePoste">
+                        <button title ="Copier le lien du gif" class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
+                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
+                        <button title ="" class="h-jello btnPartagePoste "><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
+                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
+                    </div>
 
-            <div class="blocGif">
-                <img src="https://media.giphy.com/media/zKDop2l5pVi7zYRXaM/giphy.gif" class="gif" alt="test">
-                <legend>Quand tes collègues te regarde sortir les poubelles en hiver</legend>
+                    <div class="blocLegendImagePoste">
+                        <legend id="titrePoste{{poste.IdPoste}}" class="titrePoste">{{ poste.TitrePoste }}</legend> 
+                        <figure class="figuregif" >
+                            <img src="{{ poste.AdressePoste }}" class="gifSize">
+                            <figcaption>
+                                    <h3 class="H3pseudoUtilsateurPoste">{{'Vous' if user!=undefined and user.IdUtilisateur == poste.IdUser else  poste.PseudoUtilisateurPoste}}</h3>
+                                    <h4 class="H4DatePoste">{{poste.DatePoste}}</h4>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    
+
+                    <div class="outilsAdmin">
+                        {% if user!=undefined and user.IdRoleUtilisateur != 1 %}
+                            <div>
+                                <select id="my-select" class="h-jello btnPartagePoste" onchange="moderationDirection(this.value,'{{ poste.IdPoste }}','{{ poste.IdUser }}','{{ poste.PseudoUtilisateurPoste }}')">
+                                    <option value="" selected disabled>-- Que souhaitez vous faire !? --</option>
+                                    <option class="optionModerationAccueil" value="1">Correction titre</option>
+                                    <option class="optionModerationAccueil" value="2">Suppression poste</option>                                   
+                                    {% if poste.IdRoleUserPoste < user.IdRoleUtilisateur %}
+                                        <option class="optionModerationAccueil" value="3">Bannir utilisateur</option>
+                                    {% endif%}
+                                </select>
+                            </div>                          
+
+                            <!-- <button title="Outils administration" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt="icone administrateur"></button> -->
+                        {% endif %}
+                    </div>
+
+                </div>
+            {% endfor %}
+
+            <div id="RowChangePage">
+                {% if page == null %}
+                    <div class="changePageBlocGauche">
+                    </div>
+                    <div class="changePageBlocDroit">
+                        <a class="changePageLink" href="/page2">Suivant</a>
+                    </div>
+
+                {% else %}
+                        <div class="changePageBlocGauche">
+                            {% if page-1 >= 1 %}
+                            <a class="changePageLink" href="/page{{ page-1 if page-1 >= 1 else '1' }}" >Precedent</a>
+                            {% endif %}
+                        </div>
+                    {% if page+1 <= NbPageMax %}
+                        <div class="changePageBlocDroit">
+                            <a class="changePageLink" href="/page{{ page+1 }}">Suivant</a>
+                        </div>
+                    {% endif %} 
+                {% endif %} 
             </div>
-
-            <div class="blocGif">
-                <img src="https://media.giphy.com/media/DHFUvl7EK111mMKobq/giphy.gif" class="gif" alt="test">
-                <legend>Quand ton patron arrive et que tu as oublié ton masque</legend>
-            </div>
-
-            <div class="blocGif">
-                <img src="https://media.giphy.com/media/spfXFxYbfh6Xm/giphy.gif" class="gif" alt="test">
-                <legend>Quand t'essaye de te remettre au sport après 10 ans</legend>
-            </div>
-
         </section>
 
-        {% include  "components/Connexion.html" %}
+        <div id="blocDroitCorpAccueil">
+
+            {% if user != null%}
+                <a href="/CreationDePoste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
+            {% endif %} 
+
+            {% include  "components/Connexion.html" %}
+        </div>
 
     </div>
+    <div id="modal_CopieOK"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
+        <!-- Modal content -->
+        <div class="conteneurModal">
+            <img id="imgModal" src="../static/img/Check-gif.gif" alt="">
+            <p>Le lien a été Copié!!</p>
+            <a href="javascript:void(0)" class="iziModal-button iziModal-button-close" data-izimodal-close=""></a>
+        </div>
+    </div>    
+
+    {% if user!=undefined and user.IdRoleUtilisateur != 1 %}
+
+        <div id="modalChangementTitrePoste" class="modal" data-iziModal-title="Changement titre"  data-iziModal-subtitle="Changer le titre du poste ?"  data-iziModal-icon="icon-home">
+    
+            <p id="msgTitrePoste" class="paragrapheChangementTitrePoste">L'ancien titre était :</p>
+            <p id="AncienTitrePoste" class="paragrapheChangementTitrePoste"></p>
+        
+            <div id="conteneur-modal">
+                <input type="text" class="input-modal" id="NouveauTitrePoste" maxlength="90">
+                <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpChangementTitrePoste">
+                <div class="msgInModal" id="msgInModalChangementTitrePoste"></div>
+            </div>
+        
+            <div id="conteneur-ChoiceModal">
+                <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+                <button class="btnModal submit h-transRight" id="btnValideChangementTitrePoste">Valider</button>
+            </div>
+    
+        </div>
+
+        <div id="modalSuppressionPoste" class="modal" data-iziModal-title="Supression du poste"  data-iziModal-subtitle="Vous allez supprimer le poste"  data-iziModal-icon="icon-home">
+    
+            <p id="RappelSuppressionPoste" class="paragrapheSuppressionPoste">Êtes vous sur de vouloir supprimer le poste de :</p>
+            <p id="SupplemmentSuppressionPoste" class="paragrapheSuppressionPoste"></p>
+        
+            <div id="conteneur-modal">
+                <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpSuppressionPoste">
+                <div class="msgInModal" id="msgInModalSuppressionPoste"></div>
+            </div>
+        
+            <div id="conteneur-ChoiceModal">
+                <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+                <button class="btnModal submit h-transRight" id="btnValideSuppressionPoste">Valider</button>
+            </div>
+    
+        </div>
 
 
+        <div id="modalBan" class="modal" data-iziModal-title="Ban de l'utilisateur"  data-iziModal-subtitle="Vous allez bannir l'utilisateur"  data-iziModal-icon="icon-home">
+    
+            <p id="RappelBan" class="paragrapheBan">Êtes vous sur de vouloir bannir : </p>
+            <p id="SupplemmentBan" class="paragrapheBan"></p>
+        
+            <div id="conteneur-modal">
+                <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpBan">
+                <div class="msgInModal" id="msgInModalBan"></div>
+            </div>
+        
+            <div id="conteneur-ChoiceModal">
+                <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+                <button class="btnModal submit h-transRight" id="btnValideBan">Valider</button>
+            </div>
+    
+        </div>
 
-    <footer>
-        <h2></h2>
-    </footer>
 
-    <button id="buttonTheme">☽</button>
-</body>
-<script type="text/javascript" src="/static/js/library/IncludeHtmlTools.js"></script>
-<script type="text/javascript" src="static/js/main.js"></script>
-</html>
+    {% endif %}
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename= 'js/Accueil.js') }}"></script>
+    {% if user!=undefined and user.IdRoleUtilisateur != 1 %}
+        <script>
+            $("#modalChangementTitrePoste").iziModal({
+                headerColor: '#00bfff',
+                onOpening: ActiveBlockBackground,
+                onClosing: disableBlockBackground,
+            });
+            $("#modalSuppressionPoste").iziModal({
+                headerColor: '#00bfff',
+                onOpening: ActiveBlockBackground,
+                onClosing: disableBlockBackground,
+            });
+        </script>
+    {% endif %}
+{% endblock %}

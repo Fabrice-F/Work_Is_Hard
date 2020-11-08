@@ -1,0 +1,1 @@
+venv\Scripts\activate&&set flask_app=WorkIsHard.py&&set flask_env=development&&python -m flask run

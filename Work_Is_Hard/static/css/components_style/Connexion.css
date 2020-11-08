@@ -1,38 +1,54 @@
-    /*========= BLOC DE CONNEXION ==========*/
-    #BlocConnexion{
-        background: var(--myTheme);
-        height: 200px;
-        width: 15%;
-        border: 2px var(--myBlack) solid;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-    }
-    
+/*========= BLOC DE CONNEXION ==========*/
+.BlocConnexion{
+    background: var(--myTheme);
+    height: 250px;
+    width: 100%;
+    border: 2px var(--myBlack) solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+h2{
+    padding: 0px;
+    margin: 0px;
+    font-size: 1.5vmax;
+}
+
+form{
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#buttonTheme{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    background:var(--myBlack);
+    color: var(--myWhite);
+}
+#buttonTheme:active{
+
+    background:var(--myWhite);
+    color: var(--myBlack);
+}
+label{
+    width: 90%;
+    font-weight: bold;
+}
+input{
+    width: 90%;
+}
+
+@media screen and (max-width: 960px) { 
+
     h2{
-        padding: 0px;
-        margin: 0px;
+        font-size: 20px;
     }
-    
-    form{
-        height: 75%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-    }
-    
-    #buttonTheme{
-        position: fixed;
-        right: 10px;
-        bottom: 10px;
-        background:var(--myBlack);
-        color: var(--myWhite);
-    }
-    #buttonTheme:active{
-    
-        background:var(--myWhite);
-        color: var(--myBlack);
-    }
-    
+}

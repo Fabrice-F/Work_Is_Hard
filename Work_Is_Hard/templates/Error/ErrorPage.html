@@ -1,0 +1,27 @@
+{% extends "heritageJinja/base.html" %}
+
+    
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/ErrorPage.css') }}">
+{% endblock %}
+
+{% block title %}Erreur{% endblock %}
+
+{% block content %}
+
+
+        <div id="corpErrorPage">
+
+            <div id="messageErrorPage" class="cssanimation pushReleaseFrom">{{messageError}}</div>
+            
+            <div id="blocConnexionErrorPage">
+                {% include  "components/Connexion.html" %}
+            </div>
+
+        </div>
+
+{% endblock %}
+
+
+{% block js %}
+{% endblock %}

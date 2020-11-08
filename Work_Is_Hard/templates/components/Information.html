@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="{{ url_for('static', filename= 'css/components_style/Information.css') }}">
+
+<div id="conteneurInformation">
+    
+    {% if messageInfo !=null %}
+    <div id="blocMessageInformation">
+        <p id="titreMessageInfoInformation">Informations :</p>
+        <p id="messageInfoInformation">{{messageInfo.ContenuMessageInformation }}</p>
+    </div>
+    {% endif %}
+    
+    {% if nbPosteTotal != null%}
+        <div id="blocNbPosteInformation">
+            <label id="labelNbPosteInformation">Postes totals :</label>
+            <input id="NbPosteInformation" type="text" value="{{ nbPosteTotal }}" name="nbPoste" disabled>
+        </div>
+    {% endif %}
+
+</div>

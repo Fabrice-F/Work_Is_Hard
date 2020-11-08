@@ -1,0 +1,192 @@
+:root{
+    --myBlack: rgb(30, 30, 30);
+    --myWhite:rgb(240, 240, 240);
+    --myTheme:#00bfff;
+    --myBackTheme:rgba(30, 143, 255, 0.3);
+}
+html ,body{
+    height: 100%;
+    width: 100%;
+    font: var(--myBlack);
+    overflow-x: hidden;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+/*     background: rgba(0, 0, 0, 0.434); */
+}
+
+.bodyConteneur{
+    /* border: 1px solid black; */
+}
+
+.conteneur{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/*  ligne pour les formulaires 
+    contenant généralement un label et un input */
+.rowForm{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing:border-box;
+}
+
+/*  classe appliqué pour les boutons simples */
+.btn-classique{
+    background: lightblue;
+    height: auto;
+    width: auto;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px black;
+    transition: all 0.5s;
+    padding: 5px;
+    border: 2px ridge black;
+    font-size: 1.0vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 30px;
+}
+
+.btn-classique:hover{
+    background: whitesmoke;
+    transition: all 0.5s;
+    transform: translateY(-5px) ;
+    cursor: pointer;
+}
+.btn-classique:active{
+    background: var(--myTheme);
+    color: white;
+}
+.btn-classique:focus{
+    text-decoration: none;
+    outline: none;
+}
+
+/* classe utilisé quand une balise lien (a) veut avoir l'apparaence d'un bouton */
+
+.lien-Btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    color: black;
+    text-decoration: none;
+}
+
+.lien-Btn-size{
+    width: 28%;
+    height: 50%;
+}
+
+/*============== MODAL ==============*/
+
+.modal{
+    background: var(--myWhite);
+}
+
+#conteneur-modal{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.input-modal{
+    margin: 20px;
+    height: 75px;
+    width: 90%;
+    background: lightblue;
+    font-size: 1.7vmax;
+    text-align: center ;
+}
+#conteneur-ChoiceModal{
+    height :40px;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.btnModal{
+    width: 45%;
+    height: 90%;
+    border-radius: 5px;
+    font-size: 1.7vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnModal:hover{
+    cursor: pointer;
+}
+.cancel{
+    background: white;
+}
+.submit{
+    background: lightblue;
+}
+.iziModal .iziModal-header-subtitle{
+    font-size: 15px;
+    color: wheat;
+}
+.msgInModal{
+    color: green;
+    min-height: 20px;
+}
+
+@media (max-width: 768px) { 
+    .btn-classique{
+        font-size: 15px;
+        width: auto;
+        padding: 5px;
+        min-width: 90%;
+        height: auto;
+    }
+    .input-modal{
+        font-size: 20px;
+    }
+    .btnModal{
+        font-size: 20px;
+    }
+    .msgInModal{
+        min-height: 40px;
+        text-align: center;
+    }
+}
+
+
+/*#region scrollbar*/
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track-piece {
+    background: rgba(116, 116, 116, 0.164);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--myTheme);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #000;
+}
+/*#endregion scrollbar*/
