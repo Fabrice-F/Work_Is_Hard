@@ -119,12 +119,12 @@ def publiePost():
 
         if (getModeModeration()==1):
             if InsertPosteAttenteModeration(UserId,TitrePoste,LienImg):
-                return render_template("informations.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk,message="Votre poste a été pris en compte et est en attente de validation")
+                return render_template("Transition.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk,message="Votre poste a été pris en compte et est en attente de validation")
             else:
                 return render_template("Error/ErrorPage.html",messageError="Un problème à eut lieu lors de l'enregistrement du poste")
         else:
             if InsertPoste(UserId,TitrePoste,LienImg):
-                return render_template("informations.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk ,message="Votre poste à été intégré !")
+                return render_template("Transition.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk ,message="Votre poste à été intégré !")
             else:
                 return render_template("Error/ErrorPage.html",messageError="Un problème à eut lieu lors de l'enregistrement du poste")
     else:
