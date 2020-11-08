@@ -50,11 +50,9 @@ $('#LienImg').on('input', function() {
         imageApercu = document.getElementById("apercuImg");
         imageApercu.src=this.value;
         imageApercu.style.visibility= "visible";
-        document.getElementById("LienImg").disabled = true;
         document.getElementById("btnClear").style.display = "flex";
+
         document.getElementById("btnClear").addEventListener("click",function(){
-            
-            document.getElementById("LienImg").disabled = false;
             imageApercu.src="";
             document.getElementById("LienImg").value="";
             document.getElementById("btnClear").style.display = "none";

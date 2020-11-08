@@ -181,7 +181,7 @@ def DemandeChangementPassword():
     
     UserId= session['utilisateur']["IdUtilisateur"]
     UserPseudo= session['utilisateur']["PseudoUtilisateur"]
-    UserPasswordCurrent= session['utilisateur']["MdpUtilisateur"]
+    UserPasswordCurrent= getUserCurrentPasswd(UserPseudo,UserId)
 
     oldPasswordClair=request.form["AncienMotDePasse"]
     newPasswordClair=request.form["NewMotDePasse"]
@@ -324,13 +324,14 @@ def updateMsgInformation():
 @app.route('/changementModeModeration',methods=['POST']) # Fonction appelée en ajax
 def changementModeModeration():
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
-        user = MapSessionToUser(session['utilisateur'])
+        
         MdpUserSaisieClair = request.form["MdpUser"]
         ModeModerationVoulu = request.form["ModeModerationVoulu"]
 
-        if isNullOrEmpty(user,ModeModerationVoulu,MdpUserSaisieClair) :
+        if isNullOrEmpty(ModeModerationVoulu,MdpUserSaisieClair) :
             return messageErrorChampsVide()
 
+        user = MapSessionToUser(session['utilisateur'])
         MdpUserSaisie = hashMdp(MdpUserSaisieClair)
         modeModerationVoulut = 1 if ModeModerationVoulu == "true" else 0
 

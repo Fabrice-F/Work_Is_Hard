@@ -66,7 +66,6 @@ def imageConfirmPoste():
 
 def isNullOrEmpty(*stringAVerifier):
     boolNullorEmpty=False
-    print(stringAVerifier)
     for string in stringAVerifier:
         if string.isspace() or string.strip()==False or len(string)==0:
             boolNullorEmpty =True
