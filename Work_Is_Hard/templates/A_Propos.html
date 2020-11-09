@@ -1,0 +1,59 @@
+{% extends "heritageJinja/base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/A_propos.css') }}">
+{% endblock %}
+
+{% block title %}A propos{% endblock %}
+
+{% block content %}
+
+    <h2 class="titreAPropos">À propos de work is hard: </h2>
+    <ul>
+
+    </ul>
+        <li class="paragrapheAPropos">Le site work is hard a été mis en place dans le cadre d'un projet d'étude sur le développement et plus précisément pour une licence informatique en tant que développeur full stack sur l annee 2020 2021.</li>
+
+        <li class="paragrapheAPropos">Le sujet de ce projet est un site web en utilisant le langage Python et le framework flask.</li>
+
+        <li class="paragrapheAPropos">L'intérêt principal de ce projet à été de s'adapter à une technologie et d'utiliser sa documentation afin d'apprendre et comprendre comment gérer les échanges entre le client et le serveur de manière sécurisés. </li>
+
+        <li class="paragrapheAPropos">Le présent site a un système de persistance de données qui permet aux " posteurs " de procéder à une inscription , puis à une connexion. Par le suite cela lui permet partage du contenu imagé (jpg, png) ou animé (gif) a caractère humoristique sur le thème du travail .</li>
+
+        <li class="paragrapheAPropos">D'un autre côté a été mis en place un système de modération qui permet de valider ou non le contenu d'un poste.Il a développé un système de correction des titres des postes afin effectué uen correction rapide si un titre serait problématique (fautes d'ortographes, oublie d'un mot, terme inaproprié.</li>
+
+        <li class="paragrapheAPropos">Un troisième mode a été ajouté en sus et est appelé le mode administration. Ce dernier permet aux administrateurs du site d'attribuer des rôles au collaborateur et au contributeur du site. Il a été mis aussi en place la possibilité de partager un message d'information à l'ensemble du site avec actualisation en temps réel. Le dernier mode ajouté, désactive le mode modération et permets en cas de besoin de désactivé la modération des poste du site. Cela a pour effet que le soit directement mise en ligne sur le site .</li>
+
+        <li class="paragrapheAPropos">Ce mode administration et modération et uniquement accessible aux usagers possédant le rôle requis.</li>  
+    </ul>
+
+    <h2 class="titreAPropos">À propos de nous: </h2>
+    
+    <div class="blocProfil">
+        <h3 class="titreAProposH3">FERRERE Fabrice</h3>
+        <div class="blocImageProfilAPropos">
+            <img class="imgProfilApropos" src="../static/img/User1.jpg">
+
+        </div>
+        <ul class="profilAPropos">
+
+            <li class="paragrapheAProposProfil">33 ans</li>
+            <li class="paragrapheAProposProfil">possède un diplôme de technicien support.</li>
+            <li class="paragrapheAProposProfil">Issue d'une reconversion professionnel.</li>
+            <li class="paragrapheAProposProfil">Développeur autodidacte pendant 2 ans.</li>
+            <li class="paragrapheAProposProfil">A créer des serveurs de jeux vidéos.</li>
+            <li class="paragrapheAProposProfil">Connaissance en .Net et Asp.Net, Java, Python et Front-end.</li>
+            <li class="paragrapheAProposProfil">Actuellement en licence à l'institut poly-informatique de Lyon.</li>
+    
+        </ul>
+    </div>
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+    <!-- <script src="{{ url_for('static', filename= 'js/.js') }}"></script> -->
+{% endblock %}

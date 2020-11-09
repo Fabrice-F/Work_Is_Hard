@@ -436,7 +436,39 @@ def updateTitrePAM():
 
 
 
+@app.route('/A_Propos')
+def A_Propos():
+    if 'utilisateur' in session:
+        msgTmp = getLastMessageInformation()
+        if(msgTmp==False):
+            messageInfo = MessageInformation("vide","Aucun",datetime.now())
+        else :
+            messageInfo = MapResultToMessageInformation(msgTmp)
+        return render_template("A_Propos.html",messageInfo=messageInfo,user=session['utilisateur'])
+    else:
+        return render_template("A_Propos.html")
 
+@app.route('/Cgu')
+def Cgu():
+    if 'utilisateur' in session:
+        msgTmp = getLastMessageInformation()
+        if(msgTmp==False):
+            messageInfo = MessageInformation("vide","Aucun",datetime.now())
+        else :
+            messageInfo = MapResultToMessageInformation(msgTmp)
+        return render_template("Cgu.html",messageInfo=messageInfo,user=session['utilisateur'])
+    return render_template("Cgu.html")
+
+@app.route('/Contact')
+def Contact():
+    if 'utilisateur' in session:
+        msgTmp = getLastMessageInformation()
+        if(msgTmp==False):
+            messageInfo = MessageInformation("vide","Aucun",datetime.now())
+        else :
+            messageInfo = MapResultToMessageInformation(msgTmp)
+        return render_template("Contact.html",messageInfo=messageInfo,user=session['utilisateur'])
+    return render_template("Contact.html")
 
 
 

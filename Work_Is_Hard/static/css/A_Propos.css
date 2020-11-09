@@ -1,0 +1,56 @@
+.titreAPropos{
+    margin: 50px 0 50px 0;
+}
+.titreAProposH3{
+    margin-bottom:40px ;
+    font-size: 20px;
+}
+.paragrapheAPropos{
+    width: 80%;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+
+.blocProfil{
+    width: 50%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+
+.blocImageProfilAPropos{
+    margin: 0 0 20px 0;
+    width: 150px;
+    height: 200px;
+    border: 1px dotted black;
+}
+.imgProfilApropos{
+    width: 100%;
+    height: 100%
+}
+.profilAPropos{
+    width: 90%;
+}
+.paragrapheAProposProfil{
+    width: 80%;
+    margin: 0 0 20px 0;
+}
+
+@media (max-width: 960px) { 
+    .blocProfil{
+        width: 90%;
+    }
+    .profilAPropos{
+        width: 100%;
+    }
+    .paragrapheAProposProfil{
+        width: 100%;
+        margin: 0 0 20px 0;
+    }
+}

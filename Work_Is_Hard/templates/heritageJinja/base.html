@@ -40,7 +40,7 @@
     {% if user != null%}
         <div>
             <select id="SelectMenu" class="h-jello btnPartagePoste" onchange="selectMenu(this)" >
-                <option value="" selected disabled>-- Que souhaitez vous faire !? --</option>
+                <option value="" selected disabled>-- {{ user.PseudoUtilisateur }} --</option>
                 <option class="optionModerationAccueil" value="/CreationDePoste">Poster</option>
                 <option class="optionModerationAccueil" value="/logout">Deconnexion</option>                                   
             </select>
