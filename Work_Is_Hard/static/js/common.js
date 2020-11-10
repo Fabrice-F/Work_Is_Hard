@@ -1,4 +1,7 @@
-function PrintMessage(element,message,error=false)
+
+// prend l'id d'une balise paragraphe : exemple =>  "inputMessageModalExemple"
+// Ne pas oublier les guillements !
+function PrintMessage(element,message,error=false,time=3000)
 {
     document.getElementById(element).style.color="Green";
     document.getElementById(element).innerHTML=message;
@@ -6,7 +9,7 @@ function PrintMessage(element,message,error=false)
         document.getElementById(element).style.color="Red";
     setTimeout(function(){
         document.getElementById(element).innerHTML="";
-    },3000);
+    },time);
 }
 
 function ActiveBlockBackground()
@@ -31,18 +34,18 @@ function isEmptyOrSpaces(str){
     return str === null || str.match(/^ *$/) !== null;
 }
 
-
-function SendAjax(url,textSuccess,baliseMessage,...value)
+// toutes les values doivents être de type string
+function SendAjax(url,textSuccess,baliseMessage,...values)
 {
     datas ="";
 
-    for (let i = 0; i < value.length; i++) {
-        variableName=  getVariableName(value[i])
-        datas = `${datas}${variableName}=${value[i]}` ; 
-        if(i+1!=value.length)
+    for (let i = 0; i < values.length; i++) {
+        variableName=  getVariableName(values[i])
+        datas = `${datas}${variableName}=${values[i]}` ; 
+        if(i+1!=values.length)
             datas +="&"
     }
-    
+    //console.log(datas)
     $.ajax({
         url : url, // La ressource ciblée
         type : 'POST', // Le type de la requête HTTP.
@@ -65,9 +68,15 @@ function SendAjax(url,textSuccess,baliseMessage,...value)
 
 }
 
+// Ne renvoi le nom de la variable que si string a l'intérieur
 function getVariableName(v) {
     for (var key in window) {
         if (window[key] === v)
             return key;
     }
+}
+
+function selectMenu(e)
+{
+    window.location.href =e.value;
 }

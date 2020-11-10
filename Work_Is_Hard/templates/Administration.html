@@ -57,21 +57,20 @@
                 {% endfor %}
             </section>
             <section id="section-2">
-                <div class="mediabox BoxMediaStyle">
-                    <img src="../static/img/admin-ico.png" class="imgAttributionRole"/>
-                    <h3>Asparagus Cucumber Cake</h3>
-                    <p>Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd. </p>
+
+                <div class="conteneurModeModeration">
+                    <p id="msgModeModeration">Le mode modération est :</p>
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" {{  "checked" if isModeModeractionActive != NONE and isModeModeractionActive  }} >
+                        <label class="onoffswitch-label" for="myonoffswitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <button class="btn-classique" onclick="openModalModeModeration('myonoffswitch','{{ isModeModeractionActive }}')">VALIDER</button>
+                    <input hidden type="button" id="OpenModalModeModeration" data-izimodal-open="#modalModeModeration" data-izimodal-transitionin="fadeInDown"/>
                 </div>
-                <div class="mediabox">
-                    <img src="../static/img/admin-ico.png" class="imgAttributionRole"/>
-                    <h3>Magis Kohlrabi Gourd</h3>
-                    <p>Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p>
-                </div>
-                <div class="mediabox">
-                    <img src="../static/img/admin-ico.png" class="imgAttributionRole"/>
-                    <h3>Ricebean Rutabaga</h3>
-                    <p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. </p>
-                </div>
+                <p id="msgErrorModeModeration"></p>
             </section>
 
             <section id="section-3">
@@ -104,7 +103,7 @@
             </section>
         </div><!-- /content -->
     </div><!-- /tabs -->
-</div>
+
 
 <div id="modal_changeRole" class="modal" data-iziModal-title="Changement sur utilisateur"  data-iziModal-subtitle="Vous allez changer une information sur l'utilisateur"  data-iziModal-icon="icon-home">
     
@@ -113,7 +112,7 @@
     <p id="msgNouveauRole_changeRole" class="paragrapheChangeRole"></p>
 
     <div id="conteneur-modal">
-        <input type="password" class="input-modal" placeholder="confirmer avec mots de passe" id="mdpChangeRole">
+        <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpChangeRole">
         <div class="msgInModal" id="msgInchangeRole"></div>
     </div>
     <div id="conteneur-ChoiceModal">
@@ -124,12 +123,8 @@
 
 <div id="modalMsgInfo" class="modal" data-iziModal-title="Message information"  data-iziModal-subtitle="Envoi message dans la rubrique information"  data-iziModal-icon="icon-home">
     
-    <p id="msgRappeMsgInfo" class="paragrapheMsgInfo"></p>
-    <p id="msgAncienRoleMsgInfo" class="paragrapheMsgInfo"></p>
-    <p id="msgNouveauRoleMsgInfo" class="paragrapheMsgInfo"></p>
-
     <div id="conteneur-modal">
-        <input type="password" class="input-modal" placeholder="confirmer avec mots de passe" id="mdpMsgInfo">
+        <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpMsgInfo">
         <div class="msgInModal" id="msgInModalMsgInfo"></div>
     </div>
 
@@ -138,7 +133,24 @@
         <button class="btnModal submit h-transRight" onclick="sendMsgInformation('msgInModalMsgInfo')" id="btnValideMsgInfo">Valider</button>
     </div>
 
+</div>
 
+<div id="modalModeModeration" class="modal" data-iziModal-title="Mode modération"  data-iziModal-subtitle="Change le mode de modération du site"  data-iziModal-icon="icon-home">
+    
+    <p id="msgRappeModeModeration" class="paragrapheModeModeration"></p>
+    <p id="msgNouveauRole_ModeModeration" class="paragrapheModeModeration"></p>
+
+    <div id="conteneur-modal">
+        <input type="password" class="input-modal" placeholder="Votre mots de passe" id="mdpModeModeration">
+        <div class="msgInModal" id="msgInModalModeModeration"></div>
+    </div>
+
+    <div id="conteneur-ChoiceModal">
+        <button class="btnModal cancel h-transLeft" data-izimodal-close="">Annuler</button>
+        <button class="btnModal submit h-transRight" onclick="sendModeModeration('msgInModalModeModeration','myonoffswitch')" id="btnValideModeModeration">Valider</button>
+    </div>
+
+</div>
 {% endblock %}
 
 

@@ -32,7 +32,6 @@
     justify-content: space-evenly;
 }
 
-
 @media screen and (max-width: 1000px) {
     #titreHeader {
         font-size: 30px;
@@ -50,8 +49,11 @@
     .nav-link{
         border: 1px ridge black;
         margin:10px;
-        width: 30%;
         text-align: center;
         background: var(--myTheme);
+        color: black !important ;
+        font-weight: bold !important ;
+        font-size: 16px;
+        width: 60% !important; 
     }
 }

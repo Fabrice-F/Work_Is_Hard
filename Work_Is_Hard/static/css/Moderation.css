@@ -1,0 +1,236 @@
+/* Rappel : PAM = poste attente modération */
+.conteneur{
+    min-height: 60%;
+
+}
+#msgIsModeModerationActive{
+    text-align: center;
+}
+
+#etatModeModeration{
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, Courier, monospace;
+}
+
+#msgAucunPoste{
+    color: lightblue;
+    margin: 50px;
+    min-height:125px ;
+
+}
+.BlocPAM{
+    height: 500px;
+    width: 90%;
+    background: lightblue;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+.titrePAM{
+    margin: 0;
+    padding: 0;
+    width: 80%;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 1.5vmax;
+}
+.img-User-InfosPAM{
+    height: 60%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imgPAM{
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.imgPAM:hover{
+    filter: blur(20px);
+}
+
+
+.legendImgPAM{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    font-size: 50px;
+    visibility: hidden;
+    padding: 30px;
+    pointer-events: none;
+}
+
+.imgPAM:hover ~ .legendImgPAM {
+    visibility: visible;
+}
+
+.blocValidPAM{
+    width: 80%;    
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+.btn-PAM{
+    width: 20%;
+    height: 100%;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 35px;
+}
+.btn-PAM:active{
+    width: 20%;
+    height: 100%;
+}
+.btn-PAM:hover{
+    transform: translateY(-5px);
+    transition: all 0.5s;
+}
+#btnRefusePAM{
+    background: lightcoral;
+}
+#btnAcceptePAM{
+    background: lightgreen;
+}
+#btnBanUserPAM{
+    background: rgb(255, 0, 225);
+}
+.btnChangeTitre{
+    font-size: 20px;
+    background: var(--myTheme);
+}
+#btnBanUserPAM{
+    font-weight: bold;
+}
+#RowChangePage{
+    margin-top: 100px;
+    width: 90%;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.changePageBlocGauche,.changePageBlocDroit{
+    height: 80%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-changePagePAM{
+    width: 90%;
+    height: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    font-size: 1.6vmax;
+    transition: all 0.5s;
+}
+.btn-changePagePAM:hover{
+    width: 100%;
+    text-decoration: none;
+    outline: none;
+    background: var(--myTheme);
+    transition: all 0.5s;
+    font-size: 1.9vmax;
+    box-shadow: 10px 10px 10px black;
+    transform: translateY(-5px);
+}
+.btn-changePagePAM:focus{
+
+    text-decoration: none;
+    outline: none;
+}
+#msgRappePAM,#msgNouveauRole_PAM{
+    margin:20px 0 0 20px
+}
+
+#msgNouveauRole_PAM{
+    font-weight: bold;
+}
+
+#modal_confirmStatusPAM{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 30px;
+}
+.conteneurModal{
+    height: 30px;
+    min-height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.paragrapheConfirmationStatusChoixPAM{
+    margin-top:10px ;
+    margin-left:30px ;
+    
+}
+#msgConfirmationStatusChoixPAM{
+    font-weight: bold;
+    color: orange;
+}
+
+.paragrapheChangementTitrePoste{
+    margin-top:10px ;
+    margin-left:30px ;
+}
+#AncienTitrePoste{
+    font-weight: bold;
+    color: blue;
+}
+@media screen and (max-width: 960px) { 
+    #modal_confirmStatusPAM{
+        height: 30px;
+        font-size: 12px;
+    }
+    .titrePAM{
+        width: 90%;
+        font-size:20px;
+    }
+    .img-User-InfosPAM{
+        width: 90%;
+    }
+    .blocValidPAM{
+        justify-content: space-between;
+    }
+    .btn-PAM{
+        width: 20%;
+        font-size: 25px;
+    }
+    .btnChangeTitre{
+        font-size: 18px;
+        min-width: 60px;
+    }
+    #btnBanUserPAM{
+        width: 20%;
+    }
+    .H3pseudoUserPAM{
+        font-size: 20px;
+    }
+    .H4DatePAM,.H4RolePAM{
+        font-size: 15px;
+    }
+
+}
+@media screen and (max-width: 300px) { 
+    .BlocPAM{
+        width: 100%;
+    }
+    
+}

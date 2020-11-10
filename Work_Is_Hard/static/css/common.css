@@ -73,6 +73,10 @@ html ,body{
     background: var(--myTheme);
     color: white;
 }
+.btn-classique:focus{
+    text-decoration: none;
+    outline: none;
+}
 
 /* classe utilisé quand une balise lien (a) veut avoir l'apparaence d'un bouton */
 
@@ -148,18 +152,58 @@ html ,body{
     min-height: 20px;
 }
 
+#SelectMenu{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background:url(../img/user-ico.png) center no-repeat;
+    background-size: cover;
+    color: transparent;
+    position: fixed;
+    right: 10px;
+    top: 30px;
+    border-radius: 100px;
+}
+
+#SelectMenu:focus{
+    text-decoration: none;
+    outline: none;
+}
+.optionModerationAccueil {
+    color: black;
+    padding:50px;
+    margin:50px;
+}
+.btnPartagePoste{
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    background: white;
+    transition: all 0.5s;
+}
 @media (max-width: 768px) { 
     .btn-classique{
         font-size: 15px;
         width: auto;
         padding: 5px;
-        min-width: 200px;
+        min-width: 90%;
+        height: auto;
     }
     .input-modal{
         font-size: 20px;
     }
     .btnModal{
         font-size: 20px;
+    }
+    .msgInModal{
+        min-height: 40px;
+        text-align: center;
+    }
+    #SelectMenu{
+        position: fixed;
+        right: 25px;
+        bottom: 15px;
+        height: 25px;
+        width: 25px;
     }
 }
 

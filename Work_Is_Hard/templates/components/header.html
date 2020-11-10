@@ -12,8 +12,6 @@
             <div class="navbar-nav Menu">
                 <a class="nav-item nav-link h-grow" href="/">Accueil</a>
                 <a class="nav-item nav-link h-grow" href="#">Aléatoire</a>
-                <a class="nav-item nav-link h-grow" href="#">A propos</a>
-
                 {% if user == null%}
                     <a href="/inscription" class="nav-item nav-link h-grow">Inscription</a>
                 {% else %}    
@@ -21,37 +19,14 @@
                 {% endif %} 
 
                 {% if user != null and user.IdRoleUtilisateur == 2 %}
-                    <a href="#" class="nav-item nav-link h-grow">Moderation</a>
+                    <a href="/Moderation1" class="nav-item nav-link h-grow">Moderation</a>
                 {% elif user != null and user.IdRoleUtilisateur == 3 %}
-                    <a href="#" class="nav-item nav-link h-grow">Moderation</a>    
+                    <a href="/Moderation1" class="nav-item nav-link h-grow">Moderation</a>    
                     <a href="/Administration" class="nav-item nav-link h-grow">Administration</a>
                 {% endif %} 
-
             </div>
         </div>
     </nav>
-
-
-
-<!--     <nav id="Menu">
-
-        <a href="/" class="h-grow">Accueil</a>
-        <a href="#" class="h-grow" >Aléatoire</a>
-        <a href="#" class="h-grow">A propos</a>
-        {% if user == null%}
-            <a href="/inscription" class="h-grow">Inscription</a>
-        {% else %}    
-            <a href="/GestionDeCompte" class="h-grow">Mon compte</a>
-        {% endif %} 
-
-        {% if user != null and user.IdRoleUtilisateur == 2 %}
-            <a href="#" class="h-grow">Moderation</a>
-        {% elif user != null and user.IdRoleUtilisateur == 3 %}
-            <a href="#" class="h-grow">Moderation</a>    
-            <a href="/Administration" class="h-grow">Administration</a>
-        {% endif %} 
-
-    </nav> -->
 
 </header>
 

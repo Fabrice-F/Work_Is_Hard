@@ -1,17 +1,9 @@
-$("#modal_changementPseudo").iziModal({
-    headerColor: '#00bfff',
-});
-$("#modal_changementMotDePasse").iziModal({
-    headerColor: '#00bfff',
-});
-
-
 function EnvoyerOuPas()
 {
     
     //TODO FAIRE UNE VERITABLE ALERTE
     if(window.Drapeau==false)
-        alert("Le gif ou l'image n'est pas correctement formaté");
+        PrintMessage("msgPubliePost","L'adresse du gif ou de l'image n'est pas correctement formaté",true,5000);
     TitrePoste = document.getElementById("TitrePoste").value;
     LienImg = document.getElementById("LienImg").value;
 
@@ -28,22 +20,47 @@ function EnvoyerOuPas()
     return false;
 }
 
-function changeApercu(e,baliseChanger)
-{
-    parent = document.getElementById(baliseChanger).parentElement;
-    balise = document.getElementById(baliseChanger);
-    imageApercu = document.getElementById("apercuImg");
-    if(baliseChanger =="apercuLegend"){
-        balise.innerHTML=e.value;
+$('#TitrePoste').on('input', function() {
+    var c = this.selectionStart,
+        v = $(this).val();
+    if((/[\/\\()~*<>{}]/g).test(v)) {
+        $(this).val(v.replace(/[&\/\\#,+()$~%.:*<>{}]/g, ''));
+        c--;
     }
-    else{
-        if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(e.value))
-        {
-            imageApercu.src=e.value;
-            imageApercu.style.visibility= "visible";
-        }
+    this.setSelectionRange(c, c);
+    document.getElementById("apercuLegend").innerHTML=this.value;
+});
+
+$('#LienImg').on('input', function() {
+    var c = this.selectionStart,
+        v = $(this).val();
+    if((/[,()~*<>{}]/g).test(v)) {
+        $(this).val(v.replace(/[&\/\\#,+()$~%.:*<>{}]/g, ''));
+        c--;
     }
-}
+    this.setSelectionRange(c, c);
+
+    //if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(this.value)) 
+    var regex= new RegExp('https?://(?:[a-z0-9\-]+\.)+[a-z0-9]{2,6}(?:/[^/#?]+)+\.(?:jpg|jpeg|gif|png)$')
+    if(regex.test(this.value)) 
+    {
+        imageApercu = document.getElementById("apercuImg");
+        imageApercu.src=this.value;
+        imageApercu.style.visibility= "visible";
+        document.getElementById("btnClear").style.display = "flex";
+
+        document.getElementById("btnClear").addEventListener("click",function(){
+            imageApercu.src="";
+            document.getElementById("LienImg").value="";
+            document.getElementById("btnClear").style.display = "none";
+            document.getElementById("btnClear").removeEventListener("click");
+
+        });
+
+    }
+});
+
+
 
 function onerrorApercu(bal)
 {
