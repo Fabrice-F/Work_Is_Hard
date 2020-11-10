@@ -51,11 +51,11 @@ def ConfirmationInscription():
     reg= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,100}$"
     pattern_regex_password_user = re.compile(reg)
 
-    nom = request.form["nom"]
-    prenom = request.form["prenom"]    
-    pseudo = request.form["pseudo"]
-    mot_de_passe_clair = request.form["motdepasse"]
-    confirm_mdp = request.form["confirm_mdp"]
+    nom = request.form["nom"].strip()
+    prenom = request.form["prenom"].strip()    
+    pseudo = request.form["pseudo"].strip()
+    mot_de_passe_clair = request.form["motdepasse"].strip()
+    confirm_mdp = request.form["confirm_mdp"].strip()
     datenaissance = request.form["datenaissance"]
 
 
@@ -63,53 +63,68 @@ def ConfirmationInscription():
         error ="Le champs nom est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
 
+    if not size_string_is_correct(nom,2,30):
+        error ="Le champs nom ne contient pas le nombre de caractères appropriés."
+        return render_template("inscription.html", error=error)
+
+
     if isNullOrEmpty(prenom) or not re.match(pattern_regex_nom_prenom,prenom):
         error ="Le champs prenom est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
 
+    if not size_string_is_correct(prenom,2,30):
+        error ="Le champs prenom ne contient pas le nombre de caractères appropriés."
+        return render_template("inscription.html", error=error)
+
+
+
     if isNullOrEmpty(pseudo) or not re.match(pattern_regex_info_pseudo,pseudo):
         error ="Le champs pseudo est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
-    
-    
-    if len(pseudo)<5:
-        error ="Le champs pseudo ne comporte pas 5 caractères"
+
+    if not size_string_is_correct(pseudo,3,15):
+        error ="Le champs pseudo ne contient pas le nombre de caractères appropriés."
         return render_template("inscription.html", error=error)
-    
-    if len(pseudo) > 15:
-        error = "Le champs pseudo comporte plus de 15 caractères"
-        return render_template("inscription.html", error=error)
+
 
     if isNullOrEmpty(mot_de_passe_clair):
-        error ="Le champs mot de passe est vide ou remplie d'espace"
+        error ="Le champs mot de passe est vide..."
         return render_template("inscription.html", error=error)
 
+
+
     if isNullOrEmpty(confirm_mdp):
-        error ="Le champs confirmation mots de passe est vide ou remplie d'espace"
+        error ="Le champs confirmation mots de passe est vide..."
         return render_template("inscription.html", error=error)
+
 
     if not re.search(pattern_regex_password_user, mot_de_passe_clair):
         error ="Le champs mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ..."
         return render_template("inscription.html", error=error)
 
+
     if not re.search(pattern_regex_password_user, confirm_mdp):
         error ="Le champs confirmation mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ..."
         return render_template("inscription.html", error=error)
+    
+    
+    if not verifDateNaissance(datenaissance):
+        error ="Vous n'avez pas l'age requis pour vous inscrire"
+        return render_template("inscription.html", error=error)
+            
 
-    if mot_de_passe_clair != confirm_mdp:
+    mdp = hashMdp(mot_de_passe_clair)
+    mdpConfirm = hashMdp(confirm_mdp)
+
+    if mdp != mdpConfirm:
         error ="Le mots de passe et sa confirmation ne sont pas identique."
         return render_template("inscription.html", error=error)
 
-    if isNullOrEmpty(datenaissance):
-        error ="Le date de naissance est vide n'est pas remplie"
-        return render_template("inscription.html", error=error)
-
-
-    mdp = hashMdp(mot_de_passe_clair)
 
     if IfPseudoDisponible(pseudo) == True:
+
         if insert_user_inscription(pseudo, nom, prenom, mdp, datenaissance):
-            imgPosteOk = imageConfirmPoste()
+            imgPosteOk = imageConfirmPoste()   
             return render_template("Transition.html", redirect=True, imgPosteOk=imgPosteOk, message="Votre inscription c'est bien déroulé, vous aller être redirigé vers la page d'accueil !")
         else:
             return "problème d'inscription"
