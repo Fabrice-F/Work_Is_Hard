@@ -1,6 +1,7 @@
 import math
 import hashlib
 import random
+import re
 
 from flask import request
 from Classes import *
@@ -80,3 +81,15 @@ def isNullOrEmpty(*stringAVerifier):
         if string.isspace() or string.strip() == False or len(string) == 0:
             boolNullorEmpty = True
     return boolNullorEmpty
+
+
+
+
+def isCorrectStringRegex(*stringAVerifier):
+    pattern = "^[a-zA-Z0-9]*$"
+    isStringOk = True
+    for s in stringAVerifier:
+        if not re.match(pattern, s):
+            return s
+    return isStringOk
+

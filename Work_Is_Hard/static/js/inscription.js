@@ -21,7 +21,7 @@ function ChampsVide(){
     }else{
         return false 
     }
-
+    
     if(isEmptyOrSpaces(nom)){
             PrintMessage("msgErrorConfirmationInscription","Votre champ nom est vide",true);
             return false;

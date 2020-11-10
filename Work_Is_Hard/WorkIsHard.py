@@ -2,6 +2,7 @@
 from markupsafe import escape
 import hashlib
 import sqlite3
+import re
 from flask import Flask, url_for, render_template, session, request, redirect
 from Dao import *
 from datetime import *
@@ -53,18 +54,20 @@ def ConfirmationInscription():
     # hash des mots de passes
     mdp = hashMdp(request.form["motdepasse"])
 
-    # donnees = hash(tuple([nom, prenom],))
+    #donnees = hash(tuple([nom, prenom],))
 
     #TODO Est-ce la bonne méthode ?
-    # pattern = ["^[a-zA-Z0-9]*$"]
-    # if not re.match(pattern, donnees, pseudo):
-    #     print("Vous devez entrez des caractères A-Z ou a-z et un nombre entre 0-9")
-    #     print(donnees)
-    #     print(pseudo)
-    # elif len(donnees or pseudo) > 15:
-    #     print("Votre champ dépasse 15 caractères")
-    #     print(donnees)
-    #     print(pseudo)
+
+    retour =isCorrectStringRegex(pseudo,nom,prenom) 
+    if retour ==True :
+        print("ok")
+    else:
+        print(f"{retour} possède des caractères spéciaux")
+
+    """elif len(donnees or pseudo) > 15:
+        print("Votre champ dépasse 15 caractères")
+        print(donnees)
+        print(pseudo)"""
 
     if IfPseudoDisponible(pseudo) == True:
         if confirmationInscription(pseudo, nom, prenom, mdp, datenaissance):

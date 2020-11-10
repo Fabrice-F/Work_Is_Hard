@@ -339,7 +339,7 @@ def confirmationInscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance
                 NomUtilisateur, 
                 Prenom, 
                 MotDePasseUtilisateur, 
-                AgeUtilisateur) 
+                DateNaissanceUtilisateur) 
             VALUES (?, ?, ?, ?, ?) 
         """
         c.execute(request, (pseudo, nom, prenom,
