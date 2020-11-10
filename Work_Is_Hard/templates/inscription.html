@@ -11,23 +11,23 @@
         
         <div class="rowFormInscription">
             <label class="labelInscription" for="NomFormulaireInscription">Nom* :</label>
-            <input class="inputFormInscription" id="NomFormulaireInscription" type="text" minlength="2" placeholder="DOE"  name="nom">
+            <input class="inputFormInscription" id="NomFormulaireInscription" type="text" minlength="2" maxlength="15" required placeholder="DOE"  name="nom">
         </div>
 
         <div class="rowFormInscription">
             <label class="labelInscription" for="PrenomFormulaireInscription">Prenom* :</label>
-            <input class="inputFormInscription" id="PrenomFormulaireInscription" type="text"  minlength="2" placeholder="John"  name="prenom">
+            <input class="inputFormInscription" id="PrenomFormulaireInscription" type="text" minlength="2" maxlength="15" required placeholder="John"  name="prenom">
         </div>
 
         <div class="rowFormInscription">
             <label class="labelInscription" for="PseudoFormulaireInscription">Pseudo* :</label>
-            <input class="inputFormInscription" id="PseudoFormulaireInscription" type="text"  minlength="5" maxlength="15" placeholder="5 caractères mininum, 15 maximum" name="pseudo">
+            <input class="inputFormInscription" id="PseudoFormulaireInscription" type="text"  minlength="3" required maxlength="15" placeholder="3 caractères mininum, 15 maximum" name="pseudo">
         </div>
 
         <div class="rowFormInscription rowMotdePasse-Message" >
             <div class="ligneMotsPasse">
                 <label class="labelInscription" for="mot_de_passe">Mots de passe* :</label>
-                <input class="inputFormInscription"  type="password"  name="motdepasse" placeholder="********" id="mot_de_passe">
+                <input class="inputFormInscription"  type="password"  name="motdepasse" minlength="8" required  placeholder="********" id="mot_de_passe">
             </div>
             <div class="ligneMsgMotsPasse">
                 <p class="paragrapheInfoMotPasseInscription">8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial</p>
@@ -37,7 +37,7 @@
         <div class="rowFormInscription rowMotdePasse-Message">
             <div class="ligneMotsPasse">
                 <label class="labelInscription" for="confirm_mdp">Confirmation mots de passe* :</label>
-                <input class="inputFormInscription" type="password"  name="confirm_mdp"  placeholder="********" id="confirm_mdp">
+                <input class="inputFormInscription" type="password"  name="confirm_mdp"  minlength="8" required placeholder="********" id="confirm_mdp">
             </div>
             <div class="ligneMsgMotsPasse">
                 <p class="paragrapheInfoMotPasseInscription">8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial</p>
@@ -46,7 +46,7 @@
 
         <div class="rowFormInscription">
             <label class="labelInscription" for="dateNaissance">Date de naisssance* :</label>
-            <input class="inputFormInscription" type="date" id="dateNaissance" min="1900-01-01"  name="datenaissance">
+            <input class="inputFormInscription" type="date" id="dateNaissance" min="1900-01-01" required name="datenaissance">
         </div>
 
         <button class="btn-classique btnValideInscription">ENVOYER</button>
