@@ -1,7 +1,7 @@
 from flask import Flask, url_for, render_template ,session, request, redirect   # render_template permet de mettre des pages html
 from Dao import *
 from markupsafe import escape
-import hashlib , sqlite3
+import hashlib , sqlite3, re
 from datetime import *
 from ConstanteAndTools import *
 
@@ -43,10 +43,27 @@ def ConfirmationInscription():
     #hash des mots de passes 
     mdp = hashMdp(request.form["motdepasse"])
 
-    if confirmationInscription(pseudo, nom, prenom, mdp, datenaissance):
-        return redirect(url_for('index'))
-    else:
-        return "Error"
+    # donnees = hash(tuple([nom, prenom],))
+
+    #TODO Est-ce la bonne méthode ?
+    # pattern = ["^[a-zA-Z0-9]*$"]
+    # if not re.match(pattern, donnees, pseudo):
+    #     print("Vous devez entrez des caractères A-Z ou a-z et un nombre entre 0-9")
+    #     print(donnees)
+    #     print(pseudo)
+    # elif len(donnees or pseudo) > 15:
+    #     print("Votre champ dépasse 15 caractères")
+    #     print(donnees)
+    #     print(pseudo)
+
+    if IfPseudoDisponible(pseudo) == True:
+        if confirmationInscription(pseudo, nom, prenom, mdp, datenaissance):
+            return "Félication"
+        else:
+            return "problème d'inscription"
+    else: #si pseudo existe 
+        error="Le pseudo est déja pris" 
+        return render_template("inscription.html", pseudo=pseudo, error=error)
 
 
 
