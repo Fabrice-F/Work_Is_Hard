@@ -31,23 +31,29 @@ function EnvoiFormulaireInscription(){
         PrintMessage("msgErrorConfirmationInscription","Le champs pseudo ne comporte pas 5 caractères ...",true);
         return false;
     }
+
+    // rajouter max 15 caractère pour pseudo
+
     if(isEmptyOrSpaces(mdp)){
-        PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe  est vide ou remplie d'espace ...",true);
+        PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe est vide ou remplie d'espace ...",true);
         return false;
     }
-    console.log(isPasswordFormatCorrect(mdp));
+    
+    if(isEmptyOrSpaces(confirmation_mdp)){
+        PrintMessage("msgErrorConfirmationInscription","Le champs confirmation de mots de passe  est vide ou remplie d'espace ...",true);
+        return false;
+    }    
+
     if(!isPasswordFormatCorrect(mdp)){
     
         PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ...",true);
         return false;
     }
+    // tester si confirme format correct
 
-    if(isEmptyOrSpaces(confirmation_mdp)){
-        PrintMessage("msgErrorConfirmationInscription","Le champs confirmation de mots de passe  est vide ou remplie d'espace ...",true);
-        return false;
-    }
+
     if(isEmptyOrSpaces(dateNaissance)){
-        PrintMessage("msgErrorConfirmationInscription","Le champs date de naissance est vide ou remplie d'espace ... ",true);
+        PrintMessage("msgErrorConfirmationInscription","Le champs date de naissance n'est pas remplie ... ",true);
         return false;
     }
 

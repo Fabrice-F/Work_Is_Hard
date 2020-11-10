@@ -329,7 +329,7 @@ def getLastMessageInformation():
 # TODO : Close la connexion
 
 
-def confirmationInscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance):
+def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance):
     try:
         conn = OpenConnexion()
         c = conn.cursor()

@@ -45,33 +45,70 @@ def inscription():
 
 @app.route('/ConfirmationInscription', methods=['POST'])
 def ConfirmationInscription():
-    # Récupération des informations de la page inscription.html
-    pseudo = request.form["pseudo"]
+    pattern_regex_info_user = "^[a-zA-Z0-9]*$"
+    reg= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,20}$"
+    pattern_regex_password_user = re.compile(reg)
+
     nom = request.form["nom"]
-    prenom = request.form["prenom"]
+    prenom = request.form["prenom"]    
+    pseudo = request.form["pseudo"]
+    mot_de_passe_clair = request.form["motdepasse"]
+    confirm_mdp = request.form["confirm_mdp"]
     datenaissance = request.form["datenaissance"]
 
-    # hash des mots de passes
-    mdp = hashMdp(request.form["motdepasse"])
+    
+    #♣TODO : Faire uen regex pour le nom et le prenom juste avec majuscule et miniscule ( sans chiffre)
 
-    #donnees = hash(tuple([nom, prenom],))
+    if isNullOrEmpty(nom) or not re.match(pattern_regex_info_user,nom):
+        error ="Le champs nom est vide ou contient des caractères non appropriés."
+        return render_template("inscription.html", error=error)
 
-    #TODO Est-ce la bonne méthode ?
+    if isNullOrEmpty(prenom) or not re.match(pattern_regex_info_user,prenom):
+        error ="Le champs prenom est vide ou contient des caractères non appropriés."
+        return render_template("inscription.html", error=error)
 
-    retour =isCorrectStringRegex(pseudo,nom,prenom) 
-    if retour ==True :
-        print("ok")
-    else:
-        print(f"{retour} possède des caractères spéciaux")
+    if isNullOrEmpty(pseudo) or not re.match(pattern_regex_info_user,pseudo):
+        error ="Le champs pseudo est vide ou contient des caractères non appropriés."
+        return render_template("inscription.html", error=error)
+    
+    
+    if len(pseudo)<5:
+        error ="Le Le champs pseudo ne comporte pas 5 caractères"
+        return render_template("inscription.html", error=error)
+        
+    #♣TODO :  Vérifier si le pseudo n'est pas supérieur a 15 caractères.
 
-    """elif len(donnees or pseudo) > 15:
-        print("Votre champ dépasse 15 caractères")
-        print(donnees)
-        print(pseudo)"""
+    if isNullOrEmpty(mot_de_passe_clair):
+        error ="Le champs mot de passe est vide ou remplie d'espace"
+        return render_template("inscription.html", error=error)
+
+    if isNullOrEmpty(confirm_mdp):
+        error ="Le champs confirmation mots de passe est vide ou remplie d'espace"
+        return render_template("inscription.html", error=error)
+
+    if not re.search(pattern_regex_password_user, mot_de_passe_clair):
+        error ="Le champs mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ..."
+        return render_template("inscription.html", error=error)
+
+    if not re.search(pattern_regex_password_user, confirm_mdp):
+        error ="Le champs confirmation mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ..."
+        return render_template("inscription.html", error=error)
+
+    if mot_de_passe_clair != confirm_mdp:
+        error ="Le mots de passe et sa confirmation ne sont pas identique."
+        return render_template("inscription.html", error=error)
+
+    if isNullOrEmpty(datenaissance):
+        error ="Le date de naissance est vide n'est pas remplie"
+        return render_template("inscription.html", error=error)
+
+
+    mdp = hashMdp(mot_de_passe_clair)
 
     if IfPseudoDisponible(pseudo) == True:
-        if confirmationInscription(pseudo, nom, prenom, mdp, datenaissance):
-            return "Félication"
+        if insert_user_inscription(pseudo, nom, prenom, mdp, datenaissance):
+            imgPosteOk = imageConfirmPoste()
+            return render_template("Transition.html", redirect=True, imgPosteOk=imgPosteOk, message="Votre inscription c'est bien déroulé, vous aller être redirigé vers la page d'accueil !")
         else:
             return "problème d'inscription"
     else: #si pseudo existe 
