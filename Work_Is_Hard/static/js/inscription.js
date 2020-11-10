@@ -20,7 +20,7 @@ function EnvoiFormulaireInscription(){
         return false;
     }
 
-    if (!ifStringRespectcaracterNb(NomFormulaire,2,15)){
+    if (!ifStringRespectcaracterNb(NomFormulaire,2,30)){
         PrintMessage("msgErrorConfirmationInscription","Le champs nom ne contient pas le nombre de caractères requis  ...",true);
         return false;
     }
@@ -37,7 +37,7 @@ function EnvoiFormulaireInscription(){
         return false;
     }
 
-    if (!ifStringRespectcaracterNb(PrenomFormulaire,2,15)){
+    if (!ifStringRespectcaracterNb(PrenomFormulaire,2,30)){
         PrintMessage("msgErrorConfirmationInscription","Le champs prenom ne contient pas le nombre de caractères requis  ...",true);
         return false;
     }
@@ -91,9 +91,6 @@ function EnvoiFormulaireInscription(){
         PrintMessage("msgErrorConfirmationInscription","Le champs date de naissance n'est pas remplie ... ",true);
         return false;
     }
-    PrintMessage("msgErrorConfirmationInscription","OK",true);
-
-    return false;
     if(mdp == confirmation_mdp){
         return true;
     }
