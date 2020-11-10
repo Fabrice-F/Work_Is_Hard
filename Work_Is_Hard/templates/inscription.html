@@ -7,36 +7,50 @@
 {% block title %}Inscription{% endblock %}
 
 {% block content %}
-
     <form action="ConfirmationInscription" method="POST" id="FormInscription" onsubmit="return EnvoiFormulaireInscription()">
+        
         <div class="rowFormInscription">
-            <label for="">Nom :</label>
-            <input class="inputFormInscription" id="NomFormulaireInscription" type="text" required name="nom">
+            <label class="labelInscription" for="NomFormulaireInscription">Nom* :</label>
+            <input class="inputFormInscription" id="NomFormulaireInscription" type="text" minlength="2" placeholder="DOE" required name="nom">
         </div>
+
         <div class="rowFormInscription">
-            <label for="">Prenom :</label>
-            <input class="inputFormInscription" id="PrenomFormulaireInscription" type="text" required name="prenom">
+            <label class="labelInscription" for="PrenomFormulaireInscription">Prenom* :</label>
+            <input class="inputFormInscription" id="PrenomFormulaireInscription" type="text"  minlength="2" placeholder="John" required name="prenom">
         </div>
+
         <div class="rowFormInscription">
-            <label for="">Pseudo :</label>
-            <input class="inputFormInscription" id="PseudoFormulaireInscription" type="text" required name="pseudo">
+            <label class="labelInscription" for="PseudoFormulaireInscription">Pseudo* :</label>
+            <input class="inputFormInscription" id="PseudoFormulaireInscription" type="text" required minlength="5" placeholder="5 caractères mininum, 15 maximum" name="pseudo">
         </div>
+
+        <div class="rowFormInscription rowMotdePasse-Message" >
+            <div class="ligneMotsPasse">
+                <label class="labelInscription" for="mot_de_passe">Mots de passe* :</label>
+                <input class="inputFormInscription"  type="password" required name="motdepasse" placeholder="********" id="mot_de_passe">
+            </div>
+            <div class="ligneMsgMotsPasse">
+                <p class="paragrapheInfoMotPasseInscription">8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial</p>
+            </div>
+        </div>
+
+        <div class="rowFormInscription rowMotdePasse-Message">
+            <div class="ligneMotsPasse">
+                <label class="labelInscription" for="confirm_mdp">Confirmation mots de passe* :</label>
+                <input class="inputFormInscription" type="password" required name="confmdp"  placeholder="********" id="confirm_mdp">
+            </div>
+            <div class="ligneMsgMotsPasse">
+                <p class="paragrapheInfoMotPasseInscription">8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial</p>
+            </div>
+        </div>
+
         <div class="rowFormInscription">
-            <label for="">Mots de passe :</label>
-            <input class="inputFormInscription"  type="password" required name="motdepasse" id="mot_de_passe">
+            <label class="labelInscription" for="dateNaissance">Date de naisssance* :</label>
+            <input class="inputFormInscription" type="date" id="dateNaissance" min="1900-01-01" required name="datenaissance">
         </div>
-        <div class="rowFormInscription">
-            <label for="">Confirmation mots de passe :</label>
-            <input class="inputFormInscription" type="password" required name="confmdp" id="confirm_mdp">
-        </div>
-        <div class="rowFormInscription">
-            <label for="">Date de naisssance :</label>
-            <input class="inputFormInscription" type="date" required name="datenaissance">
-        </div>
-        <button onclick="EnvoiFormulaireInscription(), ChampsVide()"> envoyer</button>
-        {% if error!= null %}
-            <p id="msgErrorConfirmationInscription">{{ error }}</p>
-        {% endif %}
+
+        <button class="btn-classique btnValideInscription">ENVOYER</button>
+        <p id="msgErrorConfirmationInscription">{{ error if error!= null}}</p>
     </form>
     {% endblock %}
 

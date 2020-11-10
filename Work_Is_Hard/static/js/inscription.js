@@ -1,11 +1,61 @@
+datePickerId=document.getElementById("dateNaissance");
+year = new Date().getFullYear()-18
+month = new Date().getMonth()
+day = new Date().getDate()
+datePickerId.max =new Date(year,month,day).toISOString().split("T")[0];
+
 function EnvoiFormulaireInscription(){
+
+    var NomFormulaire = document.getElementById("NomFormulaireInscription").value;
+    var PrenomFormulaire = document.getElementById("PrenomFormulaireInscription").value;
+    var PseudoFormulaire = document.getElementById("PseudoFormulaireInscription").value;
     var mdp = document.getElementById("mot_de_passe").value;
     var confirmation_mdp = document.getElementById("confirm_mdp").value;
+    var dateNaissance = document.getElementById("dateNaissance").value;
+
+
+    if (isEmptyOrSpaces(NomFormulaire))
+    {
+        PrintMessage("msgErrorConfirmationInscription","Le champs nom est vide ou remplie d'espace ...",true);
+        return false;
+    }
+    if(isEmptyOrSpaces(PrenomFormulaire)){
+        PrintMessage("msgErrorConfirmationInscription","Le champs prenom est vide ou remplie d'espace ...",true);
+        return false;
+    }
+    if(isEmptyOrSpaces(PseudoFormulaire)){
+        PrintMessage("msgErrorConfirmationInscription","Le champs pseudo est vide ou remplie d'espace ...",true);
+        return false;
+    }
+    if(PseudoFormulaire.length<5){
+        PrintMessage("msgErrorConfirmationInscription","Le champs pseudo ne comporte pas 5 caractères ...",true);
+        return false;
+    }
+    if(isEmptyOrSpaces(mdp)){
+        PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe  est vide ou remplie d'espace ...",true);
+        return false;
+    }
+    console.log(isPasswordFormatCorrect(mdp));
+    if(!isPasswordFormatCorrect(mdp)){
     
+        PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ...",true);
+        return false;
+    }
+
+    if(isEmptyOrSpaces(confirmation_mdp)){
+        PrintMessage("msgErrorConfirmationInscription","Le champs confirmation de mots de passe  est vide ou remplie d'espace ...",true);
+        return false;
+    }
+    if(isEmptyOrSpaces(dateNaissance)){
+        PrintMessage("msgErrorConfirmationInscription","Le champs date de naissance est vide ou remplie d'espace ... ",true);
+        return false;
+    }
+
     if(mdp == confirmation_mdp){
         return true;
-    }else{
-        alert("les mots de passe sont differents");
+    }
+    else{
+        PrintMessage("msgErrorConfirmationInscription","Les mots de passe sont differents ...",true);
         return false;
     }
 }
@@ -33,4 +83,11 @@ function ChampsVide(){
         return false;
     }
     return false;
+}
+
+function isPasswordFormatCorrect(str)
+{
+    var regularExpression = new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/);
+
+    return regularExpression.test(str)
 }
