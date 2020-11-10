@@ -75,3 +75,8 @@ function getVariableName(v) {
             return key;
     }
 }
+
+function selectMenu(e)
+{
+    window.location.href =e.value;
+}

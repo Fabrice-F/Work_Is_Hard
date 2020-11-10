@@ -12,7 +12,7 @@
     <h2 id="msgIsModeModerationActive">le mode moderation est actuellement: <span id="etatModeModeration"> {{ 'ACTIVÉ' if isModeModeractionActive else 'DÉSACTIVÉ'}} </span></h2>
     
     {% if postesAM|length ==0 %}
-        <h2 id="msgAucunPoste">AUCUN POSTE A MODÉRER</span></h2>
+        <h3 id="msgAucunPoste">AUCUN POSTE A MODÉRER</span></h2>
     {% endif %}
 
     {% for poste in postesAM %}

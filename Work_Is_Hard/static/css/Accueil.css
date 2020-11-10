@@ -179,6 +179,17 @@ figcaption{
     width: 100%;
     height: auto;
 }
+.testPartage{
+    position: absolute;
+    display: block;
+    height: 1.2rem;
+    width: 1.2rem;
+    bottom: 1rem;
+    left: 0.6rem;
+    background-image: url(../img/User1.jpg);
+    background-size: 1.2rem 1.2rem;
+    background-repeat: no-repeat;
+}
 /*======= FIN PARTIE POSTE ========*/
 
 

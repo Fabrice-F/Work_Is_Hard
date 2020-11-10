@@ -12,8 +12,6 @@
             <div class="navbar-nav Menu">
                 <a class="nav-item nav-link h-grow" href="/">Accueil</a>
                 <a class="nav-item nav-link h-grow" href="#">Aléatoire</a>
-                <a class="nav-item nav-link h-grow" href="#">A propos</a>
-
                 {% if user == null%}
                     <a href="/inscription" class="nav-item nav-link h-grow">Inscription</a>
                 {% else %}    
@@ -26,7 +24,6 @@
                     <a href="/Moderation1" class="nav-item nav-link h-grow">Moderation</a>    
                     <a href="/Administration" class="nav-item nav-link h-grow">Administration</a>
                 {% endif %} 
-
             </div>
         </div>
     </nav>
