@@ -2,7 +2,7 @@ from flask import Flask, url_for, render_template
 import hashlib , sqlite3
 import ConstanteAndTools
 
-nbPosteByPage=3
+nbPosteByPage = 3
 
 
 def OpenConnexion():
@@ -15,9 +15,9 @@ def closeConnexion(cursor,conn):
 
 def connexionUtilisateur(pseudo,mdp):
     try :
-        conn= OpenConnexion()
-        c= conn.cursor()
-        request = f"""
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request = """
         SELECT IdUtilisateur,
             PseudoUtilisateur,
             NomUtilisateur,
@@ -27,7 +27,7 @@ def connexionUtilisateur(pseudo,mdp):
         FROM Utilisateur
         WHERE PseudoUtilisateur = ?"""
         resultArray = c.execute(request,(pseudo,)).fetchall()
-        if len(resultArray)==1:
+        if len(resultArray) == 1:
             closeConnexion(c,conn)
             return resultArray[0]
         else :
@@ -39,9 +39,9 @@ def connexionUtilisateur(pseudo,mdp):
     
 def InsertPoste(UserId,TitrePoste,LienImg):
     try:
-        conn= OpenConnexion()
+        conn = OpenConnexion()
         c = conn.cursor()
-        request =f"""INSERT INTO Poste (
+        request = """INSERT INTO Poste (
                     Fk_IdUtilisateur,
                     TitrePoste,                    
                     AdressePoste,
@@ -57,9 +57,9 @@ def InsertPoste(UserId,TitrePoste,LienImg):
 
 def InsertPosteAttenteModeration(UserId,TitrePoste,LienImg):
     try:
-        conn= OpenConnexion()
+        conn = OpenConnexion()
         c = conn.cursor()
-        request =f"""INSERT INTO PosteAttenteModération
+        request = """INSERT INTO PosteAttenteModération
                         (Fk_IdUtilisateur,
                         TitrePosteAttenteModeration,
                         AdressePosteAttenteModeration,
@@ -75,9 +75,9 @@ def InsertPosteAttenteModeration(UserId,TitrePoste,LienImg):
 
 def getNbPoste():
     try:
-        conn = conn= OpenConnexion()
+        conn = OpenConnexion()
         c = conn.cursor()
-        request =f"""SELECT COUNT(IdPoste)
+        request = """SELECT COUNT(IdPoste)
                     FROM Poste ;"""
         result = c.execute(request).fetchone()[0]
         closeConnexion(c,conn)
@@ -88,9 +88,9 @@ def getNbPoste():
 
 def getLastPoste():
     try:
-        conn = conn= OpenConnexion()
+        conn = OpenConnexion()
         c = conn.cursor()
-        request = f"""SELECT U.PseudoUtilisateur,
+        request = """SELECT U.PseudoUtilisateur,
                         P.TitrePoste,
                         P.AdressePoste,
                         strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste),
@@ -111,9 +111,9 @@ def getLastPoste():
 
 def getPosteByPage(idPage):
     try:
-        conn= OpenConnexion()
-        c= conn.cursor()
-        request =f"""SELECT U.PseudoUtilisateur,
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request = """SELECT U.PseudoUtilisateur,
                 P.TitrePoste,
                 P.AdressePoste,
                 strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste),
@@ -135,9 +135,9 @@ def getPosteByPage(idPage):
 
 def getPosteAttenteModerationByPage(idPage):
     try:
-        conn= OpenConnexion()
-        c= conn.cursor()
-        request =f"""SELECT IdPosteAttenteModération,
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request = """SELECT IdPosteAttenteModération,
                         TitrePosteAttenteModeration,
                         AdressePosteAttenteModeration,
                         strftime('%d-%m-%Y à %H:%M:%S',DatePosteAttenteModeration),
@@ -158,9 +158,9 @@ def getPosteAttenteModerationByPage(idPage):
 
 def getNbPosteAttenteModeration():
     try:
-        conn = conn= OpenConnexion()
+        conn = OpenConnexion()
         c = conn.cursor()
-        request =f"""SELECT 
+        request = """SELECT 
                         count(IdPosteAttenteModération) 
                     FROM 
                         PosteAttenteModération"""
@@ -175,9 +175,9 @@ def getRandomPoste():
     return ""
 
 def IfPseudoDisponible(pseudo):
-    conn= OpenConnexion()
-    c= conn.cursor()
-    request ="""SELECT PseudoUtilisateur 
+    conn = OpenConnexion()
+    c = conn.cursor()
+    request = """SELECT PseudoUtilisateur 
                 FROM Utilisateur 
                 WHERE PseudoUtilisateur LIKE ?"""
     resultArray = c.execute(request,(pseudo,)).fetchall()
@@ -191,8 +191,8 @@ def IfPseudoDisponible(pseudo):
 def UpdatePseudo(pseudoVoulu,UserPseudo,userId):
     try:
         conn = OpenConnexion()
-        c= conn.cursor()
-        request = f"""Update Utilisateur 
+        c = conn.cursor()
+        request = """Update Utilisateur 
             SET PseudoUtilisateur = ? 
             WHERE PseudoUtilisateur LIKE ? 
             AND IdUtilisateur = ?;"""
@@ -207,8 +207,8 @@ def UpdatePseudo(pseudoVoulu,UserPseudo,userId):
 def UpdateMdp(mdp,userPseudo,userId):
     try:
         conn = OpenConnexion()
-        c= conn.cursor()
-        request = f"""UPDATE Utilisateur
+        c = conn.cursor()
+        request = """UPDATE Utilisateur
         SET MotDePasseUtilisateur = ?
         WHERE PseudoUtilisateur LIKE ? 
         AND IdUtilisateur = ?"""
@@ -224,7 +224,7 @@ def SelectAllUser():
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request  = f"""
+        request  = """
             SELECT IdUtilisateur,
                 PseudoUtilisateur,
                 NomUtilisateur,
@@ -235,7 +235,7 @@ def SelectAllUser():
             WHERE Fk_IdRole 
             IS NOT 3
             ORDER BY PseudoUtilisateur """
-        resultArray= c.execute(request).fetchall()
+        resultArray = c.execute(request).fetchall()
         return resultArray
     except RuntimeError:
         closeConnexion(c,conn)
@@ -244,9 +244,9 @@ def SelectAllUser():
 def getUserCurrentPasswd(pseudo,Id):
     try:
         conn = OpenConnexion()
-        c= conn.cursor()
+        c = conn.cursor()
 
-        request=f"""
+        request = """
             SELECT MotDePasseUtilisateur 
             FROM Utilisateur 
             WHERE PseudoUtilisateur LIKE ? 
@@ -254,7 +254,7 @@ def getUserCurrentPasswd(pseudo,Id):
 
         result = c.execute(request,(pseudo,Id,)).fetchone()
 
-        if len(result)!=1:
+        if len(result) != 1:
             closeConnexion(c,conn)
             return False
         else:
@@ -268,7 +268,7 @@ def UpdateRole(Id,pseudo,Role):
     try :
         conn = OpenConnexion()
         c = conn.cursor()
-        request =f""" 
+        request = """ 
         Update Utilisateur 
         SET Fk_IdRole = 
             (SELECT IdRole 
@@ -287,7 +287,7 @@ def getLastMessageInformation():
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""SELECT 
+        request = """SELECT 
                         MI.ContenuMessageInformation,
                         U.PseudoUtilisateur,
                         MI.DateMessageInformation      
@@ -296,8 +296,8 @@ def getLastMessageInformation():
                         U.IdUtilisateur = MI.Fk_IdUtilisateurMessageInformation
                     ORDER BY IdMessageInformation 
                     DESC LIMIT 1"""
-        result= c.execute(request).fetchone()
-        if len(result)==0:
+        result = c.execute(request).fetchone()
+        if len(result) == 0:
             closeConnexion(c,conn)
             return False
         else :
@@ -313,7 +313,7 @@ def confirmationInscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request = f"""
+        request = """
             INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, DateNaissanceUtilisateur) 
             VALUES (?, ?, ?, ?, ?) 
         """
@@ -329,13 +329,13 @@ def updateMessageInformation(msg,idUser):
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""
+        request = """
             INSERT INTO MessageInformation 
                 (ContenuMessageInformation,
                 Fk_IdUtilisateurMessageInformation,
                 DateMessageInformation)
             VALUES(?,?,DateTime('now','localtime'))"""
-        result= c.execute(request,(msg,idUser,))
+        result = c.execute(request,(msg,idUser,))
         conn.commit()
         closeConnexion(c,conn)
         return True
@@ -347,10 +347,10 @@ def getModeModeration():
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""
+        request = """
             SELECT ModeModeration
             FROM Parametre"""
-        result= c.execute(request).fetchone()[0]
+        result = c.execute(request).fetchone()[0]
         closeConnexion(c,conn)
         return result
     except RuntimeError :
@@ -361,15 +361,15 @@ def updateModeModeration(isActive,userId):
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""
+        request = """
             UPDATE Parametre
             SET ModeModeration = ?,
                 Fk_IdUtilisateurLastModification = ?,
-                DateModification =DateTime('now','localtime')
+                DateModification = DateTime('now','localtime')
             WHERE 3 =
             (SELECT U.Fk_IdRole 
             FROM Utilisateur AS U 
-            WHERE U.IdUtilisateur =?)"""
+            WHERE U.IdUtilisateur = ?)"""
         c.execute(request,(isActive,userId,userId,))
         conn.commit()
         closeConnexion(c,conn)
@@ -383,12 +383,12 @@ def BanUser(userId):
         conn = OpenConnexion()
         c = conn.cursor()
 
-        request=f"""
+        request = """
         PRAGMA foreign_keys = ON;"""
         c.execute(request)
         conn.commit()
 
-        request=f"""
+        request = """
         DELETE FROM Utilisateur
         WHERE IdUtilisateur = ?"""
         c.execute(request,(userId,))
@@ -404,7 +404,7 @@ def acceptPostePAM(idPostePAM):
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""
+        request = """
                 INSERT INTO Poste (Fk_IdUtilisateur,
                     TitrePoste,
                     AdressePoste,
@@ -428,7 +428,7 @@ def deletePoste(idPoste):
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""
+        request = """
                 DELETE FROM 
                     Poste 
                 WHERE 
@@ -445,7 +445,7 @@ def deletePostePAM(idPostePAM):
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""
+        request = """
                 DELETE FROM 
                     PosteAttenteModération 
                 WHERE 
@@ -462,7 +462,7 @@ def UpdateTitrePoste(IdPoste,newTitre):
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""
+        request = """
                 UPDATE 
                     Poste 
                 SET 
@@ -481,7 +481,7 @@ def UpdateTitrePostePAM(IdPoste,newTitre):
     try:
         conn = OpenConnexion()
         c = conn.cursor()
-        request=f"""
+        request = """
                 UPDATE 
                     PosteAttenteModération 
                 SET 
