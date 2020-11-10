@@ -45,8 +45,10 @@ def inscription():
 
 @app.route('/ConfirmationInscription', methods=['POST'])
 def ConfirmationInscription():
-    pattern_regex_info_user = "^[a-zA-Z0-9]*$"
-    reg= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,20}$"
+    pattern_regex_nom_prenom = "^[a-zA-Z]*$"
+    pattern_regex_info_pseudo = "^[a-zA-Z0-9]*$"
+
+    reg= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,100}$"
     pattern_regex_password_user = re.compile(reg)
 
     nom = request.form["nom"]
@@ -56,27 +58,27 @@ def ConfirmationInscription():
     confirm_mdp = request.form["confirm_mdp"]
     datenaissance = request.form["datenaissance"]
 
-    
-    #♣TODO : Faire uen regex pour le nom et le prenom juste avec majuscule et miniscule ( sans chiffre)
 
-    if isNullOrEmpty(nom) or not re.match(pattern_regex_info_user,nom):
+    if isNullOrEmpty(nom) or not re.match(pattern_regex_nom_prenom,nom):
         error ="Le champs nom est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
 
-    if isNullOrEmpty(prenom) or not re.match(pattern_regex_info_user,prenom):
+    if isNullOrEmpty(prenom) or not re.match(pattern_regex_nom_prenom,prenom):
         error ="Le champs prenom est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
 
-    if isNullOrEmpty(pseudo) or not re.match(pattern_regex_info_user,pseudo):
+    if isNullOrEmpty(pseudo) or not re.match(pattern_regex_info_pseudo,pseudo):
         error ="Le champs pseudo est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
     
     
     if len(pseudo)<5:
-        error ="Le Le champs pseudo ne comporte pas 5 caractères"
+        error ="Le champs pseudo ne comporte pas 5 caractères"
         return render_template("inscription.html", error=error)
-        
-    #♣TODO :  Vérifier si le pseudo n'est pas supérieur a 15 caractères.
+    
+    if len(pseudo) > 15:
+        error = "Le champs pseudo comporte plus de 15 caractères"
+        return render_template("inscription.html", error=error)
 
     if isNullOrEmpty(mot_de_passe_clair):
         error ="Le champs mot de passe est vide ou remplie d'espace"

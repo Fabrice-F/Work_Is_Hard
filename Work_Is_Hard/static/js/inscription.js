@@ -6,64 +6,64 @@ datePickerId.max =new Date(year,month,day).toISOString().split("T")[0];
 
 function EnvoiFormulaireInscription(){
 
-    var NomFormulaire = document.getElementById("NomFormulaireInscription").value;
-    var PrenomFormulaire = document.getElementById("PrenomFormulaireInscription").value;
-    var PseudoFormulaire = document.getElementById("PseudoFormulaireInscription").value;
-    var mdp = document.getElementById("mot_de_passe").value;
-    var confirmation_mdp = document.getElementById("confirm_mdp").value;
-    var dateNaissance = document.getElementById("dateNaissance").value;
+    // var NomFormulaire = document.getElementById("NomFormulaireInscription").value;
+    // var PrenomFormulaire = document.getElementById("PrenomFormulaireInscription").value;
+    // var PseudoFormulaire = document.getElementById("PseudoFormulaireInscription").value;
+    // var mdp = document.getElementById("mot_de_passe").value;
+    // var confirmation_mdp = document.getElementById("confirm_mdp").value;
+    // var dateNaissance = document.getElementById("dateNaissance").value;
 
 
-    if (isEmptyOrSpaces(NomFormulaire))
-    {
-        PrintMessage("msgErrorConfirmationInscription","Le champs nom est vide ou remplie d'espace ...",true);
-        return false;
-    }
-    if(isEmptyOrSpaces(PrenomFormulaire)){
-        PrintMessage("msgErrorConfirmationInscription","Le champs prenom est vide ou remplie d'espace ...",true);
-        return false;
-    }
-    if(isEmptyOrSpaces(PseudoFormulaire)){
-        PrintMessage("msgErrorConfirmationInscription","Le champs pseudo est vide ou remplie d'espace ...",true);
-        return false;
-    }
-    if(PseudoFormulaire.length<5){
-        PrintMessage("msgErrorConfirmationInscription","Le champs pseudo ne comporte pas 5 caractères ...",true);
-        return false;
-    }
+    // if (isEmptyOrSpaces(NomFormulaire))
+    // {
+    //     PrintMessage("msgErrorConfirmationInscription","Le champs nom est vide ou remplie d'espace ...",true);
+    //     return false;
+    // }
+    // if(isEmptyOrSpaces(PrenomFormulaire)){
+    //     PrintMessage("msgErrorConfirmationInscription","Le champs prenom est vide ou remplie d'espace ...",true);
+    //     return false;
+    // }
+    // if(isEmptyOrSpaces(PseudoFormulaire)){
+    //     PrintMessage("msgErrorConfirmationInscription","Le champs pseudo est vide ou remplie d'espace ...",true);
+    //     return false;
+    // }
+    // if(PseudoFormulaire.length<5){
+    //     PrintMessage("msgErrorConfirmationInscription","Le champs pseudo ne comporte pas 5 caractères ...",true);
+    //     return false;
+    // }
 
     // rajouter max 15 caractère pour pseudo
 
-    if(isEmptyOrSpaces(mdp)){
-        PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe est vide ou remplie d'espace ...",true);
-        return false;
-    }
+    // if(isEmptyOrSpaces(mdp)){
+    //     PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe est vide ou remplie d'espace ...",true);
+    //     return false;
+    // }
     
-    if(isEmptyOrSpaces(confirmation_mdp)){
-        PrintMessage("msgErrorConfirmationInscription","Le champs confirmation de mots de passe  est vide ou remplie d'espace ...",true);
-        return false;
-    }    
+    // if(isEmptyOrSpaces(confirmation_mdp)){
+    //     PrintMessage("msgErrorConfirmationInscription","Le champs confirmation de mots de passe  est vide ou remplie d'espace ...",true);
+    //     return false;
+    // }    
 
-    if(!isPasswordFormatCorrect(mdp)){
+    // if(!isPasswordFormatCorrect(mdp)){
     
-        PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ...",true);
-        return false;
-    }
+    //     PrintMessage("msgErrorConfirmationInscription","Le champs mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ...",true);
+    //     return false;
+    // }
     // tester si confirme format correct
 
 
-    if(isEmptyOrSpaces(dateNaissance)){
-        PrintMessage("msgErrorConfirmationInscription","Le champs date de naissance n'est pas remplie ... ",true);
-        return false;
-    }
+    // if(isEmptyOrSpaces(dateNaissance)){
+    //     PrintMessage("msgErrorConfirmationInscription","Le champs date de naissance n'est pas remplie ... ",true);
+    //     return false;
+    // }
 
-    if(mdp == confirmation_mdp){
-        return true;
-    }
-    else{
-        PrintMessage("msgErrorConfirmationInscription","Les mots de passe sont differents ...",true);
-        return false;
-    }
+    // if(mdp == confirmation_mdp){
+    //     return true;
+    // }
+    // else{
+    //     PrintMessage("msgErrorConfirmationInscription","Les mots de passe sont differents ...",true);
+    //     return false;
+    // }
 }
 
 function ChampsVide(){
