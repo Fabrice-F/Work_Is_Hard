@@ -1,6 +1,8 @@
 import math
 import hashlib
 import random
+import re
+import datetime
 
 from flask import request
 from Classes import *
@@ -80,3 +82,23 @@ def isNullOrEmpty(*stringAVerifier):
         if string.isspace() or string.strip() == False or len(string) == 0:
             boolNullorEmpty = True
     return boolNullorEmpty
+
+
+def isCorrectStringRegex(*stringAVerifier):
+    pattern = "^[a-zA-Z0-9]*$"
+    isStringOk = True
+    for s in stringAVerifier:
+        if not re.match(pattern, s):
+            return s
+    return isStringOk
+
+def size_string_is_correct(string,mini,maxi):
+    if len(string)<mini or len(string)>maxi:
+        return False
+    return True
+
+def verifDateNaissance(dateNaissance):
+    dateNaissanceDateFormat = datetime.datetime.strptime(dateNaissance, '%Y-%m-%d')
+    dateMoins18 = datetime.datetime.today()- datetime.timedelta(days=18*365.24)
+    return dateNaissanceDateFormat<dateMoins18
+        

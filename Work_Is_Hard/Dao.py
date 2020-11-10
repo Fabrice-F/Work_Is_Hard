@@ -329,22 +329,28 @@ def getLastMessageInformation():
 # TODO : Close la connexion
 
 
-def confirmationInscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance):
+def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance):
     try:
         conn = OpenConnexion()
         c = conn.cursor()
         request = f"""
-            INSERT INTO Utilisateur (PseudoUtilisateur, NomUtilisateur, Prenom, MotDePasseUtilisateur, DateNaissanceUtilisateur) 
+            INSERT INTO Utilisateur 
+                (PseudoUtilisateur, 
+                NomUtilisateur, 
+                Prenom, 
+                MotDePasseUtilisateur, 
+                DateNaissanceUtilisateur) 
             VALUES (?, ?, ?, ?, ?) 
         """
         c.execute(request, (pseudo, nom, prenom,
                             motdepasse_hashe, datenaissance))
         conn.commit()
-        closeConnexion(c, conn)
+        closeConnexion(c,conn)
         return True
-    except RuntimeError:
-        closeConnexion(c, conn)
-        return False
+    except RuntimeError :
+        closeConnexion(c,conn)
+        return False    
+
 
 
 def updateMessageInformation(msg, idUser):

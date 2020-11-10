@@ -1,54 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "heritageJinja/base.html" %}
 
-    <link rel="stylesheet" href="../static/css/style.css"> <!-- Flask fait le lien avec le css -->
-    <link rel="stylesheet" href="../static/css/inscription.css"> <!-- Flask fait le lien avec le css -->
+{% block css %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/inscription.css') }}"> 
+{% endblock %}
 
-    <title>Accueil</title>
-    
-</head>
-<body>
+{% block title %}Inscription{% endblock %}
 
-    {% include  "components/header.html" %}
-
-
+{% block content %}
     <form action="/ConfirmationInscription" method="POST" id="FormInscription" onsubmit="return EnvoiFormulaireInscription()">
+        
         <div class="rowFormInscription">
-            <label for="">Nom :</label>
-            <input class="inputFormInscription" type="text" required name="nom">
+            <label class="labelInscription" for="NomFormulaireInscription">Nom* :</label>
+            <input class="inputFormInscription" id="NomFormulaireInscription" type="text" minlength="2" maxlength="30" required placeholder="DOE"  name="nom">
         </div>
+
         <div class="rowFormInscription">
-            <label for="">Prenom :</label>
-            <input class="inputFormInscription" type="text" required name="prenom">
+            <label class="labelInscription" for="PrenomFormulaireInscription">Prenom* :</label>
+            <input class="inputFormInscription" id="PrenomFormulaireInscription" type="text" minlength="2" maxlength="30" required  placeholder="John"  name="prenom">
         </div>
+
         <div class="rowFormInscription">
-            <label for="">Pseudo :</label>
-            <input class="inputFormInscription" type="text" required name="pseudo">
+            <label class="labelInscription" for="PseudoFormulaireInscription">Pseudo* :</label>
+            <input class="inputFormInscription" id="PseudoFormulaireInscription" type="text"   minlength="3" maxlength="15" required  placeholder="3 caractères mininum, 15 maximum" name="pseudo">
         </div>
+
+        <div class="rowFormInscription rowMotdePasse-Message" >
+            <div class="ligneMotsPasse">
+                <label class="labelInscription" for="mot_de_passe">Mots de passe* :</label>
+                <input class="inputFormInscription"  type="password"  name="motdepasse"  minlength="8" required  placeholder="********" id="mot_de_passe">
+            </div>
+            <div class="ligneMsgMotsPasse">
+                <p class="paragrapheInfoMotPasseInscription">8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial</p>
+            </div>
+        </div>
+
+        <div class="rowFormInscription rowMotdePasse-Message">
+            <div class="ligneMotsPasse">
+                <label class="labelInscription" for="confirm_mdp">Confirmation mots de passe* :</label>
+                <input class="inputFormInscription" type="password"  name="confirm_mdp"  minlength="8" required  placeholder="********" id="confirm_mdp">
+            </div>
+            <div class="ligneMsgMotsPasse">
+                <p class="paragrapheInfoMotPasseInscription">8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial</p>
+            </div>
+        </div>
+
         <div class="rowFormInscription">
-            <label for="">Mots de passe :</label>
-            <input class="inputFormInscription" type="password" required name="motdepasse" id="mot_de_passe">
+            <label class="labelInscription" for="dateNaissance">Date de naisssance* :</label>
+            <input class="inputFormInscription" type="date" id="dateNaissance" min="1900-01-01" required name="datenaissance">
         </div>
-        <div class="rowFormInscription">
-            <label for="">Confirmation mots de passe :</label>
-            <input class="inputFormInscription" type="password" required name="confmdp" id="confirm_mdp">
-        </div>
-        <div class="rowFormInscription">
-            <label for="">Date de naisssance :</label>
-            <input class="inputFormInscription" type="date" required name="datenaissance">
-        </div>
-        <button> envoyer</button>
+
+        <button class="btn-classique btnValideInscription">ENVOYER</button>
+        <p id="msgErrorConfirmationInscription">{{ error if error!= null}}</p>
     </form>
+    {% endblock %}
 
-
-    <footer>
-        <h2></h2>
-    </footer>
-
-    <button id="buttonTheme">☽</button>
-</body>
-<script type="text/javascript" src="static/js/main.js"></script>
-</html>
+    {% block js %}
+        <script src="{{ url_for('static', filename= 'js/inscription.js') }}"></script>
+    {% endblock %}
