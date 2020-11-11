@@ -219,7 +219,7 @@ figcaption{
 .changePageLink{
     border: 2px solid black;
     height: 100%;
-    width: 200px;
+    width: 300px;
     border-radius: 5px;
     margin: 0px;
     display: flex;
@@ -228,7 +228,7 @@ figcaption{
     color: var(--myBlack);
     transition: all 0.5s;
     text-decoration: none;
-
+    font-size: 25px;
 }
 .changePageLink:active{
     color: var(--myBlack);

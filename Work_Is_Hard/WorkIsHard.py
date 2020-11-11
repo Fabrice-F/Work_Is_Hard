@@ -22,7 +22,8 @@ def index():
 
     msgTmp = getLastMessageInformation()
     if(msgTmp == False):
-        messageInfo = MessageInformation("vide", "Aucun", datetime.datetime.now())
+        messageInfo = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
     else:
         messageInfo = MapResultToMessageInformation(msgTmp)
     posteArray = []
@@ -160,7 +161,8 @@ def GestionDeCompte():
     if 'utilisateur' in session:
         msgTmp = getLastMessageInformation()
         if(msgTmp == False):
-            messageInfo = MessageInformation("vide", "Aucun", datetime.datetime.now())
+            messageInfo = MessageInformation(
+                "vide", "Aucun", datetime.datetime.now())
         else:
             messageInfo = MapResultToMessageInformation(msgTmp)
         return render_template("GestionDeCompte.html", user=session['utilisateur'], messageInfo=messageInfo)
@@ -173,7 +175,8 @@ def CreationDePoste():
     if 'utilisateur' in session:
         msgTmp = getLastMessageInformation()
         if(msgTmp == False):
-            messageInfo = MessageInformation("vide", "Aucun", datetime.datetime.now())
+            messageInfo = MessageInformation(
+                "vide", "Aucun", datetime.datetime.now())
         else:
             messageInfo = MapResultToMessageInformation(msgTmp)
         return render_template("CreationDePoste.html", user=session['utilisateur'], messageInfo=messageInfo)
@@ -219,7 +222,8 @@ def getPage(idPage):
 
     msgTmp = getLastMessageInformation()
     if(msgTmp == False):
-        messageInfo = MessageInformation("vide", "Aucun", datetime.datetime.now())
+        messageInfo = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
     else:
         messageInfo = MapResultToMessageInformation(msgTmp)
 
@@ -349,7 +353,8 @@ def Administration():
         isModeModeractionActive = bool(getModeModeration())
         msgTmp = getLastMessageInformation()
         if(msgTmp == False):
-            messageInfo = MessageInformation("vide", "Aucun", datetime.datetime.now())
+            messageInfo = MessageInformation(
+                "vide", "Aucun", datetime.datetime.now())
         else:
             messageInfo = MapResultToMessageInformation(msgTmp)
         ArrayUser = SelectAllUser()
@@ -536,39 +541,42 @@ def updateTitrePAM():
 
 @app.route('/A_Propos')
 def A_Propos():
+    msgTmp = getLastMessageInformation()
+    if(msgTmp == False):
+        messageInfo = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        messageInfo = MapResultToMessageInformation(msgTmp)
     if 'utilisateur' in session:
-        msgTmp = getLastMessageInformation()
-        if(msgTmp == False):
-            messageInfo = MessageInformation("vide", "Aucun", datetime.datetime.now())
-        else:
-            messageInfo = MapResultToMessageInformation(msgTmp)
         return render_template("A_Propos.html", messageInfo=messageInfo, user=session['utilisateur'])
     else:
-        return render_template("A_Propos.html")
+        return render_template("A_Propos.html", messageInfo=messageInfo,)
 
 
 @app.route('/Cgu')
 def Cgu():
+    msgTmp = getLastMessageInformation()
+    if(msgTmp == False):
+        messageInfo = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        messageInfo = MapResultToMessageInformation(msgTmp)
     if 'utilisateur' in session:
-        msgTmp = getLastMessageInformation()
-        if(msgTmp == False):
-            messageInfo = MessageInformation("vide", "Aucun", datetime.datetime.now())
-        else:
-            messageInfo = MapResultToMessageInformation(msgTmp)
         return render_template("Cgu.html", messageInfo=messageInfo, user=session['utilisateur'])
-    return render_template("Cgu.html")
+    return render_template("Cgu.html", messageInfo=messageInfo)
 
 
 @app.route('/Contact')
 def Contact():
+    msgTmp = getLastMessageInformation()
+    if(msgTmp == False):
+        messageInfo = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        messageInfo = MapResultToMessageInformation(msgTmp)
     if 'utilisateur' in session:
-        msgTmp = getLastMessageInformation()
-        if(msgTmp == False):
-            messageInfo = MessageInformation("vide", "Aucun", datetime.datetime.now())
-        else:
-            messageInfo = MapResultToMessageInformation(msgTmp)
         return render_template("Contact.html", messageInfo=messageInfo, user=session['utilisateur'])
-    return render_template("Contact.html")
+    return render_template("Contact.html", messageInfo=messageInfo)
 
 
 @app.route('/Aleatoire')
@@ -585,3 +593,17 @@ def Aleatoire():
         return render_template("Aleatoire.html", poste_array=poste_array, messageInfo=message_info, user=session['utilisateur'])
     else:
         return render_template("Aleatoire.html", poste_array=poste_array, messageInfo=message_info)
+
+
+@app.route('/Aide')
+def aide():
+    nbPosteTotal = getNbPoste()
+    msgTmp = getLastMessageInformation()
+    if(msgTmp == False):
+        messageInfo = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        messageInfo = MapResultToMessageInformation(msgTmp)
+    if 'utilisateur' in session:
+        return render_template("Aide.html", nbPosteTotal=nbPosteTotal, messageInfo=messageInfo, user=session['utilisateur'])
+    return render_template("Aide.html", nbPosteTotal=nbPosteTotal, messageInfo=messageInfo)
