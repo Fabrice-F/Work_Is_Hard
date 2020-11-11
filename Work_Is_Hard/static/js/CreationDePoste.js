@@ -55,8 +55,9 @@ $('#LienImg').on('input', function() {
             imageApercu.src="";
             document.getElementById("LienImg").value="";
             document.getElementById("btnClear").style.display = "none";
+            document.getElementById("LienImg").disabled=false;            
             document.getElementById("btnClear").removeEventListener("click");
-            document.getElementById("LienImg").disabled=false;
+
         });
 
     }
