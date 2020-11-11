@@ -47,8 +47,8 @@ def inscription():
 def ConfirmationInscription():
     pattern_regex_nom_prenom = "^[a-zA-Z]*$"
     pattern_regex_info_pseudo = "^[a-zA-Z0-9]*$"
-
     reg= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,100}$"
+    
     pattern_regex_password_user = re.compile(reg)
 
     nom = request.form["nom"].strip()
@@ -581,3 +581,22 @@ def Contact():
             messageInfo = MapResultToMessageInformation(msgTmp)
         return render_template("Contact.html", messageInfo=messageInfo, user=session['utilisateur'])
     return render_template("Contact.html")
+
+@app.route('/Aleatoire')
+def Aleatoire():
+    result_array = get_random_poste()
+    poste_array=[]
+    for result in result_array:
+        poste_array.append(Poste(
+            result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
+    msgTmp = getLastMessageInformation()
+    if(msgTmp == False):
+        messageInfo = MessageInformation("vide", "Aucun", datetime.now())
+    else:
+        messageInfo = MapResultToMessageInformation(msgTmp)       
+    
+    
+    if 'utilisateur' in session:   
+        return render_template("Aleatoire.html",poste_array=poste_array, messageInfo=messageInfo, user=session['utilisateur'])
+    else:
+        return render_template("Aleatoire.html",poste_array=poste_array,messageInfo=messageInfo)

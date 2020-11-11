@@ -1,0 +1,381 @@
+/*======= CORPS PAGE ACCUEIL ========*/
+#corp{
+    width:100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#blocGaucheCorpAccueil{
+    width: 80%;
+    height: auto;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+#blocDroitCorpAccueil{
+    width: 15%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+#btnLinkCreationPoste{
+    border: 2px solid black;
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--myBlack);
+    transition: all 0.5s;
+    text-decoration: none;
+    background:lightgreen;
+    margin-bottom: 25px;
+    font-size: 1.3vmax;
+}
+#btnLinkCreationPoste:active{
+    color: var(--myBlack);
+    background : transparent;
+    transition: all 0.5s;
+}
+#btnLinkCreationPoste:hover{
+    background : green;
+    transition: all 0.5s;
+    transform: translateY(-5px);
+    font-size: 1.5vmax;
+    color: white;
+    cursor: pointer;
+}
+/*======= FIN CORP PAGE ACCUEIL ========*/
+
+
+/*======= PARTIE POSTE ========*/
+.blocGif{
+    background: radial-gradient(circle, rgba(133,217,255,1) 0%, rgba(255,255,255,1) 100%);    
+    height: auto;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    max-height: 700px;
+}
+
+.blocPartagePoste{
+    width: 10%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.btnPartagePoste{
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    background: white;
+    transition: all 0.5s;
+}
+.btnPartagePoste:hover{
+    background: var(--myTheme);
+}
+.btnPartagePoste:focus{
+    text-decoration: none;
+    outline: none;
+}
+
+.blocLegendImagePoste{
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.titrePoste{
+    font-size: 1.3vmax;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    text-shadow: white 2px 2px 2px;
+    height: auto;
+    padding:0 5px 0 5px;
+    max-height: 150px;
+    overflow-y:  auto;
+    word-wrap: break-word;
+}
+
+.figuregif{
+    width: 90%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.figuregif{
+    background: var(--myTheme);
+}
+
+.gifSize{
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+}
+
+.gifSize:hover{
+    filter: blur(20px);
+}
+
+figcaption{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    font-size: 50px;
+    visibility: hidden;
+    padding: 30px;
+    pointer-events: none;
+}
+
+.gifSize:hover ~ figcaption {
+    visibility: visible;
+}
+
+
+.outilsAdmin{
+    width: 10%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+#my-select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background:url(../img/admin-ico.png) center no-repeat;
+    background-size: cover;
+    color: transparent;
+}
+#my-select:hover{
+    background-color: var(--myTheme);
+}
+.optionModerationAccueil {
+    color: black;
+    padding:50px;
+    margin:50px;
+}
+.imgBtnPartagePoste{
+    width: 100%;
+    height: auto;
+}
+.testPartage{
+    position: absolute;
+    display: block;
+    height: 1.2rem;
+    width: 1.2rem;
+    bottom: 1rem;
+    left: 0.6rem;
+    background-image: url(../img/User1.jpg);
+    background-size: 1.2rem 1.2rem;
+    background-repeat: no-repeat;
+}
+/*======= FIN PARTIE POSTE ========*/
+
+
+/*======= CHANGEMENT DE PAGE  ========*/
+
+.RowAleatoire{
+    height: 50px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:20px 0 20px 0;
+}
+.changePageBlocGauche,.changePageBlocDroit{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.changePageBlocGauche{
+    justify-content: flex-start;
+}
+.changePageBlocDroit{
+    justify-content: flex-end;
+}
+
+.changePageLink{
+    border: 2px solid black;
+    height: 100%;
+    width: 150px;
+    border-radius: 5px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--myBlack);
+    transition: all 0.5s;
+    text-decoration: none;
+
+}
+.changePageLink:active{
+    color: var(--myBlack);
+    background : transparent;
+    transition: all 0.5s;
+}
+.changePageLink:hover{
+    background : var(--myTheme);
+    transition: all 0.5s;
+    transform: translateY(-5px);
+    font-size: 1.3vmax;
+    cursor: pointer;
+    text-decoration: none;
+}
+/*======= FIN CHANGEMENT DE PAGE  ========*/
+
+
+/*============== MODAL COPIE ==============*/
+#modal_CopieOK{
+    height: 50px;
+    min-height: 50px;
+    font-size: 1.3em;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.conteneurModal{
+    height: 50px;
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#imgModal{
+    height: 60%;
+    width: auto;
+}
+/*============== FIN MODAL COPIE ==============*/
+/*============== MODAL ==============*/
+.paragrapheChangementTitrePoste,.paragrapheSuppressionPoste, .paragrapheBan{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+#SupplemmentSuppressionPoste,#SupplemmentBan{
+    font-weight: bold;
+}
+#AncienTitrePoste{
+    font-weight: bold;
+}
+/*============== FIN MODAL ==============*/
+
+
+@media screen and (max-width: 960px) { 
+    #corp{
+        flex-direction: column-reverse;
+    }
+    #blocDroitCorpAccueil{
+        width: 100%;
+    }
+    #btnLinkCreationPoste{
+        width: 100%;
+        font-size: 20px;
+    }
+
+    #blocGaucheCorpAccueil{
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .blocGif{
+        flex-direction: column-reverse;
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        max-height: 700px;
+    }
+    .blocPartagePoste{
+        flex-direction: row;
+        width: 90%;
+        height: 10%;
+        justify-content: space-between;
+    }
+
+    .blocLegendImagePoste{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0;
+        height: 80%;
+        width: 90%;
+        margin-bottom: 10px;
+    }
+    .outilsAdmin{
+        height: 10%;
+        align-self: flex-end;
+        margin:0 10px 10px 0;
+    }
+    .titrePoste{
+        margin: 0;
+        font-size: 15px;
+        max-height: 50px;
+        overflow-y:  auto;
+        word-wrap: break-word;
+    }
+    .figuregif{
+        width: 80%;
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .figuregif:hover{
+        background: var(--myTheme);
+    }
+
+    .gifSize{
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+    }
+    .gifSize:hover{
+        filter: blur(20px);
+    }
+    figcaption{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        color: white;
+        font-size: 50px;
+        visibility: hidden;
+        padding: 30px;
+        pointer-events: none;
+    }
+
+    .gifSize:hover ~ figcaption {
+        visibility: visible;
+    }
+    .changePageLink:hover{
+        font-size: 1.4em;
+    }
+    .H3pseudoUtilsateurPoste{
+        font-size: 20px;
+    }
+    .H4DatePoste{
+        font-size: 15px;
+    }
+}
+

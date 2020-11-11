@@ -182,8 +182,29 @@ def getNbPosteAttenteModeration():
         return False
 
 
-def getRandomPoste():
-    return ""
+def get_random_poste():
+    try:
+        conn = OpenConnexion()
+        c = conn.cursor()
+        request = f"""
+                    SELECT                 
+                        U.PseudoUtilisateur,
+                        P.TitrePoste,
+                        P.AdressePoste,
+                        strftime('%d-%m-%Y à %H:%M:%S', P.DatePoste),
+                        P.IdPoste,
+                        U.IdUtilisateur,
+                        U.Fk_IdRole
+                    FROM Poste AS P
+                    INNER JOIN Utilisateur AS U ON
+                        U.IdUtilisateur = P.Fk_IdUtilisateur 
+                    ORDER BY random() LIMIT 3"""
+        result_array = c.execute(request).fetchall()
+        closeConnexion(c, conn)
+        return result_array
+    except RuntimeError:
+        closeConnexion(c, conn)
+        return False
 
 
 def IfPseudoDisponible(pseudo):
@@ -345,12 +366,11 @@ def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance
         c.execute(request, (pseudo, nom, prenom,
                             motdepasse_hashe, datenaissance))
         conn.commit()
-        closeConnexion(c,conn)
+        closeConnexion(c, conn)
         return True
-    except RuntimeError :
-        closeConnexion(c,conn)
-        return False    
-
+    except RuntimeError:
+        closeConnexion(c, conn)
+        return False
 
 
 def updateMessageInformation(msg, idUser):

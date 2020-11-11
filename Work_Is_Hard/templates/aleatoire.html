@@ -1,15 +1,18 @@
 {% extends "heritageJinja/base.html" %}
 
 {% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Accueil.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/aleatoire.css') }}">
 {% endblock %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Aleatoire{% endblock %}
 
 {% block content %}
     <div id="corp">
         <section id="blocGaucheCorpAccueil">
-            {% for poste in posteArray   %}
+            <div class="RowAleatoire">
+                <a class="changePageLink" href="/Aleatoire">🎲 aléatoire 🎲</a>
+            </div>
+            {% for poste in poste_array   %}
                 <div class="blocGif" >
                     
                     <div class="blocPartagePoste">
@@ -49,26 +52,8 @@
                 </div>
             {% endfor %}
 
-            <div id="RowChangePage">
-                {% if page == null %}
-                    <div class="changePageBlocGauche">
-                    </div>
-                    <div class="changePageBlocDroit">
-                        <a class="changePageLink" href="/page2">Suivant</a>
-                    </div>
-
-                {% else %}
-                        <div class="changePageBlocGauche">
-                            {% if page-1 >= 1 %}
-                            <a class="changePageLink" href="/page{{ page-1 if page-1 >= 1 else '1' }}" >Precedent</a>
-                            {% endif %}
-                        </div>
-                    {% if page+1 <= NbPageMax %}
-                        <div class="changePageBlocDroit">
-                            <a class="changePageLink" href="/page{{ page+1 }}">Suivant</a>
-                        </div>
-                    {% endif %} 
-                {% endif %} 
+            <div class="RowAleatoire">
+                <a class="changePageLink" href="/Aleatoire">🎲 aléatoire 🎲</a>
             </div>
         </section>
 
@@ -82,8 +67,7 @@
         </div>
 
     </div>
-    <div id="modal_CopieOK"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
-        <!-- Modal content -->
+    <div id="modal_CopieOK"> 
         <div class="conteneurModal">
             <img id="imgModal" src="../static/img/Check-gif.gif" alt="">
             <p>Le lien a été Copié!!</p>
@@ -152,7 +136,7 @@
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{{ url_for('static', filename= 'js/Accueil.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename= 'js/aleatoire.js') }}"></script>
     {% if user!=undefined and user.IdRoleUtilisateur != 1 %}
         <script>
             $("#modalChangementTitrePoste").iziModal({
