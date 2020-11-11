@@ -8,12 +8,13 @@ function EnvoyerOuPas()
     LienImg = document.getElementById("LienImg").value;
 
     if(isEmptyOrSpaces(TitrePoste) || isEmptyOrSpaces(LienImg)){
-        alert("Un champs n'est pas renseigné")
+        PrintMessage("msgPubliePost","Un champs n'est pas renseigné",true);
         return false;      
     }
     else{
         if(window.Drapeau===true)
         {
+            document.getElementById("LienImg").disabled=false;
             return true;
         }
     }
@@ -48,13 +49,14 @@ $('#LienImg').on('input', function() {
         imageApercu.src=this.value;
         imageApercu.style.visibility= "visible";
         document.getElementById("btnClear").style.display = "flex";
+        document.getElementById("LienImg").disabled=true;
 
         document.getElementById("btnClear").addEventListener("click",function(){
             imageApercu.src="";
             document.getElementById("LienImg").value="";
             document.getElementById("btnClear").style.display = "none";
             document.getElementById("btnClear").removeEventListener("click");
-
+            document.getElementById("LienImg").disabled=false;
         });
 
     }
