@@ -9,14 +9,17 @@
 {% block content %}
     <div id="corp">
         <section id="blocGaucheCorpAccueil">
+
+
+            {% set url = request.url  %}
+
             {% for poste in posteArray   %}
                 <div class="blocGif" >
-                    
                     <div class="blocPartagePoste">
-                        <button title ="Copier le lien du gif" class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
-                        <!-- <button title ="Partage sur facebook" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
-                        <button title ="Partage sur twitter" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
-                        <button title ="Partage sur instagram" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/instagram-ico.png" alt=""></button> -->
+                        <button title ="Copier le lien du gif" class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-link="{{url}}#titrePoste{{poste.IdPoste}}" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <a onclick="return confirmShare()" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url}}%23titrePoste{{poste.IdPoste}}" title ="Partage sur facebook" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt="facebook"></a>
+                        <a onclick="return confirmShare()" target="_blank" href="https://twitter.com/intent/tweet?text={{url}}%23titrePoste{{poste.IdPoste}}" title ="Partage sur twitter" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt="twitter"></a>
+                        <a onclick="return confirmShare()" target="_blank" href="mailto:?subject=J'ai%20trouv%C3%A9%20un%20poste%20humoristique%20qui%20pourrais%20t'int%C3%A9resser&body=J'ai%20trouv%C3%A9%20sur%20Work%20is%20hard!%20%0A%0A{{url}}%23titrePoste{{poste.IdPoste}}%0D%0A" title ="Partage par mail" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/instagram-ico.png" alt="instagram"></a>
                     </div>
 
                     <div class="blocLegendImagePoste">

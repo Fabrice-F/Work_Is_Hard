@@ -5,11 +5,9 @@ $("#modal_CopieOK").iziModal({
     onOpening: ModalCopyOpen
 });
 
-
 function CopyLinkImage(button){
-    var copyText = button.parentNode.parentNode.children[1].children[1].children[0]  ;
     const el = document.createElement('textarea');
-    el.value = copyText.src;
+    el.value =button.dataset.link;
     el.setAttribute('readonly', '');
     el.style.position = 'absolute';
     el.style.left = '-9999px';
@@ -144,4 +142,10 @@ function sendBanUser(idUserPoste)
 
     userId=new String(idUserPoste);
     SendAjax("/Bannissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
+}
+
+function confirmShare()
+{
+    result = confirm(`Actuellement l'adresse du site est en local (127.0.0.1:5000), le partagé ne permettrait pas aux autres usagers de consulté le site souhaitez vous quand même continué ?`);
+    return result;
 }
