@@ -8,3 +8,4 @@ Projet du module Python Flask Fabrice/Josué
 - Faire le fichier .sql 
 - Commenté le code python 
 - Transformé les variables et fonction pour la pep8 
+- Terminé le footer
