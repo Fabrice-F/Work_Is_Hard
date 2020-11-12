@@ -11,3 +11,4 @@ Projet du module Python Flask Fabrice/Josué
 - Terminé le footer
 - Sécurisé changement mots de passe
 - Page contact
+- patcher le bootstrap message console error

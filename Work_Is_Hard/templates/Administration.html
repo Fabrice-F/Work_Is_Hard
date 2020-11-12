@@ -45,8 +45,6 @@
                                     </div>
                                 </div>
                                 <div class="divEnvoyerRoleUtilisateur">
-                                    <!-- <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" >Reset password</button>
-                                    <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" >Bannir</button> -->
                                     <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" onclick="openModalChangeRole('{{ otherUser.IdUtilisateur  }}','{{ otherUser.PseudoUtilisateur }}', '{{ otherUser.NomRole }}' )">Modifier rôle</button>
                                     <input hidden type="button" id="OpenModal{{ otherUser.IdUtilisateur  }}" data-izimodal-open="#modal_changeRole" data-izimodal-transitionin="fadeInDown"/>
                                 </div>

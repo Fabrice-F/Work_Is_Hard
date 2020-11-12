@@ -162,9 +162,20 @@ input[type='radio']:after {
     justify-content: center;
 }
 
+/* ====== MODAL ROLE ===== */
+
+.paragrapheChangeRole{
+    height: auto;
+    margin: 20px;
+    font-size: 1.2vmax;
+}
+
+.RoleAccentuation{
+    font-weight: bold;
+}
 
 
-@media (max-width: 960px) { 
+@media screen and (max-width: 960px) { 
     .conteneurModeModeration{
         width: 100%;
         flex-direction: column;
@@ -176,12 +187,16 @@ input[type='radio']:after {
     #msgModeModeration{
         text-align: center;
     }
+    .paragrapheChangeRole{
+        font-size: 20px;
+    }
 }
-@media (max-width: 768px) { 
+@media screen and (max-width: 768px) { 
     .divRowAllInput{
         flex-direction: column;
         align-items: flex-start;
         margin:20px;
+        font-size: 15px;
     }
 
     .rowInputChangeRole{
@@ -191,6 +206,16 @@ input[type='radio']:after {
         padding-left: 20px;
         padding-right: 20px;
         margin-bottom: 10px
+    }
+
+    .divEnvoyerRoleUtilisateur{
+        height: 50px;
+        padding:0 ;
+    }
+
+    #txtAreaMsgInfo{
+        font-size: 20px;
+        padding :5px;
     }
 }
 
@@ -233,40 +258,4 @@ input[type='radio']:after {
 
 
 
-/* ====== MODAL ===== */
 
-.paragrapheChangeRole{
-    height: auto;
-    margin: 20px;
-    font-size: 1.2vmax;
-}
-
-.RoleAccentuation{
-    font-weight: bold;
-}
-
-
-
-
-
-/* ========================================= */
-/* =============== RESPONSIVE ============== */
-/* ========================================= */
-
-@media screen and ( max-width: 768px) {
-    
-    .divRowAllInput{
-        font-size: 15px;
-    }
-
-    .divEnvoyerRoleUtilisateur{
-        height: 50px;
-        padding:0 ;
-    }
-
-    #txtAreaMsgInfo{
-        font-size: 20px;
-        padding :5px;
-    }
-
-}

@@ -6,19 +6,19 @@ import ConstanteAndTools
 nbPosteByPage = 3
 
 
-def OpenConnexion():
+def open_connexion():
     conn = sqlite3.connect('WorkIsHard.db')
     return conn
 
 
-def closeConnexion(cursor, conn):
+def close_connexion(cursor, conn):
     cursor.close()
     conn.close()
 
 
-def connexionUtilisateur(pseudo, mdp):
+def connexion_utilisateur(pseudo, mdp):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
         SELECT IdUtilisateur,
@@ -31,19 +31,19 @@ def connexionUtilisateur(pseudo, mdp):
         WHERE PseudoUtilisateur = ?"""
         resultArray = c.execute(request, (pseudo,)).fetchall()
         if len(resultArray) == 1:
-            closeConnexion(c, conn)
+            close_connexion(c, conn)
             return resultArray[0]
         else:
-            closeConnexion(c, conn)
+            close_connexion(c, conn)
             return False
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def InsertPoste(UserId, TitrePoste, LienImg):
+def insert_poste(UserId, TitrePoste, LienImg):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""INSERT INTO Poste (
                     Fk_IdUtilisateur,
@@ -53,16 +53,16 @@ def InsertPoste(UserId, TitrePoste, LienImg):
                 VALUES (?,?,?,DateTime('now','localtime'))"""
         c.execute(request, (UserId, TitrePoste, LienImg,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def InsertPosteAttenteModeration(UserId, TitrePoste, LienImg):
+def insert_poste_attente_moderation(UserId, TitrePoste, LienImg):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""INSERT INTO PosteAttenteModération
                         (Fk_IdUtilisateur,
@@ -72,30 +72,30 @@ def InsertPosteAttenteModeration(UserId, TitrePoste, LienImg):
                     VALUES (?,?,?,DateTime('now','localtime'))"""
         c.execute(request, (UserId, TitrePoste, LienImg,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def getNbPoste():
+def get_nb_poste():
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""SELECT COUNT(IdPoste)
                     FROM Poste ;"""
         result = c.execute(request).fetchone()[0]
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return result
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def getLastPoste():
+def get_last_poste():
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""SELECT U.PseudoUtilisateur,
                         P.TitrePoste,
@@ -110,16 +110,16 @@ def getLastPoste():
                     ORDER BY IdPoste DESC
                     LIMIT {nbPosteByPage}"""
         resultArray = c.execute(request).fetchall()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return resultArray
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def getPosteByPage(idPage):
+def get_poste_by_page(idPage):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""SELECT U.PseudoUtilisateur,
                 P.TitrePoste,
@@ -135,16 +135,16 @@ def getPosteByPage(idPage):
             LIMIT {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage};"""
 
         resultArray = c.execute(request, (idPage,)).fetchall()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return resultArray
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def getPosteAttenteModerationByPage(idPage):
+def get_poste_attente_moderation_by_page(idPage):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""SELECT IdPosteAttenteModération,
                         TitrePosteAttenteModeration,
@@ -159,32 +159,32 @@ def getPosteAttenteModerationByPage(idPage):
                     LIMIT 
                         {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage}"""
         resultArray = c.execute(request, (idPage,)).fetchall()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return resultArray
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def getNbPosteAttenteModeration():
+def get_nb_poste_attente_moderation():
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""SELECT 
                         count(IdPosteAttenteModération) 
                     FROM 
                         PosteAttenteModération"""
         result = c.execute(request).fetchone()[0]
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return result
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
 def get_random_poste():
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
                     SELECT                 
@@ -200,31 +200,31 @@ def get_random_poste():
                         U.IdUtilisateur = P.Fk_IdUtilisateur 
                     ORDER BY random() LIMIT 3"""
         result_array = c.execute(request).fetchall()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return result_array
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def IfPseudoDisponible(pseudo):
-    conn = OpenConnexion()
+def if_pseudo_disponible(pseudo):
+    conn = open_connexion()
     c = conn.cursor()
     request = f"""SELECT PseudoUtilisateur 
                 FROM Utilisateur 
                 WHERE PseudoUtilisateur LIKE ?"""
     resultArray = c.execute(request, (pseudo,)).fetchall()
     if len(resultArray) > 0:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
     else:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
 
 
-def UpdatePseudo(pseudoVoulu, UserPseudo, userId):
+def update_pseudo(pseudoVoulu, UserPseudo, userId):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""Update Utilisateur 
             SET PseudoUtilisateur = ? 
@@ -232,16 +232,16 @@ def UpdatePseudo(pseudoVoulu, UserPseudo, userId):
             AND IdUtilisateur = ?;"""
         c.execute(request, (pseudoVoulu, UserPseudo, userId,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def UpdateMdp(mdp, userPseudo, userId):
+def update_password(mdp, userPseudo, userId):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""UPDATE Utilisateur
         SET MotDePasseUtilisateur = ?
@@ -249,16 +249,16 @@ def UpdateMdp(mdp, userPseudo, userId):
         AND IdUtilisateur = ?"""
         c.execute(request, (mdp, userPseudo, userId,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def SelectAllUser():
+def select_all_user():
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
             SELECT IdUtilisateur,
@@ -274,13 +274,13 @@ def SelectAllUser():
         resultArray = c.execute(request).fetchall()
         return resultArray
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def getUserCurrentPasswd(pseudo, Id):
+def get_current_user_password(pseudo, Id):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
 
         request = f"""
@@ -292,19 +292,19 @@ def getUserCurrentPasswd(pseudo, Id):
         result = c.execute(request, (pseudo, Id,)).fetchone()
 
         if len(result) != 1:
-            closeConnexion(c, conn)
+            close_connexion(c, conn)
             return False
         else:
-            closeConnexion(c, conn)
+            close_connexion(c, conn)
             return result[0]
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def UpdateRole(Id, pseudo, Role):
+def update_role(Id, pseudo, Role):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f""" 
         Update Utilisateur 
@@ -322,9 +322,9 @@ def UpdateRole(Id, pseudo, Role):
         return False
 
 
-def getLastMessageInformation():
+def get_last_message_information():
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""SELECT 
                         MI.ContenuMessageInformation,
@@ -337,14 +337,14 @@ def getLastMessageInformation():
                     DESC LIMIT 1"""
         result = c.execute(request).fetchone()
         if len(result) == 0:
-            closeConnexion(c, conn)
+            close_connexion(c, conn)
             return False
         else:
-            closeConnexion(c, conn)
+            close_connexion(c, conn)
             return result
 
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 # TODO : Close la connexion
@@ -352,7 +352,7 @@ def getLastMessageInformation():
 
 def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
             INSERT INTO Utilisateur 
@@ -366,16 +366,16 @@ def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance
         c.execute(request, (pseudo, nom, prenom,
                             motdepasse_hashe, datenaissance))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def updateMessageInformation(msg, idUser):
+def insert_message_information(msg, idUser):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
             INSERT INTO MessageInformation 
@@ -385,31 +385,31 @@ def updateMessageInformation(msg, idUser):
             VALUES(?,?,DateTime('now','localtime'))"""
         result = c.execute(request, (msg, idUser,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def getModeModeration():
+def get_mode_moderation():
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
             SELECT ModeModeration
             FROM Parametre"""
         result = c.execute(request).fetchone()[0]
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return result
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def updateModeModeration(isActive, userId):
+def update_mode_moderation(isActive, userId):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
             UPDATE Parametre
@@ -422,16 +422,16 @@ def updateModeModeration(isActive, userId):
             WHERE U.IdUtilisateur = ?)"""
         c.execute(request, (isActive, userId, userId,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def BanUser(userId):
+def ban_user(userId):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
 
         request = f"""
@@ -445,16 +445,16 @@ def BanUser(userId):
         c.execute(request, (userId,))
 
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def acceptPostePAM(idPostePAM):
+def accept_poste_pam(idPostePAM):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
                 INSERT INTO Poste (Fk_IdUtilisateur,
@@ -469,17 +469,17 @@ def acceptPostePAM(idPostePAM):
                     WHERE IdPosteAttenteModération = ?"""
         c.execute(request, (idPostePAM,))
         conn.commit()
-        closeConnexion(c, conn)
-        deletePostePAM(idPostePAM)
+        close_connexion(c, conn)
+        delete_poste_pam(idPostePAM)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def deletePoste(idPoste):
+def delete_poste(idPoste):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
                 DELETE FROM 
@@ -488,16 +488,16 @@ def deletePoste(idPoste):
                     IdPoste = ? """
         c.execute(request, (idPoste,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def deletePostePAM(idPostePAM):
+def delete_poste_pam(idPostePAM):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
                 DELETE FROM 
@@ -506,16 +506,16 @@ def deletePostePAM(idPostePAM):
                     IdPosteAttenteModération = ? """
         c.execute(request, (idPostePAM,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
 def update_title_poste(IdPoste, newTitre):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
                 UPDATE 
@@ -526,16 +526,16 @@ def update_title_poste(IdPoste, newTitre):
                     IdPoste = ? """
         c.execute(request, (newTitre, IdPoste,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
 
 
-def UpdateTitrePostePAM(IdPoste, newTitre):
+def update_title_poste_pam(IdPoste, newTitre):
     try:
-        conn = OpenConnexion()
+        conn = open_connexion()
         c = conn.cursor()
         request = f"""
                 UPDATE 
@@ -546,8 +546,8 @@ def UpdateTitrePostePAM(IdPoste, newTitre):
                     IdPosteAttenteModération = ? """
         c.execute(request, (newTitre, IdPoste,))
         conn.commit()
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return True
     except RuntimeError:
-        closeConnexion(c, conn)
+        close_connexion(c, conn)
         return False
