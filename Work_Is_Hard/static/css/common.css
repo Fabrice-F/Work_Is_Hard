@@ -207,7 +207,16 @@ html ,body{
         width: 25px;
     }
 }
+@media screen and (min-width: 1920px) { 
 
+    .input-modal{
+        font-size: 40px;
+    }
+    .btnModal{
+        font-size: 40px;
+
+    }
+}
 
 /*#region scrollbar*/
 ::-webkit-scrollbar {

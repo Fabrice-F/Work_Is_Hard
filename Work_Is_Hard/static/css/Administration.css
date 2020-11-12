@@ -194,6 +194,16 @@ input[type='radio']:after {
     }
 }
 
+@media screen and (min-width: 1920px) { 
+
+    .divRowAllInput{
+        font-size: 40px;
+    }
+    #msgModeModeration{
+        font-size: 40px;
+    }
+}
+
 
 
 

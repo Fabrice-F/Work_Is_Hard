@@ -1,19 +1,8 @@
-¤ Appliqer les script sql pour desactiver le case sensitive : 
+ ¤ Appliqer les script sql pour desactiver le case sensitive : 
     PRAGMA case_sensitive_like = false;
     delete from sqlite_sequence where name='your_table';
 
     
-¤ Voir avec mr Ayoub si la bdd peu lui est transmise avec des données a l'intérieur (déja faite) ou l'application
-doit elle la créer et injectée des donnée au proéalable ? => mail envoyé le 03/11/2020
-
-¤ Refactoring complet du code :
-    -Trie les fichier inutile
-    -Mieux organiser le css
-    -Mieux organiser le JS
-    
-¤ Faire un mode modérateur désactivable : !!!
-     En mode activer => oblige chaque poste à être accepté par un admin ou un modérateur
-     En mode désactiver => les postes sont directements mis sur le serveur
 
 
 ¤ confirmation inscription par mail: !!!
@@ -24,15 +13,13 @@ doit elle la créer et injectée des donnée au proéalable ? => mail envoyé le
 
 ¤ Gestion de ban par IP en cas de test de connexion > 5 / 1min
 
-¤ Obligatoirement un minimum de caracteres sur le mdp 
-¤ Pseudo Obligatoirement non vide
-
-¤ Message redirigé vers l'accueil et prevenir de confirmation d'inscription
-
-
 
 ¤ En cas de changement de role l'utilisateur a encore la session en mémoire coté serveur
 
-⚠ empecher les utilisateur de mettre des apostrophe dans leur nom pseudo ou prenom !! 
+Projet pour le module Python Flask Projet du module Python Flask Fabrice/Josué
 
-⚠ empecher de rentrer des balises  !! 
+A faire :
+Faire un petit document de présentation et de mise en place du serveur via le script dans ce read.me
+Faire le fichier .sql
+Commenté le code python
+Transformé les variables et fonction pour la pep8

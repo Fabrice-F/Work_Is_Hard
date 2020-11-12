@@ -234,3 +234,11 @@
     }
     
 }
+@media screen and (min-width: 1920px) { 
+    .BlocPAM{
+        height: 25%;
+    }
+    .img-User-InfosPAM{
+        margin: 50px;
+    }
+}
