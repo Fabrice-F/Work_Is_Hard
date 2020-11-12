@@ -44,8 +44,8 @@ def inscription():
     return render_template("inscription.html")
 
 
-@app.route('/ConfirmationInscription', methods=['POST'])
-def ConfirmationInscription():
+@app.route('/confirmation_inscription', methods=['POST'])
+def confirmation_inscription():
     pattern_regex_nom_prenom = "^[a-zA-Z]*$"
     pattern_regex_info_pseudo = "^[a-zA-Z0-9]*$"
     reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,100}$"
@@ -156,8 +156,8 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/GestionDeCompte')
-def GestionDeCompte():
+@app.route('/gestion_de_compte')
+def gestion_de_compte():
     if 'utilisateur' in session:
         msgTmp = getLastMessageInformation()
         if(msgTmp == False):
@@ -170,8 +170,8 @@ def GestionDeCompte():
         return render_template("inscription.html")
 
 
-@app.route('/CreationDePoste')
-def CreationDePoste():
+@app.route('/creation_de_poste')
+def creation_de_poste():
     if 'utilisateur' in session:
         msgTmp = getLastMessageInformation()
         if(msgTmp == False):
@@ -184,8 +184,8 @@ def CreationDePoste():
         return redirect(url_for('index'))
 
 
-@app.route('/publiePost', methods=['POST'])
-def publiePost():
+@app.route('/publie_post', methods=['POST'])
+def publie_post():
     if 'utilisateur' in session:
         TitrePoste = request.form["TitrePoste"]
         LienImg = request.form["LienImg"]
@@ -238,8 +238,8 @@ def getPage(idPage):
 
 
 # Fonction appelée en ajax
-@app.route('/DemandeSiPseudoDisponible', methods=['POST'])
-def DemandeSiPseudoDisponible():
+@app.route('/demande_si_pseudo_disponible', methods=['POST'])
+def demande_si_pseudo_disponible():
     if 'utilisateur' not in session:  # test pour voir si poas d'utilisateur dans session
         return redirect(url_for('index'))
 
@@ -261,8 +261,8 @@ def DemandeSiPseudoDisponible():
 
 
 # Fonction appelée en ajax
-@app.route('/DemandeChangementPassword', methods=['POST'])
-def DemandeChangementPassword():
+@app.route('/demande_changement_password', methods=['POST'])
+def demande_changement_password():
     if 'utilisateur' not in session:
         return redirect(url_for('index'))
 
@@ -293,8 +293,8 @@ def DemandeChangementPassword():
         return "Echec pendant la mise à jour du mot de passe"
 
 
-@app.route('/updateTitrePoste', methods=['POST'])  # Fonction appelée en ajax
-def updateTitrePoste():
+@app.route('/update_titre_poste', methods=['POST'])  # Fonction appelée en ajax
+def update_titre_poste():
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         idPoste = request.form["IdPoste"]
         NewTitrePoste = request.form["NewTitrePoste"]
@@ -310,7 +310,7 @@ def updateTitrePoste():
         if MdpUserSaisie != mdpCurrentUser:
             return " Le mot de passe saisie est incorrect"
 
-        if UpdateTitrePoste(idPoste, NewTitrePoste):
+        if update_title_poste(idPoste, NewTitrePoste):
             return "True"
         else:
             return "Le titre n'as pas pu être mis à jour"
@@ -319,8 +319,8 @@ def updateTitrePoste():
 
 
 # Fonction appelée en ajax
-@app.route('/SuppressionPosteAccueil', methods=['POST'])
-def SuppressionPosteAccueil():
+@app.route('/suppression_poste_accueil', methods=['POST'])
+def suppression_poste_accueil():
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         idPoste = request.form["IdPoste"]
         MdpUserClair = request.form["MdpUser"]
@@ -347,8 +347,8 @@ def SuppressionPosteAccueil():
 """ SECTION ADMINISTRATION  """
 
 
-@app.route('/Administration')
-def Administration():
+@app.route('/administration')
+def administration():
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
         isModeModeractionActive = bool(getModeModeration())
         msgTmp = getLastMessageInformation()
@@ -364,8 +364,8 @@ def Administration():
         return redirect(url_for('index'))
 
 
-@app.route("/ChangementRole", methods=['POST'])  # Fonction appelée en ajax
-def ChangementRole():
+@app.route("/changement_role", methods=['POST'])  # Fonction appelée en ajax
+def changement_role():
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
         pseudoUser = request.form["pseudoUser"]
         idUser = request.form["idUser"]
@@ -390,8 +390,8 @@ def ChangementRole():
 
 
 # Fonction appelée en ajax
-@app.route("/updateMsgInformation", methods=['POST'])
-def updateMsgInformation():
+@app.route("/update_msg_information", methods=['POST'])
+def update_msg_information():
 
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
         msg = request.form["Msg"]
@@ -417,8 +417,8 @@ def updateMsgInformation():
 
 
 # Fonction appelée en ajax
-@app.route('/changementModeModeration', methods=['POST'])
-def changementModeModeration():
+@app.route('/changement_mode_moderation', methods=['POST'])
+def changement_mode_moderation():
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
 
         MdpUserSaisieClair = request.form["MdpUser"]
@@ -446,7 +446,7 @@ def changementModeModeration():
 
 
 @app.route('/Moderation<idPage>')
-def Moderation(idPage):
+def moderation(idPage):
 
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         isModeModeractionActive = bool(getModeModeration())
@@ -466,8 +466,8 @@ def Moderation(idPage):
         return redirect(url_for('index'))
 
 
-@app.route('/Bannissement', methods=['POST'])  # Fonction appelée en ajax
-def Bannissement():
+@app.route('/banissement', methods=['POST'])  # Fonction appelée en ajax
+def banissement():
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         userBanId = request.form["userId"]
         MdpUserSaisieClair = request.form["MdpUser"]
@@ -491,8 +491,8 @@ def Bannissement():
 
 
 # Fonction appelée en ajax
-@app.route('/updatePosteAttenteModeration', methods=['POST'])
-def updatePosteAttenteModeration():
+@app.route('/update_poste_attente_moderation', methods=['POST'])
+def update_poste_attente_moderation():
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         idPostePAM = request.form["IdPoste"]
         isPostAccept = request.form["IsPostAccept"]
@@ -510,8 +510,8 @@ def updatePosteAttenteModeration():
         return redirect(url_for('index'))
 
 
-@app.route('/updateTitrePAM', methods=['POST'])  # Fonction appelée en ajax
-def updateTitrePAM():
+@app.route('/update_titre_pam', methods=['POST'])  # Fonction appelée en ajax
+def update_titre_pam():
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         idPoste = request.form["IdPoste"]
         NewTitrePoste = request.form["NewTitrePoste"]
@@ -539,8 +539,8 @@ def updateTitrePAM():
 """ FIN SECTION ADMINISTRATION  """
 
 
-@app.route('/A_Propos')
-def A_Propos():
+@app.route('/a_propos')
+def a_propos():
     msgTmp = getLastMessageInformation()
     if(msgTmp == False):
         messageInfo = MessageInformation(
@@ -553,8 +553,8 @@ def A_Propos():
         return render_template("A_Propos.html", messageInfo=messageInfo,)
 
 
-@app.route('/Cgu')
-def Cgu():
+@app.route('/cgu')
+def cgu():
     msgTmp = getLastMessageInformation()
     if(msgTmp == False):
         messageInfo = MessageInformation(
@@ -566,8 +566,8 @@ def Cgu():
     return render_template("Cgu.html", messageInfo=messageInfo)
 
 
-@app.route('/Contact')
-def Contact():
+@app.route('/contact')
+def contact():
     msgTmp = getLastMessageInformation()
     if(msgTmp == False):
         messageInfo = MessageInformation(
@@ -579,8 +579,8 @@ def Contact():
     return render_template("Contact.html", messageInfo=messageInfo)
 
 
-@app.route('/Aleatoire')
-def Aleatoire():
+@app.route('/aleatoire')
+def aleatoire():
     result_array = get_random_poste()
     poste_array = []
     for result in result_array:
@@ -595,7 +595,7 @@ def Aleatoire():
         return render_template("Aleatoire.html", poste_array=poste_array, messageInfo=message_info)
 
 
-@app.route('/Aide')
+@app.route('/aide')
 def aide():
     nbPosteTotal = getNbPoste()
     msgTmp = getLastMessageInformation()

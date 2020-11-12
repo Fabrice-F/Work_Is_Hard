@@ -9,3 +9,5 @@ Projet du module Python Flask Fabrice/Josué
 - Commenté le code python 
 - Transformé les variables et fonction pour la pep8 
 - Terminé le footer
+- Sécurisé changement mots de passe
+- Page contact

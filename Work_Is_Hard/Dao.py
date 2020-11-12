@@ -513,7 +513,7 @@ def deletePostePAM(idPostePAM):
         return False
 
 
-def UpdateTitrePoste(IdPoste, newTitre):
+def update_title_poste(IdPoste, newTitre):
     try:
         conn = OpenConnexion()
         c = conn.cursor()

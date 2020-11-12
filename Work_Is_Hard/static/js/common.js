@@ -45,7 +45,7 @@ function SendAjax(url,textSuccess,baliseMessage,...values)
         if(i+1!=values.length)
             datas +="&"
     }
-    //console.log(datas)
+    //alert(datas)
     $.ajax({
         url : url, // La ressource ciblée
         type : 'POST', // Le type de la requête HTTP.

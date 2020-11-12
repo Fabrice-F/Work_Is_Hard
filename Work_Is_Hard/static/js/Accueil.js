@@ -83,7 +83,7 @@ function sendChangementTitre(idPoste)
 
 
 
-    SendAjax("/updateTitrePoste","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser);
+    SendAjax("/update_titre_poste","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser);
 }
 
 function SuppressionPoste(idPoste,PseudoPosteur)
@@ -109,7 +109,7 @@ function sendDeletePoste(idPoste){
     }
 
     IdPoste=new String(idPoste);
-    SendAjax("/SuppressionPosteAccueil","status du poste",baliseMsgInModal,IdPoste,MdpUser);
+    SendAjax("/suppression_poste_accueil","status du poste",baliseMsgInModal,IdPoste,MdpUser);
 }
 
 function BanUser(idUserPoste,PseudoPosteur)
@@ -141,7 +141,7 @@ function sendBanUser(idUserPoste)
     }
 
     userId=new String(idUserPoste);
-    SendAjax("/Bannissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
+    SendAjax("/banissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
 }
 
 function confirmShare()
