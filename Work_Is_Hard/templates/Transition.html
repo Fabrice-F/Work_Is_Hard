@@ -10,12 +10,12 @@
 
     <h2> {{ message }} </h2>
 
-    {% if image_confirm !=null %}
-        <img class="imgTransition" src="{{ image_confirm }}">
-    {% endif %}
-
     {% if redirect !=null and redirect ==True %}
         <p>redirection vers l'accueil dans <span id="secondeRedirect">5</span>s ...</p>
+    {% endif %}
+
+    {% if image_confirm !=null %}
+        <img class="imgTransition" src="{{ image_confirm }}">
     {% endif %}
 
 {% endblock %}
