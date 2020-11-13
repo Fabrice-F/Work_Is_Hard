@@ -271,7 +271,7 @@ def demande_changement_password():
     user_password_current = get_current_user_password(user_pseudo, user_id)
 
     old_password_clair = request.form["AncienMotDePasse"]
-    new_password_clair = request.form["new_mot_de_passe"]
+    new_password_clair = request.form["NewMotDePasse"]
     confirm_password_clair = request.form["ConfirmationMotDePasse"]
 
     if is_null_or_empty(old_password_clair, new_password_clair, confirm_password_clair):
