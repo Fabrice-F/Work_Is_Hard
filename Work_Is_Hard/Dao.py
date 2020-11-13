@@ -29,10 +29,10 @@ def connexion_utilisateur(pseudo, mdp):
             Fk_IdRole
         FROM Utilisateur
         WHERE PseudoUtilisateur = ?"""
-        resultArray = c.execute(request, (pseudo,)).fetchall()
-        if len(resultArray) == 1:
+        result_array = c.execute(request, (pseudo,)).fetchall()
+        if len(result_array) == 1:
             close_connexion(c, conn)
-            return resultArray[0]
+            return result_array[0]
         else:
             close_connexion(c, conn)
             return False
@@ -41,7 +41,7 @@ def connexion_utilisateur(pseudo, mdp):
         return False
 
 
-def insert_poste(UserId, TitrePoste, LienImg):
+def insert_poste(user_id, titre_poste, lien_img):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -51,7 +51,7 @@ def insert_poste(UserId, TitrePoste, LienImg):
                     AdressePoste,
                     DatePoste)
                 VALUES (?,?,?,DateTime('now','localtime'))"""
-        c.execute(request, (UserId, TitrePoste, LienImg,))
+        c.execute(request, (user_id, titre_poste, lien_img,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -60,7 +60,7 @@ def insert_poste(UserId, TitrePoste, LienImg):
         return False
 
 
-def insert_poste_attente_moderation(UserId, TitrePoste, LienImg):
+def insert_poste_attente_moderation(user_id, titre_poste, lien_img):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -70,7 +70,7 @@ def insert_poste_attente_moderation(UserId, TitrePoste, LienImg):
                         AdressePosteAttenteModeration,
                         DatePosteAttenteModeration)
                     VALUES (?,?,?,DateTime('now','localtime'))"""
-        c.execute(request, (UserId, TitrePoste, LienImg,))
+        c.execute(request, (user_id, titre_poste, lien_img,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -109,15 +109,15 @@ def get_last_poste():
                         U.IdUtilisateur = P.Fk_IdUtilisateur 
                     ORDER BY IdPoste DESC
                     LIMIT {nbPosteByPage}"""
-        resultArray = c.execute(request).fetchall()
+        result_array = c.execute(request).fetchall()
         close_connexion(c, conn)
-        return resultArray
+        return result_array
     except RuntimeError:
         close_connexion(c, conn)
         return False
 
 
-def get_poste_by_page(idPage):
+def get_poste_by_page(id_page):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -134,15 +134,15 @@ def get_poste_by_page(idPage):
             ORDER BY P.DatePoste DESC
             LIMIT {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage};"""
 
-        resultArray = c.execute(request, (idPage,)).fetchall()
+        result_array = c.execute(request, (id_page,)).fetchall()
         close_connexion(c, conn)
-        return resultArray
+        return result_array
     except RuntimeError:
         close_connexion(c, conn)
         return False
 
 
-def get_poste_attente_moderation_by_page(idPage):
+def get_poste_attente_moderation_by_page(id_page):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -158,9 +158,9 @@ def get_poste_attente_moderation_by_page(idPage):
                         U.IdUtilisateur = PAM.Fk_IdUtilisateur
                     LIMIT 
                         {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage}"""
-        resultArray = c.execute(request, (idPage,)).fetchall()
+        result_array = c.execute(request, (id_page,)).fetchall()
         close_connexion(c, conn)
-        return resultArray
+        return result_array
     except RuntimeError:
         close_connexion(c, conn)
         return False
@@ -213,8 +213,8 @@ def if_pseudo_disponible(pseudo):
     request = f"""SELECT PseudoUtilisateur 
                 FROM Utilisateur 
                 WHERE PseudoUtilisateur LIKE ?"""
-    resultArray = c.execute(request, (pseudo,)).fetchall()
-    if len(resultArray) > 0:
+    result_array = c.execute(request, (pseudo,)).fetchall()
+    if len(result_array) > 0:
         close_connexion(c, conn)
         return False
     else:
@@ -271,8 +271,8 @@ def select_all_user():
             WHERE Fk_IdRole 
             IS NOT 3
             ORDER BY PseudoUtilisateur """
-        resultArray = c.execute(request).fetchall()
-        return resultArray
+        result_array = c.execute(request).fetchall()
+        return result_array
     except RuntimeError:
         close_connexion(c, conn)
         return False
@@ -350,7 +350,7 @@ def get_last_message_information():
 # TODO : Close la connexion
 
 
-def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance):
+def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, date_naissance):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -364,7 +364,7 @@ def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, datenaissance
             VALUES (?, ?, ?, ?, ?) 
         """
         c.execute(request, (pseudo, nom, prenom,
-                            motdepasse_hashe, datenaissance))
+                            motdepasse_hashe, date_naissance))
         conn.commit()
         close_connexion(c, conn)
         return True

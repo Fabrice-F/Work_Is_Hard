@@ -2,17 +2,17 @@
 
 <div id="conteneurInformation">
     
-    {% if messageInfo !=null %}
+    {% if message_info !=null %}
     <div id="blocMessageInformation">
         <p id="titreMessageInfoInformation">Informations :</p>
-        <p id="messageInfoInformation">{{messageInfo.ContenuMessageInformation }}</p>
+        <p id="messageInfoInformation">{{message_info.ContenuMessageInformation }}</p>
     </div>
     {% endif %}
     
-    {% if nbPosteTotal != null%}
+    {% if nb_poste_totaux != null%}
         <div id="blocNbPosteInformation">
             <label id="labelNbPosteInformation">Postes totals :</label>
-            <input id="NbPosteInformation" type="text" value="{{ nbPosteTotal }}" name="nbPoste" disabled>
+            <input id="NbPosteInformation" type="text" value="{{ nb_poste_totaux }}" name="nbPoste" disabled>
         </div>
     {% endif %}
 

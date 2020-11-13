@@ -61,7 +61,7 @@ def map_result_to_message_information(result):
     return MessageInformation(result[0], result[1], result[2])
 
 
-def image_confirm_poste():
+def image_confirmation():
     arrayImg = [
         "https://media.giphy.com/media/kRXnZwKrPTwVq/giphy.gif",
         "https://media.giphy.com/media/OE6FE4GZF78nm/giphy.gif",
