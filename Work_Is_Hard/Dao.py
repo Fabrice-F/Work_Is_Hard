@@ -3,7 +3,7 @@ import hashlib
 import sqlite3
 import ConstanteAndTools
 
-nbPosteByPage = 3
+NB_POSTE_BY_PAGE = 3
 
 
 def open_connexion():
@@ -108,7 +108,7 @@ def get_last_poste():
                     INNER JOIN Utilisateur AS U ON
                         U.IdUtilisateur = P.Fk_IdUtilisateur 
                     ORDER BY IdPoste DESC
-                    LIMIT {nbPosteByPage}"""
+                    LIMIT {NB_POSTE_BY_PAGE}"""
         result_array = c.execute(request).fetchall()
         close_connexion(c, conn)
         return result_array
@@ -132,7 +132,7 @@ def get_poste_by_page(id_page):
             INNER JOIN Utilisateur AS U ON
             U.IdUtilisateur = P.Fk_IdUtilisateur
             ORDER BY P.DatePoste DESC
-            LIMIT {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage};"""
+            LIMIT {NB_POSTE_BY_PAGE} OFFSET (?*{NB_POSTE_BY_PAGE})-{NB_POSTE_BY_PAGE};"""
 
         result_array = c.execute(request, (id_page,)).fetchall()
         close_connexion(c, conn)
@@ -157,7 +157,7 @@ def get_poste_attente_moderation_by_page(id_page):
                     INNER JOIN Utilisateur AS U ON 
                         U.IdUtilisateur = PAM.Fk_IdUtilisateur
                     LIMIT 
-                        {nbPosteByPage} OFFSET (?*{nbPosteByPage})-{nbPosteByPage}"""
+                        {NB_POSTE_BY_PAGE} OFFSET (?*{NB_POSTE_BY_PAGE})-{NB_POSTE_BY_PAGE}"""
         result_array = c.execute(request, (id_page,)).fetchall()
         close_connexion(c, conn)
         return result_array
@@ -222,7 +222,7 @@ def if_pseudo_disponible(pseudo):
         return True
 
 
-def update_pseudo(pseudoVoulu, UserPseudo, userId):
+def update_pseudo(pseudo_voulu, user_pseudo, user_id):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -230,7 +230,7 @@ def update_pseudo(pseudoVoulu, UserPseudo, userId):
             SET PseudoUtilisateur = ? 
             WHERE PseudoUtilisateur LIKE ? 
             AND IdUtilisateur = ?;"""
-        c.execute(request, (pseudoVoulu, UserPseudo, userId,))
+        c.execute(request, (pseudo_voulu, user_pseudo, user_id,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -239,7 +239,7 @@ def update_pseudo(pseudoVoulu, UserPseudo, userId):
         return False
 
 
-def update_password(mdp, userPseudo, userId):
+def update_password(mdp, user_pseudo, user_id):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -247,7 +247,7 @@ def update_password(mdp, userPseudo, userId):
         SET MotDePasseUtilisateur = ?
         WHERE PseudoUtilisateur LIKE ? 
         AND IdUtilisateur = ?"""
-        c.execute(request, (mdp, userPseudo, userId,))
+        c.execute(request, (mdp, user_pseudo, user_id,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -272,6 +272,7 @@ def select_all_user():
             IS NOT 3
             ORDER BY PseudoUtilisateur """
         result_array = c.execute(request).fetchall()
+        close_connexion(c, conn)
         return result_array
     except RuntimeError:
         close_connexion(c, conn)
@@ -316,9 +317,11 @@ def update_role(Id, pseudo, Role):
         AND PseudoUtilisateur LIKE ?
         """
         c.execute(request, (Role, Id, pseudo,))
+        close_connexion(c, conn)
         conn.commit()
         return True
     except RuntimeError:
+        close_connexion(c, conn)
         return False
 
 
@@ -350,7 +353,7 @@ def get_last_message_information():
 # TODO : Close la connexion
 
 
-def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, date_naissance):
+def insert_user_inscription(pseudo, nom, prenom, mot_de_passe_hash, date_naissance):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -364,7 +367,7 @@ def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, date_naissanc
             VALUES (?, ?, ?, ?, ?) 
         """
         c.execute(request, (pseudo, nom, prenom,
-                            motdepasse_hashe, date_naissance))
+                            mot_de_passe_hash, date_naissance))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -373,7 +376,7 @@ def insert_user_inscription(pseudo, nom, prenom, motdepasse_hashe, date_naissanc
         return False
 
 
-def insert_message_information(msg, idUser):
+def insert_message_information(msg, id_user):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -383,7 +386,7 @@ def insert_message_information(msg, idUser):
                 Fk_IdUtilisateurMessageInformation,
                 DateMessageInformation)
             VALUES(?,?,DateTime('now','localtime'))"""
-        result = c.execute(request, (msg, idUser,))
+        result = c.execute(request, (msg, id_user,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -407,7 +410,7 @@ def get_mode_moderation():
         return False
 
 
-def update_mode_moderation(isActive, userId):
+def update_mode_moderation(isActive, user_id):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -420,7 +423,7 @@ def update_mode_moderation(isActive, userId):
             (SELECT U.Fk_IdRole 
             FROM Utilisateur AS U 
             WHERE U.IdUtilisateur = ?)"""
-        c.execute(request, (isActive, userId, userId,))
+        c.execute(request, (isActive, user_id, user_id,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -429,7 +432,7 @@ def update_mode_moderation(isActive, userId):
         return False
 
 
-def ban_user(userId):
+def ban_user(user_id):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -442,7 +445,7 @@ def ban_user(userId):
         request = f"""
         DELETE FROM Utilisateur
         WHERE IdUtilisateur = ?"""
-        c.execute(request, (userId,))
+        c.execute(request, (user_id,))
 
         conn.commit()
         close_connexion(c, conn)
@@ -452,7 +455,7 @@ def ban_user(userId):
         return False
 
 
-def accept_poste_pam(idPostePAM):
+def accept_poste_pam(is_post_pam):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -467,17 +470,17 @@ def accept_poste_pam(idPostePAM):
                     DatePosteAttenteModeration
                     FROM PosteAttenteModération
                     WHERE IdPosteAttenteModération = ?"""
-        c.execute(request, (idPostePAM,))
+        c.execute(request, (is_post_pam,))
         conn.commit()
         close_connexion(c, conn)
-        delete_poste_pam(idPostePAM)
+        delete_poste_pam(is_post_pam)
         return True
     except RuntimeError:
         close_connexion(c, conn)
         return False
 
 
-def delete_poste(idPoste):
+def delete_poste(id_poste):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -486,7 +489,7 @@ def delete_poste(idPoste):
                     Poste 
                 WHERE 
                     IdPoste = ? """
-        c.execute(request, (idPoste,))
+        c.execute(request, (id_poste,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -495,7 +498,7 @@ def delete_poste(idPoste):
         return False
 
 
-def delete_poste_pam(idPostePAM):
+def delete_poste_pam(is_post_pam):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -504,7 +507,7 @@ def delete_poste_pam(idPostePAM):
                     PosteAttenteModération 
                 WHERE 
                     IdPosteAttenteModération = ? """
-        c.execute(request, (idPostePAM,))
+        c.execute(request, (is_post_pam,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -513,7 +516,7 @@ def delete_poste_pam(idPostePAM):
         return False
 
 
-def update_title_poste(IdPoste, newTitre):
+def update_title_poste(id_poste, new_titre):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -524,7 +527,7 @@ def update_title_poste(IdPoste, newTitre):
                     TitrePoste = ? 
                 WHERE 
                     IdPoste = ? """
-        c.execute(request, (newTitre, IdPoste,))
+        c.execute(request, (new_titre, id_poste,))
         conn.commit()
         close_connexion(c, conn)
         return True
@@ -533,7 +536,7 @@ def update_title_poste(IdPoste, newTitre):
         return False
 
 
-def update_title_poste_pam(IdPoste, newTitre):
+def update_title_poste_pam(id_poste, new_titre):
     try:
         conn = open_connexion()
         c = conn.cursor()
@@ -544,7 +547,7 @@ def update_title_poste_pam(IdPoste, newTitre):
                     TitrePosteAttenteModeration = ? 
                 WHERE 
                     IdPosteAttenteModération = ? """
-        c.execute(request, (newTitre, IdPoste,))
+        c.execute(request, (new_titre, id_poste,))
         conn.commit()
         close_connexion(c, conn)
         return True
