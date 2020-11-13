@@ -199,12 +199,12 @@ def publie_post():
 
         if get_mode_moderation() == 1:
             if insert_poste_attente_moderation(user_id, titre_poste, lien_img):
-                return render_template("Transition.html", user=session['utilisateur'], redirect=False, image_confirm=image_confirm, message="Votre poste a été pris en compte et est en attente de validation")
+                return render_template("Transition.html", user=session['utilisateur'], redirect=True, image_confirm=image_confirm, message="Votre poste a été pris en compte et est en attente de validation")
             else:
                 return render_template("Error/ErrorPage.html", messageError="Un problème à eut lieu lors de l'enregistrement du poste")
         else:
             if insert_poste(user_id, titre_poste, lien_img):
-                return render_template("Transition.html", user=session['utilisateur'], redirect=False, image_confirm=image_confirm, message="Votre poste à été intégré !")
+                return render_template("Transition.html", user=session['utilisateur'], redirect=True, image_confirm=image_confirm, message="Votre poste à été intégré !")
             else:
                 return render_template("Error/ErrorPage.html", messageError="Un problème à eut lieu lors de l'enregistrement du poste")
     else:
