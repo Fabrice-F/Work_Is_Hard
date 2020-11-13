@@ -22,7 +22,7 @@
                 <img src="{{ poste.AdressePAM }}" class="imgPAM">
 
                 <figcaption class="legendImgPAM">
-                    <h3 class="H3pseudoUserPAM">{{ 'Vous' if user.IdUtilisateur == poste.UserIdPAM else poste.user_pseudoPAM }}</h3>
+                    <h3 class="H3pseudoUserPAM">{{ 'Vous' if user.IdUtilisateur == poste.UserIdPAM else poste.UserPseudoPAM }}</h3>
                     <h4 class="H4DatePAM">{{ poste.DatePAM }}</h4>
                     <h4 class="H4RolePAM">{{ poste.UserNomRole }}</h4>
                 </figcaption>
@@ -32,7 +32,7 @@
                 <button class="btn-PAM" id="btnAcceptePAM" onclick="choixValidPAM(true,'{{poste.IdPAM }}')">✔</button>
                 <button class="btn-PAM btnChangeTitre" id="btnChangeTitlePAM{{poste.IdPAM }}" onclick="changeTitrePAM('{{poste.IdPAM }}')">change titre</button>
                 {% if poste.UserRolePAM < user.IdRoleUtilisateur %}
-                    <button class="btn-PAM" id="btnBanUserPAM"  onclick="openModalBanUser('{{ poste.UserIdPAM}}', '{{ poste.user_pseudoPAM}}')" title="BANNIR L'UTILISATEUR">😓</button>
+                    <button class="btn-PAM" id="btnBanUserPAM"  onclick="openModalBanUser('{{ poste.UserIdPAM}}', '{{ poste.UserPseudoPAM}}')" title="BANNIR L'UTILISATEUR">😓</button>
                 {% endif %}
             </div>
         </div>

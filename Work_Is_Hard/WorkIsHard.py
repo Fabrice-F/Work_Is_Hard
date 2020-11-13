@@ -143,7 +143,7 @@ def login():
     if(mdp_current_user == False):
         return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
 
-    if user_demande_connex.PseudoUtilisateur == pseudo and mdp_current_user == mdp:
+    if user_demande_connex.PseudoUtilisateur.lower() == pseudo.lower() and mdp_current_user == mdp:
         session['utilisateur'] = user_demande_connex.__dict__
         return redirect(url_for('index'))
     else:

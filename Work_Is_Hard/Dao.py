@@ -28,7 +28,7 @@ def connexion_utilisateur(pseudo, mdp):
             DateNaissanceUtilisateur,
             Fk_IdRole
         FROM Utilisateur
-        WHERE PseudoUtilisateur = ?"""
+        WHERE PseudoUtilisateur LIKE ?"""
         result_array = c.execute(request, (pseudo,)).fetchall()
         if len(result_array) == 1:
             close_connexion(c, conn)
@@ -308,17 +308,17 @@ def update_role(Id, pseudo, Role):
         conn = open_connexion()
         c = conn.cursor()
         request = f""" 
-        Update Utilisateur 
-        SET Fk_IdRole = 
-            (SELECT IdRole 
-            FROM Role 
-            WHERE NomRole Like ?)
-        WHERE IdUtilisateur = ?
-        AND PseudoUtilisateur LIKE ?
-        """
+            Update Utilisateur 
+            SET Fk_IdRole = 
+                (SELECT IdRole 
+                FROM Role 
+                WHERE NomRole Like ?)
+            WHERE IdUtilisateur = ?
+            AND PseudoUtilisateur LIKE ?
+            """
         c.execute(request, (Role, Id, pseudo,))
+        conn.commit()        
         close_connexion(c, conn)
-        conn.commit()
         return True
     except RuntimeError:
         close_connexion(c, conn)
