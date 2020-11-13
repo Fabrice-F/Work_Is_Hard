@@ -63,9 +63,8 @@ function CorrectionTitrePoste(TitrePoste,idPoste)
 function sendChangementTitre(idPoste)
 {
     baliseMsgInModal = "msgInModalChangementTitrePoste";
-    NewTitrePoste= document.getElementById("NouveauTitrePoste").value;
+    newTitrePoste= document.getElementById("NouveauTitrePoste").value;
     MdpUser= document.getElementById("mdpChangementTitrePoste").value;
-    IdPoste = new String(idPoste);
     
     if(isEmptyOrSpaces(MdpUser))
     {
@@ -73,17 +72,15 @@ function sendChangementTitre(idPoste)
         return;
     }
 
-    if(isEmptyOrSpaces(NewTitrePoste))
+    if(isEmptyOrSpaces(newTitrePoste))
     {
         PrintMessage(baliseMsgInModal,"Le titre est vide",true);
         return;
     }
 
-
-
-
-
-    SendAjax("/updateTitrePoste","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser);
+    IdPoste = new String(idPoste);
+    NewTitrePoste = new String(newTitrePoste);
+    SendAjax("/update_titre_poste","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser);
 }
 
 function SuppressionPoste(idPoste,PseudoPosteur)
@@ -109,7 +106,7 @@ function sendDeletePoste(idPoste){
     }
 
     IdPoste=new String(idPoste);
-    SendAjax("/SuppressionPosteAccueil","status du poste",baliseMsgInModal,IdPoste,MdpUser);
+    SendAjax("/suppression_poste_accueil","status du poste",baliseMsgInModal,IdPoste,MdpUser);
 }
 
 function BanUser(idUserPoste,PseudoPosteur)
@@ -141,7 +138,7 @@ function sendBanUser(idUserPoste)
     }
 
     userId=new String(idUserPoste);
-    SendAjax("/Bannissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
+    SendAjax("/banissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
 }
 
 function confirmShare()

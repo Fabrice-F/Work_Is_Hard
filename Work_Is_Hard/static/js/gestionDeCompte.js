@@ -25,7 +25,7 @@ function AjaxPseudo(baliseMessage)
     }
     PseudoVoulu = document.getElementById("PseudoVoulu").value;
     $.ajax({
-        url : '/DemandeSiPseudoDisponible', // La ressource ciblée
+        url : '/demande_si_pseudo_disponible', // La ressource ciblée
         type : 'POST', // Le type de la requête HTTP.
         data : `PseudoVoulu=${PseudoVoulu}` ,
         dataType : 'text', // On désire recevoir du text
@@ -75,7 +75,7 @@ function AjaxMotDePasse(baliseMessage)
     }
 
     $.ajax({
-        url : '/DemandeChangementPassword', // La ressource ciblée
+        url : '/demande_changement_password', // La ressource ciblée
         type : 'POST', // Le type de la requête HTTP.
         data : `AncienMotDePasse=${AncienMotDePasse}`+ `&NewMotDePasse=${NewMotDePasse}` + `&ConfirmationMotDePasse=${ConfirmationMotDePasse}` ,
         dataType : 'text', // On désire recevoir du text

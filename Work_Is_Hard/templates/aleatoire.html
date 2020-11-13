@@ -11,7 +11,7 @@
             <section id="blocGaucheCorpAccueil">
     
                 <div class="RowAleatoire">
-                    <a class="changePageLink" href="/Aleatoire">🎲 aléatoire 🎲</a>
+                    <a class="changePageLink" href="/aleatoire">🎲 aléatoire 🎲</a>
                 </div>
                 {% set url = request.url  %}
     
@@ -55,14 +55,14 @@
                 {% endfor %}
     
                 <div class="RowAleatoire">
-                    <a class="changePageLink" href="/Aleatoire">🎲 aléatoire 🎲</a>
+                    <a class="changePageLink" href="/aleatoire">🎲 aléatoire 🎲</a>
                 </div>
             </section>
     
             <div id="blocDroitCorpAccueil">
     
                 {% if user != null%}
-                    <a href="/CreationDePoste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
+                    <a href="/creation_de_poste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
                 {% endif %} 
     
                 {% include  "components/Connexion.html" %}

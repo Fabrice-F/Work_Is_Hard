@@ -19,7 +19,7 @@
         </nav>
         <div class="content">
             <section id="section-1">
-                {% for  otherUser in allUser %}
+                {% for  otherUser in all_user %}
 
                     <div class="mediabox BoxMediaStyle">
 
@@ -29,7 +29,7 @@
                         </div>
 
                         <div>
-                            <form action="/ChangementRole" method="POST" >
+                            <form action="/changement_role" method="POST" >
                                 <div class="divRowAllInput">
                                     <div class="rowInputChangeRole">
                                         <label for="Posteur{{ otherUser.IdUtilisateur  }}">Posteur</label>
@@ -45,8 +45,6 @@
                                     </div>
                                 </div>
                                 <div class="divEnvoyerRoleUtilisateur">
-                                    <!-- <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" >Reset password</button>
-                                    <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" >Bannir</button> -->
                                     <button type="button" class="btn-classique lien-Btn lien-Btn-size" value="Modifier" onclick="openModalChangeRole('{{ otherUser.IdUtilisateur  }}','{{ otherUser.PseudoUtilisateur }}', '{{ otherUser.NomRole }}' )">Modifier rôle</button>
                                     <input hidden type="button" id="OpenModal{{ otherUser.IdUtilisateur  }}" data-izimodal-open="#modal_changeRole" data-izimodal-transitionin="fadeInDown"/>
                                 </div>
@@ -60,13 +58,13 @@
                 <div class="conteneurModeModeration">
                     <p id="msgModeModeration">Le mode modération est :</p>
                     <div class="onoffswitch">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" {{  "checked" if isModeModeractionActive != NONE and isModeModeractionActive  }} >
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" {{  "checked" if is_mode_moderation_actif != NONE and is_mode_moderation_actif  }} >
                         <label class="onoffswitch-label" for="myonoffswitch">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
                         </label>
                     </div>
-                    <button class="btn-classique" onclick="openModalModeModeration('myonoffswitch','{{ isModeModeractionActive }}')">VALIDER</button>
+                    <button class="btn-classique" onclick="openModalModeModeration('myonoffswitch','{{ is_mode_moderation_actif }}')">VALIDER</button>
                     <input hidden type="button" id="OpenModalModeModeration" data-izimodal-open="#modalModeModeration" data-izimodal-transitionin="fadeInDown"/>
                 </div>
                 <p id="msgErrorModeModeration"></p>

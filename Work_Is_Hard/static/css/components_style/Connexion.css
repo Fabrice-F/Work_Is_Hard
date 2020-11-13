@@ -45,7 +45,10 @@ label{
 input{
     width: 90%;
 }
-
+.btnMdpOublie{
+    margin: 10px 0 0 0;
+    text-align: center;
+}
 @media screen and (max-width: 960px) { 
 
     h2{

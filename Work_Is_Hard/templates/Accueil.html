@@ -13,7 +13,7 @@
 
             {% set url = request.url  %}
 
-            {% for poste in posteArray   %}
+            {% for poste in poste_array   %}
                 <div class="blocGif" >
                     <div class="blocPartagePoste">
                         <button title ="Copier le lien du gif" class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-link="{{url}}#titrePoste{{poste.IdPoste}}" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
@@ -66,7 +66,7 @@
                             <a class="changePageLink" href="/page{{ page-1 if page-1 >= 1 else '1' }}" >Precedent</a>
                             {% endif %}
                         </div>
-                    {% if page+1 <= NbPageMax %}
+                    {% if page+1 <= nb_page_max %}
                         <div class="changePageBlocDroit">
                             <a class="changePageLink" href="/page{{ page+1 }}">Suivant</a>
                         </div>
@@ -78,7 +78,7 @@
         <div id="blocDroitCorpAccueil">
 
             {% if user != null%}
-                <a href="/CreationDePoste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
+                <a href="/creation_de_poste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
             {% endif %} 
 
             {% include  "components/Connexion.html" %}

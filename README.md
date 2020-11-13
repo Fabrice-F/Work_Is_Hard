@@ -7,4 +7,5 @@ Projet du module Python Flask Fabrice/Josué
 - Faire un petit document de présentation et de mise en place du serveur via le script dans ce read.me
 - Faire le fichier .sql 
 - Commenté le code python 
-- Transformé les variables et fonction pour la pep8 
+- Sécurisé changement mots de passe
+- patcher le bootstrap message console error
