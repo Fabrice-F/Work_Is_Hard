@@ -28,14 +28,24 @@
             {% endblock %}
         </div>
 
-        <div id="footer">
+        <footer id="footer">
             {% block footer %}
-           <!--  &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>. -->
+                {% include  "components/footer.html" %}
             {% endblock %}
-        </div>
+        </footer>
 
 
     </div>
+
+    {% if user != null%}
+        <div>
+            <select id="SelectMenu" class="h-jello btnPartagePoste" onchange="selectMenu(this)" >
+                <option value="" selected disabled>-- {{ user.PseudoUtilisateur }} --</option>
+                <option class="optionModerationAccueil" value="/creation_de_poste">Poster</option>
+                <option class="optionModerationAccueil" value="/logout">Deconnexion</option>                                   
+            </select>
+        </div>  
+    {% endif %}            
 </body>
     <script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename= 'js/Library/bootstrap.min.js') }}"></script>

@@ -63,8 +63,9 @@ function CorrectionTitrePoste(TitrePoste,idPoste)
 function sendChangementTitre(idPoste)
 {
     baliseMsgInModal = "msgInModalChangementTitrePoste";
-    newTitrePoste= document.getElementById("NouveauTitrePoste").value;
+    NewTitrePoste= document.getElementById("NouveauTitrePoste").value;
     MdpUser= document.getElementById("mdpChangementTitrePoste").value;
+    IdPoste = new String(idPoste);
     
     if(isEmptyOrSpaces(MdpUser))
     {
@@ -72,14 +73,16 @@ function sendChangementTitre(idPoste)
         return;
     }
 
-    if(isEmptyOrSpaces(newTitrePoste))
+    if(isEmptyOrSpaces(NewTitrePoste))
     {
         PrintMessage(baliseMsgInModal,"Le titre est vide",true);
         return;
     }
 
-    IdPoste = new String(idPoste);
-    NewTitrePoste = new String(newTitrePoste);
+
+
+
+
     SendAjax("/update_titre_poste","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser);
 }
 

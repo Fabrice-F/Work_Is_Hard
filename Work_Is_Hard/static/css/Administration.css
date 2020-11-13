@@ -1,3 +1,4 @@
+
 .BoxMediaStyle{
     border :1px solid black;
     background: var(--myTheme);
@@ -161,68 +162,7 @@ input[type='radio']:after {
     justify-content: center;
 }
 
-
-
-@media (max-width: 960px) { 
-    .conteneurModeModeration{
-        width: 100%;
-        flex-direction: column;
-        justify-content: space-evenly;
-        height: auto;
-        padding: 20px;
-        min-width: 225px;
-    }
-    #msgModeModeration{
-        text-align: center;
-    }
-}
-@media (max-width: 768px) { 
-    .divRowAllInput{
-        flex-direction: column;
-        align-items: flex-start;
-        margin:20px;
-    }
-
-    .rowInputChangeRole{
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-bottom: 10px
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ====== MODAL ===== */
+/* ====== MODAL ROLE ===== */
 
 .paragrapheChangeRole{
     height: auto;
@@ -235,17 +175,37 @@ input[type='radio']:after {
 }
 
 
-
-
-
-/* ========================================= */
-/* =============== RESPONSIVE ============== */
-/* ========================================= */
-
-@media screen and ( max-width: 768px) {
-    
+@media screen and (max-width: 960px) { 
+    .conteneurModeModeration{
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: auto;
+        padding: 20px;
+        min-width: 225px;
+    }
+    #msgModeModeration{
+        text-align: center;
+    }
+    .paragrapheChangeRole{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 768px) { 
     .divRowAllInput{
+        flex-direction: column;
+        align-items: flex-start;
+        margin:20px;
         font-size: 15px;
+    }
+
+    .rowInputChangeRole{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 10px
     }
 
     .divEnvoyerRoleUtilisateur{
@@ -257,5 +217,45 @@ input[type='radio']:after {
         font-size: 20px;
         padding :5px;
     }
-
 }
+
+@media screen and (min-width: 1920px) { 
+
+    .divRowAllInput{
+        font-size: 40px;
+    }
+    #msgModeModeration{
+        font-size: 40px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

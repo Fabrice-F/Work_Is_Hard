@@ -1,0 +1,16 @@
+.conteneur{
+    height: 70%;
+}
+.imgTransition{
+    width: 40%;
+    height: auto;
+}
+
+
+@media screen and (max-width: 960px) { 
+
+    .imgTransition{
+        width: 90%;
+    }
+
+}

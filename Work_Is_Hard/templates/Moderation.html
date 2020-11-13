@@ -9,13 +9,13 @@
 {% block title %}Moderation{% endblock %}
 
 {% block content %}
-    <h2 id="msgIsModeModerationActive">le mode moderation est actuellement: <span id="etatModeModeration"> {{ 'ACTIVÉ' if isModeModeractionActive else 'DÉSACTIVÉ'}} </span></h2>
+    <h2 id="msgIsModeModerationActive">le mode moderation est actuellement: <span id="etatModeModeration"> {{ 'ACTIVÉ' if is_mode_moderation_actif else 'DÉSACTIVÉ'}} </span></h2>
     
-    {% if postesAM|length ==0 %}
-        <h2 id="msgAucunPoste">AUCUN POSTE A MODÉRER</span></h2>
+    {% if postes_attente_moderation|length ==0 %}
+        <h3 id="msgAucunPoste">AUCUN POSTE A MODÉRER</span></h2>
     {% endif %}
 
-    {% for poste in postesAM %}
+    {% for poste in postes_attente_moderation %}
         <div class="BlocPAM">
             <h3 id="titrePAM{{poste.IdPAM }}" class="titrePAM">{{ poste.TitrePAM }} </h3>
             <div class="img-User-InfosPAM">
@@ -56,7 +56,7 @@
 
 
                 <div class="changePageBlocDroit">
-                    {% if page+1 <= NbPageMax %}
+                    {% if page+1 <= nb_page_max %}
                         <a class="btn-changePagePAM" href="/Moderation{{ page+1 }}">Suivant</a>
                     {% endif %}     
                 </div>

@@ -30,6 +30,7 @@ html ,body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    min-height: 70%;
 }
 
 
@@ -61,6 +62,8 @@ html ,body{
     align-items: center;
     text-align: center;
     min-height: 30px;
+    color: black;
+    margin: 5px 0 5px 0;
 }
 
 .btn-classique:hover{
@@ -68,6 +71,9 @@ html ,body{
     transition: all 0.5s;
     transform: translateY(-5px) ;
     cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    color: black;
 }
 .btn-classique:active{
     background: var(--myTheme);
@@ -152,6 +158,34 @@ html ,body{
     min-height: 20px;
 }
 
+#SelectMenu{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background:url(../img/user-ico.png) center no-repeat;
+    background-size: cover;
+    color: transparent;
+    position: fixed;
+    right: 10px;
+    top: 30px;
+    border-radius: 100px;
+}
+
+#SelectMenu:focus{
+    text-decoration: none;
+    outline: none;
+}
+.optionModerationAccueil {
+    color: black;
+    padding:50px;
+    margin:50px;
+}
+.btnPartagePoste{
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    background: white;
+    transition: all 0.5s;
+}
 @media (max-width: 768px) { 
     .btn-classique{
         font-size: 15px;
@@ -170,8 +204,24 @@ html ,body{
         min-height: 40px;
         text-align: center;
     }
+    #SelectMenu{
+        position: fixed;
+        right: 25px;
+        bottom: 15px;
+        height: 25px;
+        width: 25px;
+    }
 }
+@media screen and (min-width: 1920px) { 
 
+    .input-modal{
+        font-size: 40px;
+    }
+    .btnModal{
+        font-size: 40px;
+
+    }
+}
 
 /*#region scrollbar*/
 ::-webkit-scrollbar {

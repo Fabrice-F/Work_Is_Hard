@@ -1,0 +1,11 @@
+.imgContact{
+    width: 40%;
+    height: auto;
+}
+
+@media screen and (max-width: 960px) { 
+
+    .imgContact{
+        width: 70%;
+    }
+}

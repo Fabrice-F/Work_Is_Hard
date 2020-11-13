@@ -9,15 +9,17 @@
 {% block content %}
     <div id="corp">
         <section id="blocGaucheCorpAccueil">
-            {% for poste in posteArray   %}
+
+
+            {% set url = request.url  %}
+
+            {% for poste in poste_array   %}
                 <div class="blocGif" >
-                    
                     <div class="blocPartagePoste">
-                        <button title ="Copier le lien du gif" class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
-                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/like-ico.png" alt=""></button>
-                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt=""></button>
-                        <button title ="" class="h-jello btnPartagePoste "><img class="imgBtnPartagePoste" src="../static/img/commentaire-ico.png" alt=""></button>
-                        <button title ="" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt=""></button>
+                        <button title ="Copier le lien du gif" class="h-jello btnPartagePoste" onclick="CopyLinkImage(this)" data-link="{{url}}#titrePoste{{poste.IdPoste}}" data-izimodal-open="#modal_CopieOK" ><img class="imgBtnPartagePoste" src="../static/img/link-ico.png" alt=""></button>
+                        <a onclick="return confirmShare()" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url}}%23titrePoste{{poste.IdPoste}}" title ="Partage sur facebook" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/Facebook-ico.png" alt="facebook"></a>
+                        <a onclick="return confirmShare()" target="_blank" href="https://twitter.com/intent/tweet?text={{url}}%23titrePoste{{poste.IdPoste}}" title ="Partage sur twitter" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/twitter-ico.png" alt="twitter"></a>
+                        <a onclick="return confirmShare()" target="_blank" href="mailto:?subject=J'ai%20trouv%C3%A9%20un%20poste%20humoristique%20qui%20pourrais%20t'int%C3%A9resser&body=J'ai%20trouv%C3%A9%20sur%20Work%20is%20hard!%20%0A%0A{{url}}%23titrePoste{{poste.IdPoste}}%0D%0A" title ="Partage par mail" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/email-ico.png" alt="instagram"></a>
                     </div>
 
                     <div class="blocLegendImagePoste">
@@ -44,8 +46,6 @@
                                     {% endif%}
                                 </select>
                             </div>                          
-
-                            <!-- <button title="Outils administration" class="h-jello btnPartagePoste"><img class="imgBtnPartagePoste" src="../static/img/admin-ico.png" alt="icone administrateur"></button> -->
                         {% endif %}
                     </div>
 
@@ -66,7 +66,7 @@
                             <a class="changePageLink" href="/page{{ page-1 if page-1 >= 1 else '1' }}" >Precedent</a>
                             {% endif %}
                         </div>
-                    {% if page+1 <= NbPageMax %}
+                    {% if page+1 <= nb_page_max %}
                         <div class="changePageBlocDroit">
                             <a class="changePageLink" href="/page{{ page+1 }}">Suivant</a>
                         </div>
@@ -78,7 +78,7 @@
         <div id="blocDroitCorpAccueil">
 
             {% if user != null%}
-                <a href="/CreationDePoste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
+                <a href="/creation_de_poste" class="a-jello" id="btnLinkCreationPoste">Poster</a>
             {% endif %} 
 
             {% include  "components/Connexion.html" %}

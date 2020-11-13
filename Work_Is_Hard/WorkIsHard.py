@@ -1,229 +1,316 @@
-from flask import Flask, url_for, render_template ,session, request, redirect   # render_template permet de mettre des pages html
-from Dao import *
+# render_template permet de mettre des pages html
 from markupsafe import escape
-import hashlib , sqlite3
+import hashlib
+import sqlite3
+import re
+from flask import Flask, url_for, render_template, session, request, redirect
+from Dao import *
 from datetime import *
 from ConstanteAndTools import *
+from Classes import *
 
-
-TempsSession = 60 
+TempsSession = 60
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.permanent_session_lifetime = timedelta(minutes=TempsSession)
 
+
 @app.route('/')
 def index():
-    resultArray = getLastPoste()
-    nbPosteTotal = getNbPoste()
+    result_array = get_last_poste()
+    nb_poste_totaux = get_nb_poste()
 
-    msgTmp = getLastMessageInformation()
-    if(msgTmp==False):
-        messageInfo = MessageInformation("vide","Aucun",datetime.now())
-    else :
-        messageInfo = MapResultToMessageInformation(msgTmp)
-    posteArray = []
-    for result in resultArray:
-        posteArray.append(Poste(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
+    msg_tmp = get_last_message_information()
+    if(msg_tmp == False):
+        message_info = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        message_info = map_result_to_message_information(msg_tmp)
+    poste_array = []
+    for result in result_array:
+        poste_array.append(Poste(
+            result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
     if 'utilisateur' in session:
-        return render_template("Accueil.html",posteArray=posteArray,nbPosteTotal =nbPosteTotal,messageInfo=messageInfo,user=session['utilisateur'])
-    return render_template("Accueil.html",posteArray=posteArray ,nbPosteTotal=nbPosteTotal,messageInfo=messageInfo)
+        return render_template("Accueil.html", poste_array=poste_array,
+                               nb_poste_totaux=nb_poste_totaux, message_info=message_info,
+                               user=session['utilisateur'])
+
+    return render_template("Accueil.html", poste_array=poste_array,
+                           nb_poste_totaux=nb_poste_totaux, message_info=message_info)
+
 
 @app.route('/inscription')
 def inscription():
     return render_template("inscription.html")
 
-@app.route('/ConfirmationInscription', methods=['POST'])
-def ConfirmationInscription():
-    # Récupération des informations de la page inscription.html
-    pseudo = request.form["pseudo"]
-    nom = request.form["nom"]
-    prenom = request.form["prenom"]
-    datenaissance = request.form["datenaissance"]
 
-    #hash des mots de passes 
-    mdp = hashMdp(request.form["motdepasse"])
+@app.route('/confirmation_inscription', methods=['POST'])
+def confirmation_inscription():
+    pattern_regex_nom_prenom = "^[a-zA-Z]*$"
+    pattern_regex_info_pseudo = "^[a-zA-Z0-9]*$"
+    reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,100}$"
 
-    if confirmationInscription(pseudo, nom, prenom, mdp, datenaissance):
-        return redirect(url_for('index'))
-    else:
-        return "Error"
+    pattern_regex_password_user = re.compile(reg)
+
+    nom = request.form["nom"].strip()
+    prenom = request.form["prenom"].strip()
+    pseudo = request.form["pseudo"].strip()
+    mot_de_passe_clair = request.form["motdepasse"].strip()
+    confirm_mdp = request.form["confirm_mdp"].strip()
+    date_naissance = request.form["datenaissance"]
+
+    if is_null_or_empty(nom) or not re.match(pattern_regex_nom_prenom, nom):
+        error = "Le champs nom est vide ou contient des caractères non appropriés."
+        return render_template("inscription.html", error=error)
+
+    if not size_string_is_correct(nom, 2, 30):
+        error = "Le champs nom ne contient pas le nombre de caractères appropriés."
+        return render_template("inscription.html", error=error)
+
+    if is_null_or_empty(prenom) or not re.match(pattern_regex_nom_prenom, prenom):
+        error = "Le champs prenom est vide ou contient des caractères non appropriés."
+        return render_template("inscription.html", error=error)
+
+    if not size_string_is_correct(prenom, 2, 30):
+        error = "Le champs prenom ne contient pas le nombre de caractères appropriés."
+        return render_template("inscription.html", error=error)
+
+    if is_null_or_empty(pseudo) or not re.match(pattern_regex_info_pseudo, pseudo):
+        error = "Le champs pseudo est vide ou contient des caractères non appropriés."
+        return render_template("inscription.html", error=error)
+
+    if not size_string_is_correct(pseudo, 3, 15):
+        error = "Le champs pseudo ne contient pas le nombre de caractères appropriés."
+        return render_template("inscription.html", error=error)
+
+    if is_null_or_empty(mot_de_passe_clair):
+        error = "Le champs mot de passe est vide..."
+        return render_template("inscription.html", error=error)
+
+    if is_null_or_empty(confirm_mdp):
+        error = "Le champs confirmation mots de passe est vide..."
+        return render_template("inscription.html", error=error)
+
+    if not re.search(pattern_regex_password_user, mot_de_passe_clair):
+        error = "Le champs mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ..."
+        return render_template("inscription.html", error=error)
+
+    if not re.search(pattern_regex_password_user, confirm_mdp):
+        error = "Le champs confirmation mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ..."
+        return render_template("inscription.html", error=error)
+
+    if not verif_date_de_naissance(date_naissance):
+        error = "Vous n'avez pas l'age requis pour vous inscrire"
+        return render_template("inscription.html", error=error)
+
+    mdp = hash_password(mot_de_passe_clair)
+    mdp_confirm = hash_password(confirm_mdp)
+
+    if mdp != mdp_confirm:
+        error = "Le mots de passe et sa confirmation ne sont pas identique."
+        return render_template("inscription.html", error=error)
+
+    if if_pseudo_disponible(pseudo) == True:
+
+        if insert_user_inscription(pseudo, nom, prenom, mdp, date_naissance):
+            image_confirm = image_confirmation()
+            return render_template("Transition.html", redirect=True, image_confirm=image_confirm, message="Votre inscription c'est bien déroulé, vous aller être redirigé vers la page d'accueil !")
+        else:
+            return "problème d'inscription"
+    else:  # si pseudo existe
+        error = "Le pseudo est déja pris"
+        return render_template("inscription.html", pseudo=pseudo, error=error)
 
 
 @app.route('/login', methods=['POST'])
 def login():
     pseudo = request.form["pseudo"]
-    mdpClair =request.form["password"]
+    mdp_clair = request.form["password"]
 
-    if isNullOrEmpty(pseudo,mdpClair) :
-        return render_template("Error/ErrorPage.html",messageError=messageErrorChampsVide())
+    if is_null_or_empty(pseudo, mdp_clair):
+        return render_template("Error/ErrorPage.html", messageError=message_error_champs_vide())
 
-    mdp = hashMdp(mdpClair)
-    result = connexionUtilisateur(pseudo,mdp)
-    if result ==False:
-        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
+    mdp = hash_password(mdp_clair)
+    result = connexion_utilisateur(pseudo, mdp)
+    if result == False:
+        return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
 
-    userDemandeConnexion= Utilisateur(result[0], result[1], result[2], result[3], result[4],result[5])
-    mdpCurrentUser = getUserCurrentPasswd(userDemandeConnexion.PseudoUtilisateur,userDemandeConnexion.IdUtilisateur)
-    
-    if(mdpCurrentUser==False):
-        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
+    user_demande_connex = Utilisateur(
+        result[0], result[1], result[2], result[3], result[4], result[5])
+    mdp_current_user = get_current_user_password(
+        user_demande_connex.PseudoUtilisateur, user_demande_connex.IdUtilisateur)
 
-    if userDemandeConnexion.PseudoUtilisateur==pseudo and mdpCurrentUser== mdp and not mdp.isspace():
-        session['utilisateur'] = userDemandeConnexion.__dict__
+    if(mdp_current_user == False):
+        return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
+
+    if user_demande_connex.PseudoUtilisateur.lower() == pseudo.lower() and mdp_current_user == mdp:
+        session['utilisateur'] = user_demande_connex.__dict__
         return redirect(url_for('index'))
     else:
-        return render_template("Error/ErrorPage.html",messageError=messageErrorConnexion())
+        return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
+
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('index'))
 
-@app.route('/GestionDeCompte')
-def GestionDeCompte():
+
+@app.route('/gestion_de_compte')
+def gestion_de_compte():
     if 'utilisateur' in session:
-        msgTmp = getLastMessageInformation()
-        if(msgTmp==False):
-            messageInfo = MessageInformation("vide","Aucun",datetime.now())
-        else :
-            messageInfo = MapResultToMessageInformation(msgTmp)
-        return render_template("GestionDeCompte.html",user=session['utilisateur'],messageInfo=messageInfo)
+        msg_tmp = get_last_message_information()
+        if(msg_tmp == False):
+            message_info = MessageInformation(
+                "vide", "Aucun", datetime.datetime.now())
+        else:
+            message_info = map_result_to_message_information(msg_tmp)
+        return render_template("GestionDeCompte.html", user=session['utilisateur'], message_info=message_info)
     else:
         return render_template("inscription.html")
 
-@app.route('/CreationDePoste')
-def CreationDePoste():
+
+@app.route('/creation_de_poste')
+def creation_de_poste():
     if 'utilisateur' in session:
-        msgTmp = getLastMessageInformation()
-        if(msgTmp==False):
-            messageInfo = MessageInformation("vide","Aucun",datetime.now())
-        else :
-            messageInfo = MapResultToMessageInformation(msgTmp)
-        return render_template("CreationDePoste.html",user=session['utilisateur'],messageInfo=messageInfo)
-    else:
-        return redirect(url_for('index'))
-
-@app.route('/publiePost', methods=['POST'])
-def publiePost():
-    if 'utilisateur' in session:
-        TitrePoste = request.form["TitrePoste"]
-        LienImg = request.form["LienImg"]
-
-
-        if isNullOrEmpty(TitrePoste,LienImg) :
-            return render_template("Error/ErrorPage.html",messageError=messageErrorChampsVide())
-        
-        UserId = session['utilisateur']["IdUtilisateur"]
-
-        imgPosteOk=imageConfirmPoste()
-
-        if (getModeModeration()==1):
-            if InsertPosteAttenteModeration(UserId,TitrePoste,LienImg):
-                return render_template("Transition.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk,message="Votre poste a été pris en compte et est en attente de validation")
-            else:
-                return render_template("Error/ErrorPage.html",messageError="Un problème à eut lieu lors de l'enregistrement du poste")
+        msg_tmp = get_last_message_information()
+        if(msg_tmp == False):
+            message_info = MessageInformation(
+                "vide", "Aucun", datetime.datetime.now())
         else:
-            if InsertPoste(UserId,TitrePoste,LienImg):
-                return render_template("Transition.html",user=session['utilisateur'],redirect=True,imgPosteOk=imgPosteOk ,message="Votre poste à été intégré !")
-            else:
-                return render_template("Error/ErrorPage.html",messageError="Un problème à eut lieu lors de l'enregistrement du poste")
+            message_info = map_result_to_message_information(msg_tmp)
+        return render_template("CreationDePoste.html", user=session['utilisateur'], message_info=message_info)
     else:
         return redirect(url_for('index'))
 
-@app.route('/page<idPage>')
-def getPage(idPage):
 
-    numPage= int(idPage)
-    posteArray = []
-    nbPosteTotal = getNbPoste()
-    resultArray = getPosteByPage(idPage)
-    NbPageMax = CalculNbPageMax(nbPosteTotal,nbPosteByPage)
+@app.route('/publie_post', methods=['POST'])
+def publie_post():
+    if 'utilisateur' in session:
+        titre_poste = request.form["TitrePoste"]
+        lien_img = request.form["LienImg"]
 
-    msgTmp = getLastMessageInformation()
-    if(msgTmp==False):
-        messageInfo = MessageInformation("vide","Aucun",datetime.now())
-    else :
-        messageInfo = MapResultToMessageInformation(msgTmp)
+        if is_null_or_empty(titre_poste, lien_img):
+            return render_template("Error/ErrorPage.html", messageError=message_error_champs_vide())
 
-    for result in resultArray:
-        posteArray.append(Poste(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
+        user_id = session['utilisateur']["IdUtilisateur"]
+
+        image_confirm = image_confirmation()
+
+        if get_mode_moderation() == 1:
+            if insert_poste_attente_moderation(user_id, titre_poste, lien_img):
+                return render_template("Transition.html", user=session['utilisateur'], redirect=True, image_confirm=image_confirm, message="Votre poste a été pris en compte et est en attente de validation")
+            else:
+                return render_template("Error/ErrorPage.html", messageError="Un problème à eut lieu lors de l'enregistrement du poste")
+        else:
+            if insert_poste(user_id, titre_poste, lien_img):
+                return render_template("Transition.html", user=session['utilisateur'], redirect=True, image_confirm=image_confirm, message="Votre poste à été intégré !")
+            else:
+                return render_template("Error/ErrorPage.html", messageError="Un problème à eut lieu lors de l'enregistrement du poste")
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/page<id_page>')
+def getPage(id_page):
+
+    num_page = int(id_page)
+    poste_array = []
+    nb_poste_totaux = get_nb_poste()
+    result_array = get_poste_by_page(id_page)
+    nb_page_max = calcul_nb_page_max(nb_poste_totaux, NB_POSTE_BY_PAGE)
+
+    msg_tmp = get_last_message_information()
+    if(msg_tmp == False):
+        message_info = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        message_info = map_result_to_message_information(msg_tmp)
+
+    for result in result_array:
+        poste_array.append(Poste(
+            result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
 
     if 'utilisateur' in session:
-        return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,messageInfo=messageInfo,user=session['utilisateur'])
+        return render_template("Accueil.html", poste_array=poste_array, page=num_page, nb_poste_totaux=nb_poste_totaux, nb_page_max=nb_page_max, message_info=message_info, user=session['utilisateur'])
     else:
-        return render_template("Accueil.html",posteArray=posteArray,page= numPage,nbPosteTotal=nbPosteTotal,NbPageMax=NbPageMax,messageInfo=messageInfo )
+        return render_template("Accueil.html", poste_array=poste_array, page=num_page, nb_poste_totaux=nb_poste_totaux, nb_page_max=nb_page_max, message_info=message_info)
 
-@app.route('/DemandeSiPseudoDisponible',methods=['POST']) # Fonction appelée en ajax
-def DemandeSiPseudoDisponible():
-    if 'utilisateur' not in session: # test pour voir si poas d'utilisateur dans session
-        return redirect(url_for('index'))   
 
-    pseudoVoulu = request.form["PseudoVoulu"]
-    if isNullOrEmpty(pseudoVoulu) :
-        return messageErrorChampsVide()
+# Fonction appelée en ajax
+@app.route('/demande_si_pseudo_disponible', methods=['POST'])
+def demande_si_pseudo_disponible():
+    if 'utilisateur' not in session:  # test pour voir si pas d'utilisateur dans session
+        return redirect(url_for('index'))
 
-    IsPseudoDisponible = IfPseudoDisponible(pseudoVoulu)
-    if IsPseudoDisponible :
-        UserId= session['utilisateur']["IdUtilisateur"]
-        UserPseudo= session['utilisateur']["PseudoUtilisateur"]
-        if UpdatePseudo(pseudoVoulu,UserPseudo,UserId):
+    pseudo_voulu = request.form["PseudoVoulu"]
+    if is_null_or_empty(pseudo_voulu):
+        return message_error_champs_vide()
+
+    is_pseudo_disponible = if_pseudo_disponible(pseudo_voulu)
+    if is_pseudo_disponible:
+        user_id = session['utilisateur']["IdUtilisateur"]
+        user_pseudo = session['utilisateur']["PseudoUtilisateur"]
+        if update_pseudo(pseudo_voulu, user_pseudo, user_id):
             return "True"
         else:
             return "Echec pendant la mise à jour du pseudo"
     else:
         return "Le pseudo n'est pas disponible"
-    return 
+    return
 
-@app.route('/DemandeChangementPassword',methods=['POST']) # Fonction appelée en ajax
-def DemandeChangementPassword():
+
+# Fonction appelée en ajax
+@app.route('/demande_changement_password', methods=['POST'])
+def demande_changement_password():
     if 'utilisateur' not in session:
         return redirect(url_for('index'))
-    
-    UserId= session['utilisateur']["IdUtilisateur"]
-    UserPseudo= session['utilisateur']["PseudoUtilisateur"]
-    UserPasswordCurrent= getUserCurrentPasswd(UserPseudo,UserId)
 
-    oldPasswordClair=request.form["AncienMotDePasse"]
-    newPasswordClair=request.form["NewMotDePasse"]
-    confirmPasswordClair=request.form["ConfirmationMotDePasse"]
+    user_id = session['utilisateur']["IdUtilisateur"]
+    user_pseudo = session['utilisateur']["PseudoUtilisateur"]
+    user_password_current = get_current_user_password(user_pseudo, user_id)
 
-    if isNullOrEmpty(oldPasswordClair,newPasswordClair,confirmPasswordClair) :
-        return messageErrorChampsVide()
+    old_password_clair = request.form["AncienMotDePasse"]
+    new_password_clair = request.form["NewMotDePasse"]
+    confirm_password_clair = request.form["ConfirmationMotDePasse"]
 
-    AncienMotDePasseSaisie = hashMdp(oldPasswordClair)
-    NewMotDePasse = hashMdp(newPasswordClair)
-    ConfirmationMotDePasse = hashMdp(confirmPasswordClair)
+    if is_null_or_empty(old_password_clair, new_password_clair, confirm_password_clair):
+        return message_error_champs_vide()
 
-    if(NewMotDePasse !=ConfirmationMotDePasse):
+    ancien_mot_de_passe = hash_password(old_password_clair)
+    new_mot_de_passe = hash_password(new_password_clair)
+    confirmation_mot_de_passe = hash_password(confirm_password_clair)
+
+    if(new_mot_de_passe != confirmation_mot_de_passe):
         return "Le nouveau mot de passe et la confirmation ne sont pas identique"
 
-    if(UserPasswordCurrent !=AncienMotDePasseSaisie):
+    if(user_password_current != ancien_mot_de_passe):
         return "L'ancien mot de passe est incorrect"
 
-    if UpdateMdp(NewMotDePasse,UserPseudo,UserId):
+    if update_password(new_mot_de_passe, user_pseudo, user_id):
         return "True"
     else:
         return "Echec pendant la mise à jour du mot de passe"
 
 
-@app.route('/updateTitrePoste',methods=['POST']) # Fonction appelée en ajax
-def updateTitrePoste():
-    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
-        idPoste = request.form["IdPoste"]
-        NewTitrePoste = request.form["NewTitrePoste"]
-        MdpUserClair= request.form["MdpUser"]
-        
+@app.route('/update_titre_poste', methods=['POST'])  # Fonction appelée en ajax
+def update_titre_poste():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
+        id_poste = request.form["IdPoste"]
+        new_titre_poste = request.form["NewTitrePoste"]
+        mdp_user_clair = request.form["MdpUser"]
 
-        if isNullOrEmpty(idPoste,NewTitrePoste,MdpUserClair) :
-            return messageErrorChampsVide()
+        if is_null_or_empty(id_poste, new_titre_poste, mdp_user_clair):
+            return message_error_champs_vide()
 
-        MdpUserSaisie = hashMdp(MdpUserClair)
-        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+        mdp_user_saisie = hash_password(mdp_user_clair)
+        mdp_current_user = get_current_user_password(
+            session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
 
-        if MdpUserSaisie!=mdpCurrentUser :
+        if mdp_user_saisie != mdp_current_user:
             return " Le mot de passe saisie est incorrect"
 
-        if UpdateTitrePoste(idPoste,NewTitrePoste):
+        if update_title_poste(id_poste, new_titre_poste):
             return "True"
         else:
             return "Le titre n'as pas pu être mis à jour"
@@ -231,25 +318,25 @@ def updateTitrePoste():
         return redirect(url_for('index'))
 
 
+# Fonction appelée en ajax
+@app.route('/suppression_poste_accueil', methods=['POST'])
+def suppression_poste_accueil():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
+        id_poste = request.form["IdPoste"]
+        mdp_user_clair = request.form["MdpUser"]
 
+        if is_null_or_empty(id_poste, mdp_user_clair):
+            return message_error_champs_vide()
 
-@app.route('/SuppressionPosteAccueil',methods=['POST']) # Fonction appelée en ajax
-def SuppressionPosteAccueil():
-    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
-        idPoste = request.form["IdPoste"]
-        MdpUserClair = request.form["MdpUser"]
-        
-        if isNullOrEmpty(idPoste,MdpUserClair) :
-            return messageErrorChampsVide()
+        mdp_user_saisie = hash_password(mdp_user_clair)
 
-        MdpUserSaisie = hashMdp(MdpUserClair)
+        mdp_current_user = get_current_user_password(
+            session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
 
-        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
-
-        if MdpUserSaisie!=mdpCurrentUser :
+        if mdp_user_saisie != mdp_current_user:
             return " Le mot de passe saisie est incorrect"
 
-        if deletePoste(idPoste):
+        if delete_poste(id_poste):
             return "True"
         else:
             return "Le titre n'as pas pu être mis à jour"
@@ -259,172 +346,189 @@ def SuppressionPosteAccueil():
 
 """ SECTION ADMINISTRATION  """
 
-@app.route('/Administration')
-def Administration():
-    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
-        isModeModeractionActive = bool(getModeModeration())
-        msgTmp = getLastMessageInformation()
-        if(msgTmp==False):
-            messageInfo = MessageInformation("vide","Aucun",datetime.now())
-        else :
-            messageInfo = MapResultToMessageInformation(msgTmp)
-        ArrayUser = SelectAllUser()
-        AllUser= MapArrayResultBddToArrayUtilisateur(ArrayUser)
-        return render_template("Administration.html",user=session['utilisateur'],allUser =AllUser,messageInfo=messageInfo,isModeModeractionActive=isModeModeractionActive)
-    else :
-        return redirect(url_for('index'))
 
-@app.route("/ChangementRole", methods=['POST']) # Fonction appelée en ajax
-def ChangementRole():
-    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:    
-        pseudoUser = request.form["pseudoUser"]
-        idUser = request.form["idUser"]    
-        AncienRoleUser = request.form["AncienRoleUser"]    
-        NouveauRoleUser = request.form["NouveauRoleUser"]    
-        mdpOfAdminSaisieClair = request.form["AdminPwd"]
-        
-        if isNullOrEmpty(pseudoUser,idUser,AncienRoleUser,NouveauRoleUser,mdpOfAdminSaisieClair) :
-            return messageErrorChampsVide()
-
-        mdpOfAdminSaisie = hashMdp(mdpOfAdminSaisieClair)
-        mdpOfAdmin= getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
-
-        if mdpOfAdminSaisie != mdpOfAdmin:
-            return "Le mot de passe entré est incorrect"
-
-        isUpdate= UpdateRole(idUser,pseudoUser,NouveauRoleUser)
-        return str(isUpdate)
-    else :
-        return redirect(url_for('index'))
-
-@app.route("/updateMsgInformation", methods=['POST']) # Fonction appelée en ajax
-def updateMsgInformation():
-
-    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:    
-        msg = request.form["Msg"]
-        MdpUserSaisieClair = request.form["MdpUser"]
-
-        if isNullOrEmpty(msg,MdpUserSaisieClair) :
-            return messageErrorChampsVide()
-
-        MdpUserSaisie = hashMdp(MdpUserSaisieClair)
-        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
-
-        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace() :
-            return " Le mot de passe saisie est incorrect"
-
-        userIdCurrent = session['utilisateur']["IdUtilisateur"]
-        if updateMessageInformation(msg,userIdCurrent) :
-            return "True"
+@app.route('/administration')
+def administration():
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
+        is_mode_moderation_actif = bool(get_mode_moderation())
+        msg_tmp = get_last_message_information()
+        if(msg_tmp == False):
+            message_info = MessageInformation(
+                "vide", "Aucun", datetime.datetime.now())
         else:
-            return "Le message n'as pas pu être actualisé"
-    else :
-        return redirect(url_for('index'))
-
-@app.route('/changementModeModeration',methods=['POST']) # Fonction appelée en ajax
-def changementModeModeration():
-    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur']== 3:
-        
-        MdpUserSaisieClair = request.form["MdpUser"]
-        ModeModerationVoulu = request.form["ModeModerationVoulu"]
-
-        if isNullOrEmpty(ModeModerationVoulu,MdpUserSaisieClair) :
-            return messageErrorChampsVide()
-
-        user = MapSessionToUser(session['utilisateur'])
-        MdpUserSaisie = hashMdp(MdpUserSaisieClair)
-        modeModerationVoulut = 1 if ModeModerationVoulu == "true" else 0
-
-        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
-
-        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace() :
-            return " Le mot de passe saisie est incorrect"
-
-        if updateModeModeration(modeModerationVoulut,user.IdUtilisateur):
-            return "True"
-        else:
-            return "Echec pendant la mise à jour du mode modération" 
-    else :
-        return redirect(url_for('index'))
-
-@app.route('/Moderation<idPage>')
-def Moderation(idPage):
-
-    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
-        isModeModeractionActive = bool(getModeModeration())
-        numPage= int(idPage)
-        postesAM = []
-        nbPosteAttenteModerationTotal = getNbPosteAttenteModeration()
-        resultArray = getPosteAttenteModerationByPage(idPage)
-        NbPageMax = CalculNbPageMax(nbPosteAttenteModerationTotal,nbPosteByPage)
-
-        for result in resultArray:
-            postesAM.append(PosteAttenteModeration(result[0],result[1],result[2],result[3],result[4],result[5],result[6]))
-        
-        return render_template("Moderation.html",user=session['utilisateur'],postesAM=postesAM,NbPageMax=NbPageMax,page= numPage,isModeModeractionActive=isModeModeractionActive)
+            message_info = map_result_to_message_information(msg_tmp)
+        array_user = select_all_user()
+        all_user = map_array_result_bdd_to_array_utilisateur(array_user)
+        return render_template("Administration.html", user=session['utilisateur'], all_user=all_user, message_info=message_info, is_mode_moderation_actif=is_mode_moderation_actif)
     else:
         return redirect(url_for('index'))
 
-@app.route('/Bannissement',methods=['POST']) # Fonction appelée en ajax
-def Bannissement():
-    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
-        userBanId = request.form["userId"]
-        MdpUserSaisieClair = request.form["MdpUser"]
 
-        if isNullOrEmpty(userBanId,MdpUserSaisieClair) :
-            return messageErrorChampsVide()
+@app.route("/changement_role", methods=['POST'])  # Fonction appelée en ajax
+def changement_role():
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
+        pseudo_user = request.form["pseudoUser"]
+        id_user = request.form["idUser"]
+        ancien_role_user = request.form["AncienRoleUser"]
+        nouveau_role_user = request.form["NouveauRoleUser"]
+        mdp_admin_saisie_clair = request.form["AdminPwd"]
 
-        MdpUserSaisie = hashMdp(MdpUserSaisieClair)            
-        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
+        if is_null_or_empty(pseudo_user, id_user, ancien_role_user, nouveau_role_user, mdp_admin_saisie_clair):
+            return message_error_champs_vide()
 
-        if MdpUserSaisie!=mdpCurrentUser:
+        mdp_admin_saisie = hash_password(mdp_admin_saisie_clair)
+        current_mdp_user = get_current_user_password(
+            session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
+
+        if mdp_admin_saisie != current_mdp_user:
+            return "Le mot de passe entré est incorrect"
+
+        is_role_update = update_role(id_user, pseudo_user, nouveau_role_user)
+        return str(is_role_update)
+    else:
+        return redirect(url_for('index'))
+
+
+# Fonction appelée en ajax
+@app.route("/update_msg_information", methods=['POST'])
+def update_msg_information():
+
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
+        msg = request.form["Msg"]
+        mdp_user_saisieClair = request.form["MdpUser"]
+
+        if is_null_or_empty(msg, mdp_user_saisieClair):
+            return message_error_champs_vide()
+
+        mdp_user_saisie = hash_password(mdp_user_saisieClair)
+        mdp_current_user = get_current_user_password(
+            session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
+
+        if mdp_user_saisie != mdp_current_user:
             return " Le mot de passe saisie est incorrect"
 
-        if BanUser(userBanId):
+        user_id_current = session['utilisateur']["IdUtilisateur"]
+        if insert_message_information(msg, user_id_current):
+            return "True"
+        else:
+            return "Le message n'as pas pu être actualisé"
+    else:
+        return redirect(url_for('index'))
+
+
+# Fonction appelée en ajax
+@app.route('/changement_mode_moderation', methods=['POST'])
+def changement_mode_moderation():
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
+
+        mdp_user_saisieClair = request.form["MdpUser"]
+        mode_moderation_voulu = request.form["ModeModerationVoulu"]
+
+        if is_null_or_empty(mode_moderation_voulu, mdp_user_saisieClair):
+            return message_error_champs_vide()
+
+        user = map_session_to_user(session['utilisateur'])
+        mdp_user_saisie = hash_password(mdp_user_saisieClair)
+        mode_moderation_voulu_bit = 1 if mode_moderation_voulu == "true" else 0
+
+        mdp_current_user = get_current_user_password(
+            session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
+
+        if mdp_user_saisie != mdp_current_user:
+            return " Le mot de passe saisie est incorrect"
+
+        if update_mode_moderation(mode_moderation_voulu_bit, user.IdUtilisateur):
+            return "True"
+        else:
+            return "Echec pendant la mise à jour du mode modération"
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/Moderation<id_page>')
+def moderation(id_page):
+
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
+        is_mode_moderation_actif = bool(get_mode_moderation())
+        num_page = int(id_page)
+        postes_attente_moderation = []
+        nb_pam_totaux = get_nb_poste_attente_moderation()
+        result_array = get_poste_attente_moderation_by_page(id_page)
+        nb_page_max = calcul_nb_page_max(
+            nb_pam_totaux, NB_POSTE_BY_PAGE)
+
+        for result in result_array:
+            postes_attente_moderation.append(PosteAttenteModeration(
+                result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
+
+        return render_template("Moderation.html", user=session['utilisateur'], postes_attente_moderation=postes_attente_moderation, nb_page_max=nb_page_max, page=num_page, is_mode_moderation_actif=is_mode_moderation_actif)
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/banissement', methods=['POST'])  # Fonction appelée en ajax
+def banissement():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
+        user_ban_id = request.form["userId"]
+        mdp_user_saisieClair = request.form["MdpUser"]
+
+        if is_null_or_empty(user_ban_id, mdp_user_saisieClair):
+            return message_error_champs_vide()
+
+        mdp_user_saisie = hash_password(mdp_user_saisieClair)
+        mdp_current_user = get_current_user_password(
+            session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
+
+        if mdp_user_saisie != mdp_current_user:
+            return " Le mot de passe saisie est incorrect"
+
+        if ban_user(user_ban_id):
             return "True"
         else:
             return "L'utilisateur n'as pas pu être banni"
     else:
         return redirect(url_for('index'))
 
-@app.route('/updatePosteAttenteModeration',methods=['POST']) # Fonction appelée en ajax
-def updatePosteAttenteModeration():
-    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
-        idPostePAM = request.form["IdPoste"]
-        isPostAccept= request.form["IsPostAccept"]
 
-        if isNullOrEmpty(idPostePAM,isPostAccept) :
-            return messageErrorChampsVide()
+# Fonction appelée en ajax
+@app.route('/update_poste_attente_moderation', methods=['POST'])
+def update_poste_attente_moderation():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
+        is_post_pam = request.form["IdPoste"]
+        is_post_accept = request.form["IsPostAccept"]
 
-        if isPostAccept =="true":
-            acceptPostePAM(idPostePAM)
+        if is_null_or_empty(is_post_pam, is_post_accept):
+            return message_error_champs_vide()
+
+        if is_post_accept == "true":
+            accept_poste_pam(is_post_pam)
             return "True"
-        else :
-            deletePostePAM(idPostePAM)
+        else:
+            delete_poste_pam(is_post_pam)
             return "True"
     else:
         return redirect(url_for('index'))
 
 
-@app.route('/updateTitrePAM',methods=['POST']) # Fonction appelée en ajax
-def updateTitrePAM():
-    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur']== 3 or session['utilisateur']['IdRoleUtilisateur']== 2):
-        idPoste = request.form["IdPoste"]
-        NewTitrePoste = request.form["NewTitrePoste"]
-        mdpClaire= request.form["MdpUser"]
+@app.route('/update_titre_pam', methods=['POST'])  # Fonction appelée en ajax
+def update_titre_pam():
+    if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
+        id_poste = request.form["IdPoste"]
+        new_titre_poste = request.form["NewTitrePoste"]
+        mdp_claire = request.form["MdpUser"]
 
-        if isNullOrEmpty(idPoste,NewTitrePoste,mdpClaire) :
-            return messageErrorChampsVide()
+        if is_null_or_empty(id_poste, new_titre_poste, mdp_claire):
+            return message_error_champs_vide()
 
-        MdpUserSaisie = hashMdp(mdpClaire)
+        mdp_user_saisie = hash_password(mdp_claire)
 
+        mdp_current_user = get_current_user_password(
+            session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
 
-        mdpCurrentUser=  getUserCurrentPasswd(session['utilisateur']["PseudoUtilisateur"],session['utilisateur']["IdUtilisateur"])
-
-        if MdpUserSaisie!=mdpCurrentUser or MdpUserSaisie.isspace() :
+        if mdp_user_saisie != mdp_current_user:
             return " Le mot de passe saisie est incorrect"
 
-        if UpdateTitrePostePAM(idPoste,NewTitrePoste):
+        if update_title_poste_pam(id_poste, new_titre_poste):
             return "True"
         else:
             return "Le titre n'as pas pu être mis à jour"
@@ -435,29 +539,71 @@ def updateTitrePAM():
 """ FIN SECTION ADMINISTRATION  """
 
 
+@app.route('/a_propos')
+def a_propos():
+    msg_tmp = get_last_message_information()
+    if(msg_tmp == False):
+        message_info = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        message_info = map_result_to_message_information(msg_tmp)
+    if 'utilisateur' in session:
+        return render_template("A_Propos.html", message_info=message_info, user=session['utilisateur'])
+    else:
+        return render_template("A_Propos.html", message_info=message_info,)
 
 
+@app.route('/cgu')
+def cgu():
+    msg_tmp = get_last_message_information()
+    if(msg_tmp == False):
+        message_info = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        message_info = map_result_to_message_information(msg_tmp)
+    if 'utilisateur' in session:
+        return render_template("Cgu.html", message_info=message_info, user=session['utilisateur'])
+    return render_template("Cgu.html", message_info=message_info)
 
 
+@app.route('/contact')
+def contact():
+    msg_tmp = get_last_message_information()
+    if(msg_tmp == False):
+        message_info = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        message_info = map_result_to_message_information(msg_tmp)
+    if 'utilisateur' in session:
+        return render_template("Contact.html", message_info=message_info, user=session['utilisateur'])
+    return render_template("Contact.html", message_info=message_info)
 
 
+@app.route('/aleatoire')
+def aleatoire():
+    result_array = get_random_poste()
+    poste_array = []
+    for result in result_array:
+        poste_array.append(Poste(
+            result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
+
+    message_info = MessageInformation(
+        "Sur la page aléatoire, le lien de partage redirige vers cette page et non pas vers les postes (vu qu'il change)", "Aucun", datetime.datetime.now())
+    if 'utilisateur' in session:
+        return render_template("Aleatoire.html", poste_array=poste_array, message_info=message_info, user=session['utilisateur'])
+    else:
+        return render_template("Aleatoire.html", poste_array=poste_array, message_info=message_info)
 
 
-
-
-
-@app.route('/testAjax')
-def test():
-    return "AJAX FONCTIONNEL"
-
-@app.route('/base')
-def accesBase():
-    return render_template("heritageJinja/base.html")
-
-@app.route('/ChildBase1')
-def ChildBase1():
-    return render_template("heritageJinja/ChildBase1.html")
-
-
-
-
+@app.route('/aide')
+def aide():
+    nb_poste_totaux = get_nb_poste()
+    msg_tmp = get_last_message_information()
+    if(msg_tmp == False):
+        message_info = MessageInformation(
+            "vide", "Aucun", datetime.datetime.now())
+    else:
+        message_info = map_result_to_message_information(msg_tmp)
+    if 'utilisateur' in session:
+        return render_template("Aide.html", nb_poste_totaux=nb_poste_totaux, message_info=message_info, user=session['utilisateur'])
+    return render_template("Aide.html", nb_poste_totaux=nb_poste_totaux, message_info=message_info)

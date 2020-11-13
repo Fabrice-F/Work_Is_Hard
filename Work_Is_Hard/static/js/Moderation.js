@@ -42,7 +42,7 @@ function sendBanissementPAM(baliseMsgInModal,user_id)
         return;
     }
     userId = new String(user_id)
-    SendAjax("/Bannissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
+    SendAjax("/banissement","status de l'utilisateur",baliseMsgInModal,userId,MdpUser);
 }
 
 function choixValidPAM(isPostAccept,idPoste){
@@ -64,7 +64,7 @@ function sendChoixValidPAM(isPostAccept,idPoste)
 
     IdPoste = new String(idPoste);
     IsPostAccept = new String(isPostAccept);
-    SendAjax("/updatePosteAttenteModeration","poste",baliseMsgInModal,IdPoste,IsPostAccept)
+    SendAjax("/update_poste_attente_moderation","poste",baliseMsgInModal,IdPoste,IsPostAccept)
 }
 
 
@@ -100,5 +100,5 @@ function sendNewTitrePAM(idPoste){
 
     IdPoste = new String(idPoste);
     NewTitrePoste = new String(newTitrePoste);
-    SendAjax("/updateTitrePAM","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser)
+    SendAjax("/update_titre_pam","titre du poste",baliseMsgInModal,IdPoste,NewTitrePoste,MdpUser)
 }

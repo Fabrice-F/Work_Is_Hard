@@ -11,22 +11,19 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav Menu">
                 <a class="nav-item nav-link h-grow" href="/">Accueil</a>
-                <a class="nav-item nav-link h-grow" href="#">Aléatoire</a>
-                <a class="nav-item nav-link h-grow" href="#">A propos</a>
-
+                <a class="nav-item nav-link h-grow" href="/aleatoire">Aléatoire</a>
                 {% if user == null%}
                     <a href="/inscription" class="nav-item nav-link h-grow">Inscription</a>
                 {% else %}    
-                    <a href="/GestionDeCompte" class="nav-item nav-link h-grow">Mon compte</a>
+                    <a href="/gestion_de_compte" class="nav-item nav-link h-grow">Mon compte</a>
                 {% endif %} 
 
                 {% if user != null and user.IdRoleUtilisateur == 2 %}
                     <a href="/Moderation1" class="nav-item nav-link h-grow">Moderation</a>
                 {% elif user != null and user.IdRoleUtilisateur == 3 %}
                     <a href="/Moderation1" class="nav-item nav-link h-grow">Moderation</a>    
-                    <a href="/Administration" class="nav-item nav-link h-grow">Administration</a>
+                    <a href="/administration" class="nav-item nav-link h-grow">Administration</a>
                 {% endif %} 
-
             </div>
         </div>
     </nav>

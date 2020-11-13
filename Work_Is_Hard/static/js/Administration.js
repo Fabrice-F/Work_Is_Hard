@@ -65,7 +65,7 @@ function ValidChangeRole(pseudo,id,ancienRole,NouveauRole)
     }
 
     $.ajax({
-        url : '/ChangementRole', // La ressource ciblée
+        url : '/changement_role', // La ressource ciblée
         type : 'POST', // Le type de la requête HTTP.
         data : `pseudoUser=${pseudo}&idUser=${id}&AncienRoleUser=${ancienRole}&NouveauRoleUser=${NouveauRole}&AdminPwd=${AdminPwd}` ,
         dataType : 'text', // On désire recevoir du text
@@ -102,7 +102,7 @@ function sendMsgInformation(baliseMessageInModal)
         PrintMessage(baliseMessageInModal,"Le champs mot de passe est vide ...",true);
         return;
     }
-    SendAjax("/updateMsgInformation","message d'information",baliseMessageInModal,Msg,MdpUser);
+    SendAjax("/update_msg_information","message d'information",baliseMessageInModal,Msg,MdpUser);
 }
 
 
@@ -132,5 +132,5 @@ function sendModeModeration(baliseMsgInModal,baliseInputModeModerationVoulut)
     }
 
     ModeModerationVoulu = new String(ModeModerationVoulu);
-    SendAjax("/changementModeModeration","mode modération",baliseMsgInModal,MdpUser,ModeModerationVoulu)
+    SendAjax("/changement_mode_moderation","mode modération",baliseMsgInModal,MdpUser,ModeModerationVoulu)
 }

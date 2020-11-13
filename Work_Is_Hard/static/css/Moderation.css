@@ -1,5 +1,8 @@
 /* Rappel : PAM = poste attente modération */
+.conteneur{
+    min-height: 60%;
 
+}
 #msgIsModeModerationActive{
     text-align: center;
 }
@@ -12,6 +15,8 @@
 #msgAucunPoste{
     color: lightblue;
     margin: 50px;
+    min-height:125px ;
+
 }
 .BlocPAM{
     height: 500px;
@@ -228,4 +233,12 @@
         width: 100%;
     }
     
+}
+@media screen and (min-width: 1920px) { 
+    .BlocPAM{
+        height: 25%;
+    }
+    .img-User-InfosPAM{
+        margin: 50px;
+    }
 }

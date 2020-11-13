@@ -1,0 +1,108 @@
+{% extends "heritageJinja/base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/Cgu.css') }}">
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <p>Work is hard est un site de divertissement à caractère humoristique à destination des travailleurs francophones.</p>
+
+    <h2>0. Mentions légales </h2>
+        
+    <p>Le site workishard.fr (ci-après dénommé « Work is hard », ou « work is hard »), est géré et maintenu par Fabrice FERRERE et Josue BAYIDIKILA, en qualité d’étudiant.</p>
+
+    <p>Le site est hébergé est acutellement non hébergé.</p>
+
+    <p>La plupart des contenus médias exposés sur le site sont stockées dans une base de données Sqlite ou les informations confidentielles telle que les mots de passe y sont encryptés.</p>
+
+    <p> « Work is hard » est une marque non déposée .</p>
+
+    <p>Pour signaler un abus, écrivez à contact@workishard.fr en mentionnant les informations suivantes :</p>
+
+    <p>L’URL de la page problématique La copie du passage ou du lien problématique La justification de votre demande de suppression Votre nom, prénom, adresse physique et adresse e-mail Les présentes conditions d’utilisation sont soumises à la loi française.</p>
+
+    <h2>1. Articles et commentaires</h2>
+    <p>Sur work is hard, vous avez la possibilité de soumettre des articles. Vous reconnaissez être responsables des contenus ainsi mis en ligne.</p>
+
+    <p>Les personnes gérant Work is hard peuvent effectués une revue préalable sur les postes et se réservent le droit de supprimer tout contenu qui leur sera signalé selon la procédure décrite à l’article 2 de la loi du 21 juin 2004, s’il s’avère contraire à la règlementation française ou porte manifestement atteinte aux droits des tiers.</p>
+
+    <p>Les personnes gérant Work is hard peuvent décider de mettre en ligne des publications créées par elles-mêmes, auquel cas elles en assument pleinement la responsabilté éditoriale. Ces posts sont signés par leur auteur, identifié comme « Work is hard ».</p>
+
+    <p>Les personnes gérant Work is hard peuvent apporter, à tout moment, des améliorations ou des modifications aux services offerts sur le site. Vous ne pouvez utiliser le site workishard.fr qu’à des fins personnelles, c’est-à-dire à des fins non commerciales. Le site workishard.fr peut diffuser des publicités sur les pages où figurent les articles ou les commentaires.</p>
+
+    <p>La direction de publication des work is hard se réserve le droit de modifier les présentes conditions d’utilisation, qu’il vous incombe de consulter régulièrement. Votre utilisation du site, et notamment toute soumission d’article sur workishard.fr, après la mise en ligne de conditions d’utilisation modifiées, lesquelles seront signalées sur le site, vaut acceptation de votre part de la nouvelle version.</p>
+
+    <p>Vos engagements sur les soumissions d’articles et commentaires :</p>
+
+    <p>En rédigeant un article ou un commentaire, vous garantissez que le contenu ainsi mis en ligne ne contrevient à aucune règlementation en vigueur, notamment en matière de droits de propriété intellectuelle, d’utilisation de marques et logos, de données personnelles, de diffamation, d’incitation à la haine raciale, de discrimination, de dénigrement ou autres atteintes aux droits de tiers et vous garantissez la gérance du site Work is hard de toute conséquence financière qui viendrait à être mise à la charge du site du fait du contenu ainsi mis en ligne. Vous vous interdisez également d’utiliser le site Work is hard pour y promouvoir des activités commerciales de quelque nature que ce soit ou d’effectuer une prospection ou une communication à vocation publicitaire. Vous vous engagez à ne pas insérer de liens hypertextes permettant d’accéder à des sites eux-mêmes contraires à la règlementation française ou portant atteinte aux droits de tiers.</p>
+
+    <p>En cas de plainte justifiée ou de violation des présentes conditions d’utilisation, la direction de publication des work is hard peut prendre une ou la totalité des mesures suivantes : retirer le contenu litigieux et sauvegarder tous les éléments en possession du site Work is hard de façon à préserver les éléments de preuve en vue d’une éventuelle procédure judiciaire.</p>
+
+    <p>La direction de publication de work is hard ne garantit pas le caractère approprié à un usage particulier des informations contenues dans les articles et commentaires associés à son site. Tous les articles et éléments graphiques sont fournis « en l’état » sans garantie d’aucune sorte.</p>
+
+    <h2>2. Propriété intellectuelle </h2>
+        
+    <p> Propriété intellectuelle sur les éléments du site La direction de publication des work is hard détient tous droits ou autorisations sur les contenus et services et plus généralement sur tous les éléments constitutifs du site workishard.fr, qui sont protégés par le droit d’auteur, le droit des marques, des dessins et modèles, le droit des bases de données et toute autre législation applicable. Sauf autorisation expresse de la direction de publication de work is hard, aucun logo, élément graphique, texte, son ou image, vidéo provenant du site workishard.fr ne peut être copié, reproduit ou diffusé d’une quelconque manière. L’utilisation des articles à partir de l’URL workishard.fr ou des flux RSS émis par workishard.fr est autorisée, à condition qu’aucune modification ne leur soit apportée et que l’utilisation de ces articles soit exclusivement à des fins personnelles ou d’information et non à des fins commerciales.</p>
+
+    <p>La mise en place de liens profonds vers le site workishard.fr requiert l’autorisation expresse de la direction de publication du site.</p>
+
+    <p>L’utilisation des articles ou commentaires à toute autre fin est strictement prohibée, toute personne ne respectant pas les présentes dispositions se rend coupable du délit de contrefaçon et est passible des sanctions pénales prévues par la loi, outre les dommages et intérêts que la direction de publication des work is hard se réserve le droit de solliciter en justice.</p>
+
+    <h3> Vos engagements sur la cession de vos droits de propriété intellectuelle </h3>
+        
+    <p>En soumettant un article, vous accordez à la direction de publication des work is hard, à titre exclusif, les droits d’exploitation suivants sur les contenus soumis, en vue de leur exploitation sur le site et sur les sites partenaires, et le cas échéant sur supports papiers et/ou audiovisuels : ¤¤ Le droit de reproduction, qui comporte : Sur les supports numériques : (i) le droit de numériser, faire numériser, enregistrer, faire enregistrer, reproduire et faire reproduire tout ou partie de chaque article ou commentaire, de ses adaptations et traductions sur les mémoires de tous appareils permettant de stocker des données numérisées, tels que les serveurs, disques durs d’ordinateur, tablettes électroniques, téléphones portables, PDA, CD-Rom CD-I, CD-Photo et DVD, ou tout autre support d’enregistrement actuel et futur (ii) le droit de faire et faire faire toute copie et exemplaires nécessaires à l’exploitation de chaque article et/ou commentaire, de ses adaptations ou traductions, (iii) le droit de réaliser ou faire réaliser tout montage de tous extraits des articles, de leurs adaptations ou traductions, destinées à leur exploitation commerciale, à l’information et à la promotion du site workishard.fr et des autres médias, produits ou supports détenus et gérés par les membres de la direction de publication des work is hard. Sur support papier : (i) le droit d’imprimer, faire imprimer, et reproduire tout ou partie des articles et/ou des commentaires sur tout support imprimé existant ou à venir, notamment en édition de librairie, format poche, de luxe, par voie de presse (journaux, revues et magazines), sous forme intégrale, de recueil, condensée, abrégée, séparément ou réuni avec d’autres articles d’auteurs tiers, ou avec d’autres contenus, (ii) le droit de reproduire sur tout support tels que notamment des brochures, plaquettes, prospectus, flyers, cartes postales, cartons d’invitation, carnets, sur tout article de papeterie. Sur tout média, produit ou support détenu et géré par les membres de la direction de publication des work is hard : le droit de faire paraître et reproduire tout ou partie des articles et/ou commentaires, sous forme intégrale, condensée, abrégée, séparément ou réuni avec d’autres articles d’auteurs tiers, ou avec d’autres contenus.  </p>
+
+    <p>Le droit d’enregistrer tout ou partie de l’article ou du commentaire à titre de marque dans toute classe, de l’exploiter et de la céder.  </p>
+
+    <p>Le droit de représentation, qui comporte: Le droit de représenter ou faire représenter, en tous lieux et tout pays tout ou partie de chaque article, de ses adaptations et traductions en toute langue, par tout procédé actuel ou futur de communication au public, le cas échéant par récitation, par communication au public en ligne, sur Internet, Intranet, sur téléphone portable, tablette électronique, télévision numérique. Le droit de diffuser ou faire diffuser les articles par tout moyen de télécommunication, radio, satellite, télévision ou câble. Le droit de représenter les articles ou commentaires dans toute manifestation publique, festival, manifestation culturelle, professionnelle, d’information ou de promotion et de publicité.  </p>
+
+    <p>Le droit d’adaptation et de traduction, qui comporte : Le droit d’adapter et de modifier l’article, en tout ou en partie, et, notamment, de réaliser toutes formes de déclinaison dudit article, tout arrangement de couleurs, sur tous formats, par tous procédés techniques et sur tous supports. Le droit de traduire les articles en quelque langue que ce soit, en extrait ou en intégralité.  </p>
+
+    <p>Le droit d’adaptation de tout ou partie du commentaire ou du commentaire sous forme d’oeuvre audiovisuelle en vue de : Son exploitation cinématographique, vidéographique et télévisuelle ainsi que les droits (i) de reproduction sur tout support d’enregistrement audiovisuel et numérique, et (ii) de représentation afférents à ces adaptations par projection publique à titre gratuit ou onéreux, par télédiffusion primaire, en clair ou codée, par voie hertzienne, satellite ou par câble de distribution, en vue de sa communication dans un lieu privé à titre gratuit ou onéreux, par transmission dans un lieu public de l’œuvre télédiffusée à titre gratuit ou onéreux, par retransmission par câble ou par satellite ou hertzienne, simultanée ou en différé. Son exploitation multimédia, notamment le droit d’incorporer tout ou partie des adaptations audiovisuelles dans une œuvre multimédia, ce sous réserve du paiement des actes d’exploitation par la direction de publication des work is hard et/ou ses cessionnaires, auprès de Sesam, des redevances en vigueur.  </p>
+
+    <p>Le droit d’exploiter ou faire exploiter les articles et/ou commentaires à des fins promotionnelles, publicitaires, artistiques ou culturelles, sur tout support tels que notamment affiches, affichettes, posters, cartes postales, billets de spectacle, cartons d’invitation, mailings, dépliants, brochures, plaquettes et toutes autre éditions, mugs, tasses, tee-shirts, stickers, jeux, figurines et tout article de merchandising, pochettes, jaquettes, boitiers, livret, spots publicitaires télévisuels, vidéographiques ou cinématographiques.  </p>
+
+    <p>Le droit de mettre et/ou faire mettre en circulation dans le monde entier les originaux, doubles ou copies des articles et/ou commentaires, pour toute communication au public, et plus généralement pour toute exploitation dont les exploitations secondaires ou dérivées. La direction de publication du site workishard.fr pourra également céder ces droits à tout tiers de son choix. Cette cession de droit est consentie pour le monde entier, et pour une durée initiale de quinze ans, renouvelable par tacite reconduction.</p>
+
+    <p>La direction de publication du site workishard.fr aura seule le pouvoir de consentir les autorisations et cessions nécessaires sous réserve de l’exercice de votre droit moral et du droit de citation.</p>
+
+    <p>Au cas où le présent contrat se trouverait résilié pour quelque motif que ce soit, cette résiliation serait sans influence sur la validité des cessions ou autorisations sur les droits de reproduction, d’adaptation et de représentation antérieurement consenties par la direction de publication des work is hard à des tiers.</p>
+
+    <p>La direction de publication des work is hard peut supprimer un commentaire ou un article à tout moment, de manière discrétionnaire et sans notification.</p>
+
+    <p>Pour chaque article ou commentaire, vous déclarez disposer de tous les droits nécessaires afin de pouvoir céder les droits mentionnés au présent contrat. Vous garantissez la direction de publication contre tout trouble de jouissance relatif à l’exploitation des articles et commentaires. Vous garantissez en conséquence la direction de publication des work is hard contre tout recours ou action en relation avec les articles et commentaires, et vous engagez à indemniser la direction de publication des work is hard de toutes leurs conséquences pécuniaires éventuelles, y compris les frais d’avocat qui resteraient à la charge de la direction de publication des work is hard, quelle que soit l’origine, la cause ou la nature des recours ou actions.</p>
+
+    <h3>2.2. Mentions relatives aux marques et contenus de tiers </h3>
+    <p>Les noms des éditeurs, des médias, des services, et plus généralement des sociétés ou produits éventuellement mentionnés sur workishard.fr sont les marques de leurs propriétaires respectifs. Les contenus compris dans les publicités sont également protégés par le droit d’auteur ou le droit des marques.</p>
+
+    <h2>3. Protection des données personnelles </h2>
+    <p>Le traitement des données personnelles effectuées sur le site workishard.fr a été déclaré à la CNIL.</p>
+
+    <p>La direction de publication des work is hard tient à préciser que les seules données stockées par l’intermédiaire de son site sont un nom ou pseudo et/ou l’adresse e-mail des visiteurs envoyant des propositions d’articles depuis son formulaire de soumission accessible à l’adresse workishard.fr/proposition. La direction de publication des work is hard tient à ajouter que ces informations sont facultatives et que leur renseignement est donc laissé au bon vouloir des visiteurs de son site.</p>
+
+    <p>Les données envoyées via ce formulaire sont stockées dans un fichier de type tableur Google Spreadsheet hébergé par la société Google Inc. sur son service Google Drive. L’hébergement de ces données répond aux règlementations appliquées par Google pour ses services, et bénéficie d’un traitement conforme à ces règlementations quant à leur intégrité, leur sécurité et la conformité de leur prise en charge et traitement.</p>
+
+    <p>Vous bénéficiez d’un droit d’accès, de rectification et de suppression de vos données personnelles, que vous pouvez exercer à l’adresse contact@workishard.fr.</p>
+
+    <p>La direction de publication des work is hard utilisera l’adresse électronique que vous avez fournie à cet effet pour l’envoi de sa newsletter. Vous pouvez à tout moment vous désinscrire de la newsletter d’un simple clic sur le lien « se désinscrire » figurant en bas de chaque newsletter.</p>
+
+    <p>La direction de publication des work is hard conserve les données relatives à votre identification si vous mettez en ligne du contenu sur workishard.fr, conformément aux obligations légales. La direction de publication des work is hard pourra transmettre ces informations aux autorités de police et aux autorités judiciaires, à leur demande et selon les procédures appropriées, ou pour les besoins de la défense de la direction des work is hard en cas d’utilisation non conforme et/ou préjudiciable de ses services.</p>
+
+    <h3>3.0. Cookies</h3>
+
+    <p>Le site workishard.fr utilise des cookies, qui enregistrent des informations relatives à la navigation de l’utilisateur sur celui-ci, et peut stocker des informations que l’utilisateur aura saisies durant sa visite. Ces cookies ont vocation à faciliter la fourniture du service, et peuvent être utilisées à des fins publicitaires, statistiques ou marketing. L’utilisateur accepte également que ses données de navigation, y compris son adresse IP, puissent être collectées dans le cadre de campagnes de publicité, s’appuyant sur les secteurs d’intérêt manifestés par le client lors de sa navigation sur le site ou d’autres sites.</p>
+
+    <p>L’utilisateur peut configurer son navigateur pour accepter ou rejeter tous les cookies, ou pour être prévenu lorsqu’un cookie est installé de la façon suivante :</p>
+
+    <p>Pour Mozilla firefox : Menu « Outils » puis « Options » > icône « Vie privée » > menu « Cookies » puis sélection de l’option appropriée Pour Microsoft Internet Explorer : Menu « Outils » > « Options Internet » > onglet « Confidentialité »/ sélection du niveau souhaité Pour Google Chrome : Menu « Paramètres » > « Afficher les paramètres avancés » > « Confidentialité » > « Paramètres de contenus », puis sélection des options appropriées L’Utilisateur peut également gérer les cookies que de nombreuses sociétés utilisent pour la publicité en ligne sur le site Your Online Choices.</p>
+
+    <p>L’utilisateur accepte également le cas échéant la présence de balises web sur certaines pages dont les informations statistiques peuvent être transmises à des partenaires du site workishard.fr.</p>
+
+    <p>Work is hard – Conditions Générales d’Utilisation Le 9 novembre 2020 – Version 1.0</p>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename= 'js/.js') }}"></script>
+{% endblock %}
