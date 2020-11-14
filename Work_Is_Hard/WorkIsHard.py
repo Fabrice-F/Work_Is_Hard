@@ -1,18 +1,17 @@
-# render_template permet de mettre des pages html
 from markupsafe import escape
 import hashlib
 import sqlite3
 import re
 from flask import Flask, url_for, render_template, session, request, redirect
-from Dao import *
+from BddFonctions  import *
 from datetime import *
 from ConstanteAndTools import *
 from Classes import *
 
-TempsSession = 60
+TEMPS_SESSION = 60
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.permanent_session_lifetime = timedelta(minutes=TempsSession)
+app.permanent_session_lifetime = timedelta(minutes=TEMPS_SESSION)
 
 
 @app.route('/')
@@ -131,7 +130,7 @@ def login():
         return render_template("Error/ErrorPage.html", messageError=message_error_champs_vide())
 
     mdp = hash_password(mdp_clair)
-    result = connexion_utilisateur(pseudo, mdp)
+    result = connexion_utilisateur(pseudo)
     if result == False:
         return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
 
