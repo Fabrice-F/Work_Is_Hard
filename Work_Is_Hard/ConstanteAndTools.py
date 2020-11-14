@@ -74,7 +74,8 @@ def map_array_result_bdd_to_array_utilisateur(array_bdd):
 
 
 def map_result_to_message_information(result):
-        """ Converti un tableau de résultat obtenu dans la bdd en un tableau d'utilisateur
+    """ Converti un tableau de résultat obtenu 
+        dans la bdd en un tableau d'utilisateur
     """
     return MessageInformation(result[0], result[1], result[2])
 
