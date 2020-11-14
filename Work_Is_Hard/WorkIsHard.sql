@@ -76,3 +76,5 @@ INSERT INTO Utilisateur (PseudoUtilisateur, MotDePasseUtilisateur, NomUtilisateu
 
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = on;
+
+--.save WorkIsHard.db
