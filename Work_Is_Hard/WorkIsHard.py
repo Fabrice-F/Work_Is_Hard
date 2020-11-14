@@ -8,115 +8,141 @@ from datetime import *
 from ConstanteAndTools import *
 from Classes import *
 
-TEMPS_SESSION = 60
+
+""" Fichier qui contient toutes les routes.
+"""
+TEMPS_SESSION = 60                                                  # temps de session choisit de 1 heure
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.permanent_session_lifetime = timedelta(minutes=TEMPS_SESSION)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'                            # clé permettant de gérer les sessions
+app.permanent_session_lifetime = timedelta(minutes=TEMPS_SESSION)   # initialisation du temps de session 
+                                                                    # l'utilisateur est déconnecter après ce lapse de temps 
 
 
 @app.route('/')
 def index():
-    result_array = get_last_poste()
-    nb_poste_totaux = get_nb_poste()
+    """ Route principal (page d'accueil)
+    """
+    result_array = get_last_poste() # recupère tous les postes
+    nb_poste_totaux = get_nb_poste()    # recupère le nombre de postes
 
-    msg_tmp = get_last_message_information()
-    if(msg_tmp == False):
+    msg_tmp = get_last_message_information()    # recupère dernier message
+    if(msg_tmp == False):                       # si aucun ou si ça se passe mal retourne vide comme message
         message_info = MessageInformation(
             "vide", "Aucun", datetime.datetime.now())
     else:
-        message_info = map_result_to_message_information(msg_tmp)
-    poste_array = []
-    for result in result_array:
+        message_info = map_result_to_message_information(msg_tmp)   # sinon le map en objet message
+    poste_array = []                                                # créait un tableau 
+    for result in result_array:                                     # Parse tous les postes et les ajoutes dans le tableau
         poste_array.append(Poste(
             result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
-    if 'utilisateur' in session:
+    if 'utilisateur' in session:   # si l'utilisateur à sa session qui existe alors on lui envoi toutes les info + les infos sessions
         return render_template("Accueil.html", poste_array=poste_array,
                                nb_poste_totaux=nb_poste_totaux, message_info=message_info,
                                user=session['utilisateur'])
 
-    return render_template("Accueil.html", poste_array=poste_array,
+    return render_template("Accueil.html", poste_array=poste_array, # sinon on lui envoi toutes les info mais sans les infos sessions (provoque des différences sur le template)
                            nb_poste_totaux=nb_poste_totaux, message_info=message_info)
 
 
 @app.route('/inscription')
 def inscription():
+    """ renvoi le template de la page inscription
+    """
     return render_template("inscription.html")
 
 
 @app.route('/confirmation_inscription', methods=['POST'])
 def confirmation_inscription():
-    pattern_regex_nom_prenom = "^[a-zA-Z]*$"
-    pattern_regex_info_pseudo = "^[a-zA-Z0-9]*$"
-    reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,100}$"
+    """ Confirme ou non l'inscription d'un utilisateur
 
+        En plus de la sécurité client
+    """
+    pattern_regex_nom_prenom = "^[a-zA-Z]*$"        # regex qui délimite le nom et prenom seulement au lettre
+    pattern_regex_info_pseudo = "^[a-zA-Z0-9]*$"    # regex qui délimite le pseudo au lettre et au chiffre
+    # regex qui oblige l'utilisateur a voir 1 majuscule, 1 minuscule, 1 chiffre , 1 caractère spécial et au moin 8 caractères
+    reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,100}$" 
     pattern_regex_password_user = re.compile(reg)
 
-    nom = request.form["nom"].strip()
+    # La méthode strip() ici permet de supprimé les espaces blanc situé avant ou après 
+    # les valeurs entrés par l'utilisateur
+    nom = request.form["nom"].strip()   
     prenom = request.form["prenom"].strip()
     pseudo = request.form["pseudo"].strip()
     mot_de_passe_clair = request.form["motdepasse"].strip()
     confirm_mdp = request.form["confirm_mdp"].strip()
     date_naissance = request.form["datenaissance"]
 
+    # Si le nom est vide,null ou encore ne réponds pas aux exigences de la regex (autre que lettre) alors incorrect
     if is_null_or_empty(nom) or not re.match(pattern_regex_nom_prenom, nom):
         error = "Le champs nom est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
 
+    # Si la taille du nom n'est pas situé entre 2 caractères mini et 30 maxi alors incorrect.
     if not size_string_is_correct(nom, 2, 30):
         error = "Le champs nom ne contient pas le nombre de caractères appropriés."
         return render_template("inscription.html", error=error)
 
+    # Si le prenom est vide,null ou encore ne réponds pas aux exigences de la regex (autre que lettre) alors incorrect
     if is_null_or_empty(prenom) or not re.match(pattern_regex_nom_prenom, prenom):
         error = "Le champs prenom est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
 
+    # Si la taille du prenom n'est pas situé entre 2 caractères mini et 30 maxi alors incorrect.
     if not size_string_is_correct(prenom, 2, 30):
         error = "Le champs prenom ne contient pas le nombre de caractères appropriés."
         return render_template("inscription.html", error=error)
 
+    # Si le pseudo est vide,null ou encore ne réponds pas aux exigences de la regex (autre que chiffre et lettre) alors incorrect
     if is_null_or_empty(pseudo) or not re.match(pattern_regex_info_pseudo, pseudo):
         error = "Le champs pseudo est vide ou contient des caractères non appropriés."
         return render_template("inscription.html", error=error)
 
+    # Si la taille du prenom n'est pas situé entre 3 caractères mini et 15 maxi alors incorrect.
     if not size_string_is_correct(pseudo, 3, 15):
         error = "Le champs pseudo ne contient pas le nombre de caractères appropriés."
         return render_template("inscription.html", error=error)
 
+    # Si mot de passe non hashé est vide alors incorrect
     if is_null_or_empty(mot_de_passe_clair):
         error = "Le champs mot de passe est vide..."
         return render_template("inscription.html", error=error)
 
+    # Si confirmation mot de passe non hashé est vide alors incorrect
     if is_null_or_empty(confirm_mdp):
         error = "Le champs confirmation mots de passe est vide..."
         return render_template("inscription.html", error=error)
 
+    # Si le mot de passe non hashé ne réponds pas aux exigences de la regex (condition plus haut ^^) alors incorrect
     if not re.search(pattern_regex_password_user, mot_de_passe_clair):
         error = "Le champs mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ..."
         return render_template("inscription.html", error=error)
 
+    # Si la confirmation mot de passe non hashé ne réponds pas aux exigences de la regex (condition plus haut ^^) alors incorrect
     if not re.search(pattern_regex_password_user, confirm_mdp):
         error = "Le champs confirmation mot de passe ne contient pas 8 caractères dont 1 majuscule,1 mininuscule, 1 chiffre, 1 caractère spécial ..."
         return render_template("inscription.html", error=error)
 
+    # Si la date de naissance utilisateur est plus jeune que la date du jour -18 ans alors incorrect
     if not verif_date_de_naissance(date_naissance):
         error = "Vous n'avez pas l'age requis pour vous inscrire"
         return render_template("inscription.html", error=error)
 
-    mdp = hash_password(mot_de_passe_clair)
-    mdp_confirm = hash_password(confirm_mdp)
+    mdp = hash_password(mot_de_passe_clair) # hash mdp
+    mdp_confirm = hash_password(confirm_mdp) # hash confirm mdp
 
-    if mdp != mdp_confirm:
+    if mdp != mdp_confirm:  # Si mots de passe différents alors incorrect
         error = "Le mots de passe et sa confirmation ne sont pas identique."
         return render_template("inscription.html", error=error)
 
-    if if_pseudo_disponible(pseudo) == True:
+    if if_pseudo_disponible(pseudo) == True:    # Si pseudo disponbile
 
-        if insert_user_inscription(pseudo, nom, prenom, mdp, date_naissance):
-            image_confirm = image_confirmation()
-            return render_template("Transition.html", redirect=True, image_confirm=image_confirm, message="Votre inscription c'est bien déroulé, vous aller être redirigé vers la page d'accueil !")
-        else:
+        if insert_user_inscription(pseudo, nom, prenom, mdp, date_naissance):   # insertion de l'user dans la bdd
+            image_confirm = image_confirmation()                                # recupère le lien d'une image de confirmation
+            return render_template("Transition.html", redirect=True, image_confirm=image_confirm, 
+                                    message="Votre inscription c'est bien déroulé, vous aller être redirigé vers la page d'accueil !") # on renvoi vers la page de transition
+        else:                                                                   # sinon problème d'insertion dans la bdd
             return "problème d'inscription"
-    else:  # si pseudo existe
+    else:                                       # Sinon c'est que le pseudo existe
         error = "Le pseudo est déja pris"
         return render_template("inscription.html", pseudo=pseudo, error=error)
 
