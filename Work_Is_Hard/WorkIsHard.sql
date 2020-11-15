@@ -9,6 +9,7 @@ INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessa
 INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le mode modération en version 2 est en cours de développement... ce mode consiste a modérer les postes directement depuis la page d'' accueil ! ', 3, '2020-11-06 17:44:59');
 INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le mode modération est à présent terminé, nous allons procéder à quelques changements sur la partie sécurité du site . ', 3, '2020-11-07 00:59:42');
 INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le site est à présent terminé nous corrigeons les fautes.', 3, '2020-11-07 10:59:42');
+INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le site est à présent opérationnel ! v1.0.', 3, '2020-11-07 10:59:42');
 
 -- Table : Parametre
 CREATE TABLE Parametre (IdParametre INTEGER PRIMARY KEY AUTOINCREMENT, ModeModeration BOOLEAN NOT NULL DEFAULT (0), Fk_IdUtilisateurLastModification INTEGER REFERENCES Utilisateur (IdUtilisateur), DateModification DATE);
@@ -58,7 +59,7 @@ INSERT INTO Role (NomRole) VALUES ('Administrateur');
 
 -- Table : Utilisateur
 CREATE TABLE Utilisateur (IdUtilisateur INTEGER PRIMARY KEY AUTOINCREMENT, PseudoUtilisateur VARCHAR (255) NOT NULL UNIQUE, MotDePasseUtilisateur VARCHAR (2056) NOT NULL, NomUtilisateur VARCHAR (255) NOT NULL, Prenom VARCHAR (255) NOT NULL, DateNaissanceUtilisateur DATE (2) NOT NULL, Fk_IdRole INTEGER REFERENCES Role (IdRole) DEFAULT (1));
-INSERT INTO Utilisateur (PseudoUtilisateur, MotDePasseUtilisateur, NomUtilisateur, Prenom, DateNaissanceUtilisateur, Fk_IdRole) VALUES ('Professeur', 'e10adc3949ba59abbe56e057f20f883e', 'Ayoub', 'Guillaume ', '1983-11-24', 2);
+INSERT INTO Utilisateur (PseudoUtilisateur, MotDePasseUtilisateur, NomUtilisateur, Prenom, DateNaissanceUtilisateur, Fk_IdRole) VALUES ('Professeur', 'e10adc3949ba59abbe56e057f20f883e', 'Ayoub', 'Guillaume ', '1983-11-24', 3);
 INSERT INTO Utilisateur (PseudoUtilisateur, MotDePasseUtilisateur, NomUtilisateur, Prenom, DateNaissanceUtilisateur, Fk_IdRole) VALUES ('Josue', 'ab4f63f9ac65152575886860dde480a1', 'Bayidikila', 'Josue', '1992-11-12', 1);
 INSERT INTO Utilisateur (PseudoUtilisateur, MotDePasseUtilisateur, NomUtilisateur, Prenom, DateNaissanceUtilisateur, Fk_IdRole) VALUES ('FabriceF', '4a95de5cb88611bcac58da121c7922be', 'FERRERE', 'Fabrice', '1987-08-30', 3);
 INSERT INTO Utilisateur (PseudoUtilisateur, MotDePasseUtilisateur, NomUtilisateur, Prenom, DateNaissanceUtilisateur, Fk_IdRole) VALUES ('Posteur', 'e10adc3949ba59abbe56e057f20f883e', 'Alan', 'Mathis', '1959-03-09', 1);
@@ -77,4 +78,4 @@ INSERT INTO Utilisateur (PseudoUtilisateur, MotDePasseUtilisateur, NomUtilisateu
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = on;
 
---.save WorkIsHard.db
+.save WorkIsHard.db
