@@ -1,6 +1,5 @@
 # Bienvenue sur le projet Work is Hard
 Bonjour et bienvenue !  
-
 Le projet **Work Is Hard** a été réalisé dans le cadre du module Python lors l'année [C-Dev à l'IPI](https://www.ipi-ecoles.com/concepteur-developpeurfull-stack/) de lyon 2020-2021. 
 
 Il a été mis en place par les étudiants **Josue Bayidikilla** et **Fabrice FERRERE**.  
@@ -13,9 +12,9 @@ Nous avons tenté de respecter au maximum les règles communes au langage python
 
  **1. C'est quoi Work is Hard ?  
  2. Comment mettre en place le projet.  
-  3. Ce qui a été réalisé.
-  4. Ce que l'on aurait aimé faire   
-  6. Divers informations**  
+  3. Ce qui a été réalisé.  
+  4. Ce que l'on aurait aimé faire  
+  5. Divers informations**  
 
 ## C'est quoi Work is Hard ?
 
