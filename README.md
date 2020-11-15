@@ -1,5 +1,6 @@
 # Bienvenue sur le projet Work is Hard
 Bonjour et bienvenue !  
+
 Le projet **Work Is Hard** a été réalisé dans le cadre du module Python lors l'année [C-Dev à l'IPI](https://www.ipi-ecoles.com/concepteur-developpeurfull-stack/) de lyon 2020-2021. 
 
 Il a été mis en place par les étudiants **Josue Bayidikilla** et **Fabrice FERRERE**.  
@@ -54,9 +55,9 @@ Nous avons pris alors la décision de maintenir notre système d'initialisation 
 	 
 	 - Une fois python installé,  lancer un invite de commande et rendez-vous dans votre dossier **Work_Is_Hard** *(où se situe le fichier workishard .py, classe. py, static .. )* et tapez :
 				
-				python -m venv venv
-				ou
-				python3 -m venv venv
+			python -m venv venv
+			ou
+			python3 -m venv venv
 
 	   
 
