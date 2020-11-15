@@ -92,7 +92,7 @@ Nous avons pris alors la décision de maintenir notre système d'initialisation 
    	 - rendez vous [ici](https://flask.palletsprojects.com/en/1.1.x/installation/)
    	
 
-**Pour pouvoir mettre en place la bdd:**
+**Pour pouvoir mettre en place la base de donnée:**
 
  - Dans le dossier Work_Is_Hard vous devriez avoir cette arborescence obtenir cette arboresence :
 
@@ -226,8 +226,13 @@ Voici la liste *(non exhaustive)*  des fonctionnalités que nous aurions aimé m
 ## Divers informations
 
  1. Actuellement nous n'avons  **pas pu mettre en place le système d'initialisation de la base de donnée.** 
-En effet, nous sommes partie sur la création du site en lançant l'application via les commande **flask_app=WorkIsHard.py**  et nous avons développé le site en nous servant de cette méthode.
- La base de donnée étant partagé a travers le repo pendant tout le développement *(pratique fortement déconseillé et ne sera plus refait à l'avenir)*.
+
+> 	En effet, nous sommes partie sur la création du site en lançant
+> l'application via les commande **flask_app=WorkIsHard.py**  et nous
+> avons développé le site en nous servant de cette méthode. 	 La base de
+> donnée étant partagé a travers le repo pendant tout le développement
+> *(pratique fortement déconseillé et ne sera plus refait à l'avenir)*.
+
  
  2. Nous souhaitons dans la mesure du possible continué à mettre en place le site en développant les fonctionnalités manquantes et primordial à une mise en production. Pour par la suite le mettre sur internet.
  
