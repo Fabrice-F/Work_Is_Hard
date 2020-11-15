@@ -159,7 +159,7 @@ def login():
 
     mdp = hash_password(mdp_clair)
     result = connexion_utilisateur(pseudo)  # vérifie si l'utilisateur existe
-    if result == False:                     # retourne une erreur si l'utilisateur n'existe pas
+    if result == False:                     # retourne faux si l'utilisateur n'existe pas
         return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
 
     user_demande_connex = Utilisateur(
@@ -677,7 +677,7 @@ def aleatoire():
             result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
 
     message_info = MessageInformation(
-        "Sur la page aléatoire, le lien de partage redirige vers cette page et non pas vers les postes (vu qu'il change)", "Aucun", datetime.datetime.now())
+        "Sur la page aléatoire, le lien de partage redirige vers cette page et non pas vers les postes (vu qu'ils changent)", "Aucun", datetime.datetime.now())
     if 'utilisateur' in session:
         return render_template("Aleatoire.html", poste_array=poste_array, message_info=message_info, user=session['utilisateur'])
     else:
