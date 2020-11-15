@@ -1,8 +1,8 @@
 # Bienvenue sur le projet Work is Hard
-Bonjour et bienvenue !
+Bonjour et bienvenue !  
 Le projet **Work Is Hard** a été réalisé dans le cadre du module Python lors l'année [C-Dev à l'IPI](https://www.ipi-ecoles.com/concepteur-developpeurfull-stack/) de lyon 2020-2021. 
 
-Il a été mis en place par les étudiants **Josue Bayidikilla** et **Fabrice FERRERE**. 
+Il a été mis en place par les étudiants **Josue Bayidikilla** et **Fabrice FERRERE**.  
 
 La technologie utilisé est [**python**](https://www.python.org/) avec son framework [**Flask**](https://flask.palletsprojects.com/en/1.1.x/).
 
@@ -10,11 +10,11 @@ Nous avons tenté de respecter au maximum les règles communes au langage python
 
 # Sommaire:
 
- **1. C'est quoi Work is Hard ? 
- 2. Comment mettre en place le projet.
- 3. Ce qui a été réalisé.
- 4. Ce que l'on aurait aimé faire 
- 5. Divers informations**
+ **1. C'est quoi Work is Hard ?  
+ 2. Comment mettre en place le projet.  
+  3. Ce qui a été réalisé.
+  4. Ce que l'on aurait aimé faire   
+  6. Divers informations**  
 
 ## C'est quoi Work is Hard ?
 
@@ -44,6 +44,7 @@ Pour pouvoir mettre en place le projet :
 Actuellement sur le site nous avons mis en place :
 
  - L'inscription simple d'un utilisateur *(avec les sécurités d'usage)*.
+ 
  - La connexion d'un utilisateur.
  - La création et la publication de poste avec un système d'aperçu.
  - Une page d'accueil avec les postes.
@@ -74,8 +75,8 @@ Actuellement sur le site nous avons mis en place :
 
 Voici la liste *(non exhaustive)*  des fonctionnalités que nous aurions aimé mettre en place:
 
- - Implémenter les e-mail au projet afin d'envoyé de demande de   
-  - confirmation d'inscription et de réinitialisation de mot de passe   oublié (actuellement géré par contact aux admins) .  
+ - Implémenter les e-mail au projet afin d'envoyé de demande de  confirmation d'inscription et de réinitialisation de mot de passe   oublié (actuellement géré par contact aux admins) .  
+ 
   - Augmenter la sécurisation coté serveur notamment au niveau changement mot de passe.
   - Augmenter l'expérience utilisateur lors du changement de pseudo.
   - Augmenter la sécurité  en bannissant les i.p lors de tentative de connexion infructueuse et répété.
