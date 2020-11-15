@@ -143,6 +143,6 @@ function sendBanUser(idUserPoste)
 
 function confirmShare()
 {
-    result = confirm(`Actuellement l'adresse du site est en local (127.0.0.1:5000), le partagé ne permettrait pas aux autres usagers de consulté le site souhaitez vous quand même continué ?`);
+    result = confirm(`Actuellement l'adresse du site est en local (127.0.0.1:5000), la partager ne permettrait pas aux usagers de consulter le site. Souhaitez-vous quand même continuer ?`);
     return result;
 }
