@@ -1,0 +1,56 @@
+Cher Professeur, 
+
+Nous avons la chance de vous présenter le projet Work Is Hard.
+
+Nous tenions en premier lieu, à vous remercier du temps que vous allez passer à analyser le projet.
+
+Ce projet pour nous a été très enrichissant et l'aventure vécue à travers ce projet continuera certainement par la suite, 
+
+étant donné le plaisir et l'appétence que nous avons eu a travailler avec Flask et Python.
+
+Concernant le site:
+
+Nous vous avons déjà créer un compte administrateur qui vous permettra d'accèder à toutes les pages du site :
+
+Login : Professeur
+Mdp : 123456
+
+Vous pourrez bien évidemment changer ce mot de passe !
+
+Concernant la base de donnée comme stipulé dans la documentation fournie à travers le read.me 
+
+nous n'avons pas souhaité mettre en place le système d'initialisation de la base de donnée. 
+
+Nous avons réussi à faire marcher le projet d'initialisation de la base de donnée comme sur le tuto Flask un jour seulement avant la date butoir. 
+
+Par inquiétude et par manque de temps pour des tests complets au bon fonctionnement du site , 
+nous avons préféré vous livrer un projet fonctionnel mais avec une base de donnée à initialiser manuellement
+
+Le script WorkIsHard.sql vous permettra d'initiliser cette base en l'executant comme vous nous l'avez appris à travers sqlite3.exe.
+
+Pour rappel, chez nous pour que la base soit générée correctement nous avons du mettre des simple quote autour du chemin apres le .read
+comme ceci : 
+    sqlite> .read 'C:\chemin vers\votre\fichier\WorkIsHard.sql'
+
+La base workishard.db générée devra être ensuite placée dans le dossier work_is_hard ( au coté des dossiers/fichiers static,venv,template,workishard.py,classe.py ...)
+
+Nous vous mettons égalament à disposition des comptes avec différents rôles que vous puissiez prendre la main pour observer les différents comportements possibles:
+
+
+login: Posteur 
+Mdp: 123456
+role: Posteur
+
+Login: Moderateur
+Mdp: 123456
+Role; Moderateur
+
+Login: Administrateur
+Mdp: 123456
+Role: administrateur
+
+Pour infos
+    - Au besoin, nous avons fait une petite documentation sur le projet dans le fichier read.me et sur le site vous trouveez l'aide dans le footer
+    - Nous avons créé 2 scripts (.cmd) pour lancer le serveur car nous étions lasses de relancer le serveur à chaque fois, vous pouvez vous en servir pour lancer le serveur en mode développement ou en mode production avec l'hote ouvert.
+
+En espérant une bonne expérience utilisateur je vous souhaite une agréable lecture.

@@ -32,7 +32,7 @@ def message_error_connexion():
     """ Retourne message erreur en cas de souci de connexion (mot de passe non ok ou pseudo no ok)
     """
     msg = """L'identifiant ou le mot de passe avec lesquels vous avez tenté de vous
-    connecter sont incorrect ..."""
+    connecter sont incorrects ..."""
     return msg
 
 
