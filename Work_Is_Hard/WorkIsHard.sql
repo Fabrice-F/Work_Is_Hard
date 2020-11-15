@@ -9,7 +9,7 @@ INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessa
 INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le mode modération en version 2 est en cours de développement... ce mode consiste a modérer les postes directement depuis la page d'' accueil ! ', 3, '2020-11-06 17:44:59');
 INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le mode modération est à présent terminé, nous allons procéder à quelques changements sur la partie sécurité du site . ', 3, '2020-11-07 00:59:42');
 INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le site est à présent terminé nous corrigeons les fautes.', 3, '2020-11-07 10:59:42');
-INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le site est à présent opérationnel ! v1.0.', 3, '2020-11-07 10:59:42');
+INSERT INTO MessageInformation (ContenuMessageInformation, Fk_IdUtilisateurMessageInformation, DateMessageInformation) VALUES ('Le site est à présent opérationnel ! Bienvenue en version 1.0.0', 3, '2020-11-07 10:59:42');
 
 -- Table : Parametre
 CREATE TABLE Parametre (IdParametre INTEGER PRIMARY KEY AUTOINCREMENT, ModeModeration BOOLEAN NOT NULL DEFAULT (0), Fk_IdUtilisateurLastModification INTEGER REFERENCES Utilisateur (IdUtilisateur), DateModification DATE);
