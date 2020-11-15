@@ -565,7 +565,7 @@ def accept_poste_pam(is_post_pam):
         c.execute(request, (is_post_pam,))
         conn.commit()
         close_connexion(c, conn)
-        delete_poste_pam(is_post_pam)
+        delete_poste_pam(is_post_pam) # Une fois le poste insérer dans poste on le supprime de poste attente modération
         return True
     except RuntimeError:
         close_connexion(c, conn)

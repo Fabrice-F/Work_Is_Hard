@@ -149,60 +149,70 @@ def confirmation_inscription():
 
 @app.route('/login', methods=['POST'])
 def login():
-    pseudo = request.form["pseudo"]
+    """ Route appeler lorsqu'un utilisateur tente de se connecter
+    """
+    pseudo = request.form["pseudo"] # request permet de récupérer les valeurs envoyé via le POST
     mdp_clair = request.form["password"]
 
     if is_null_or_empty(pseudo, mdp_clair):
         return render_template("Error/ErrorPage.html", messageError=message_error_champs_vide())
 
     mdp = hash_password(mdp_clair)
-    result = connexion_utilisateur(pseudo)
-    if result == False:
+    result = connexion_utilisateur(pseudo)  # vérifie si l'utilisateur existe
+    if result == False:                     # retourne une erreur si l'utilisateur n'existe pas
         return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
 
     user_demande_connex = Utilisateur(
         result[0], result[1], result[2], result[3], result[4], result[5])
-    mdp_current_user = get_current_user_password(
+    mdp_current_user = get_current_user_password(   # Si l'utilisateur existe dans la bdd récupère son mdp
         user_demande_connex.PseudoUtilisateur, user_demande_connex.IdUtilisateur)
 
-    if(mdp_current_user == False):
+    if(mdp_current_user == False):  # Si une erreur pendant la récupération du mots de passe dans la bdd
         return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
 
-    if user_demande_connex.PseudoUtilisateur.lower() == pseudo.lower() and mdp_current_user == mdp:
-        session['utilisateur'] = user_demande_connex.__dict__
+
+    # on compare si le mot de passe entrer est identique au mot de passe dans la bdd
+    if user_demande_connex.PseudoUtilisateur.lower() == pseudo.lower() and mdp_current_user == mdp: 
+        session['utilisateur'] = user_demande_connex.__dict__   # Si c'est le cas on transforme l'utilisateur en session
         return redirect(url_for('index'))
     else:
-        return render_template("Error/ErrorPage.html", messageError=message_error_connexion())
+        return render_template("Error/ErrorPage.html", messageError=message_error_connexion()) # sinon on renvoi une erreur
 
 
 @app.route('/logout')
 def logout():
-    session.clear()
-    return redirect(url_for('index'))
+    """ Route appelé quand on clique sur déconnecté
+    """
+    session.clear() # efface la session de l'utilisateur qui appel la route
+    return redirect(url_for('index'))   # on renvoi vers la fonction index donc page accueil '/'
 
 
 @app.route('/gestion_de_compte')
 def gestion_de_compte():
-    if 'utilisateur' in session:
-        msg_tmp = get_last_message_information()
+    """ Page pour pouvoir les informations sur son compte
+    """
+    if 'utilisateur' in session:        # Si l'utilisateur est connecter ( donc a une session )
+        msg_tmp = get_last_message_information()    # Recupere les msg infos
         if(msg_tmp == False):
             message_info = MessageInformation(
                 "vide", "Aucun", datetime.datetime.now())
         else:
             message_info = map_result_to_message_information(msg_tmp)
-        return render_template("GestionDeCompte.html", user=session['utilisateur'], message_info=message_info)
-    else:
+        return render_template("GestionDeCompte.html", user=session['utilisateur'], message_info=message_info) # on l'envoi sur la page gestion de compte
+    else:                               # Si l'utilisateur n'as pas de session c'est qu'il n'est pas connecter donc retour sur accueil
         return render_template("inscription.html")
 
 
 @app.route('/creation_de_poste')
 def creation_de_poste():
-    if 'utilisateur' in session:
-        msg_tmp = get_last_message_information()
+    """ La où on peut faire un poste
+    """
+    if 'utilisateur' in session:    # Si l'utilisateur est connecter ( donc a une session )
+        msg_tmp = get_last_message_information() # Recupere les msg infos
         if(msg_tmp == False):
             message_info = MessageInformation(
                 "vide", "Aucun", datetime.datetime.now())
-        else:
+        else:                       # Si l'utilisateur n'as pas de session c'est qu'il n'est pas connecter donc retour sur accueil
             message_info = map_result_to_message_information(msg_tmp)
         return render_template("CreationDePoste.html", user=session['utilisateur'], message_info=message_info)
     else:
@@ -211,24 +221,26 @@ def creation_de_poste():
 
 @app.route('/publie_post', methods=['POST'])
 def publie_post():
+    """ Une fois que le poste à été validé
+    """
     if 'utilisateur' in session:
-        titre_poste = request.form["TitrePoste"]
-        lien_img = request.form["LienImg"]
+        titre_poste = request.form["TitrePoste"]    # On récupère les valeurs envoyées par la méthode POST
+        lien_img = request.form["LienImg"]          
 
-        if is_null_or_empty(titre_poste, lien_img):
-            return render_template("Error/ErrorPage.html", messageError=message_error_champs_vide())
+        if is_null_or_empty(titre_poste, lien_img): # on vérifie si ces valeurs sont vide
+            return render_template("Error/ErrorPage.html", messageError=message_error_champs_vide()) # erreur si ces valeurs sont vides
 
-        user_id = session['utilisateur']["IdUtilisateur"]
+        user_id = session['utilisateur']["IdUtilisateur"]   # Recupère l'id de l'utilisateur qui as soumis le poste
 
-        image_confirm = image_confirmation()
+        image_confirm = image_confirmation()    # Recupère une image pour confirmer le poste
 
-        if get_mode_moderation() == 1:
-            if insert_poste_attente_moderation(user_id, titre_poste, lien_img):
+        if get_mode_moderation() == 1:          # Si le mode modération est activé 
+            if insert_poste_attente_moderation(user_id, titre_poste, lien_img): # on insert le poste dans la table poste attente modération
                 return render_template("Transition.html", user=session['utilisateur'], redirect=True, image_confirm=image_confirm, message="Votre poste a été pris en compte et est en attente de validation")
             else:
                 return render_template("Error/ErrorPage.html", messageError="Un problème à eut lieu lors de l'enregistrement du poste")
-        else:
-            if insert_poste(user_id, titre_poste, lien_img):
+        else:                                   # Si le mode modération est désactivé
+            if insert_poste(user_id, titre_poste, lien_img):                    # on insert le poste dans la table poste
                 return render_template("Transition.html", user=session['utilisateur'], redirect=True, image_confirm=image_confirm, message="Votre poste à été intégré !")
             else:
                 return render_template("Error/ErrorPage.html", messageError="Un problème à eut lieu lors de l'enregistrement du poste")
@@ -238,104 +250,124 @@ def publie_post():
 
 @app.route('/page<id_page>')
 def getPage(id_page):
+    """ permet de gérer la pagination de la page d'accueil
+    """
+    num_page = int(id_page)                                                 # récupère le numéro de la page
+    poste_array = []                                                        
+    nb_poste_totaux = get_nb_poste()                                        # récupère le nombre total de poste
+    result_array = get_poste_by_page(id_page)                               # récupère les postes en fonction de la page ( grace au offset dans la requete)
+    nb_page_max = calcul_nb_page_max(nb_poste_totaux, NB_POSTE_BY_PAGE)     # calcul le nombre maximum de page 
 
-    num_page = int(id_page)
-    poste_array = []
-    nb_poste_totaux = get_nb_poste()
-    result_array = get_poste_by_page(id_page)
-    nb_page_max = calcul_nb_page_max(nb_poste_totaux, NB_POSTE_BY_PAGE)
-
-    msg_tmp = get_last_message_information()
+    msg_tmp = get_last_message_information()                                
     if(msg_tmp == False):
         message_info = MessageInformation(
             "vide", "Aucun", datetime.datetime.now())
     else:
         message_info = map_result_to_message_information(msg_tmp)
 
-    for result in result_array:
+    for result in result_array:                                             # Ajoute les résultats de la bdd dans le tableau
         poste_array.append(Poste(
             result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
 
-    if 'utilisateur' in session:
+    # si utilisateur est connecter on envoi les postes, la page, le nb totaux de poste, le nombre de page max,le message info, et l'utilisateur dans la session
+    if 'utilisateur' in session:    
         return render_template("Accueil.html", poste_array=poste_array, page=num_page, nb_poste_totaux=nb_poste_totaux, nb_page_max=nb_page_max, message_info=message_info, user=session['utilisateur'])
+    # sinon on envoi tout sauf la session
     else:
         return render_template("Accueil.html", poste_array=poste_array, page=num_page, nb_poste_totaux=nb_poste_totaux, nb_page_max=nb_page_max, message_info=message_info)
 
 
-# Fonction appelée en ajax
+# Fonction appelée en ajax ( permet d'éviter le rechargement de la page au click d'envoi )
 @app.route('/demande_si_pseudo_disponible', methods=['POST'])
 def demande_si_pseudo_disponible():
-    if 'utilisateur' not in session:  # test pour voir si pas d'utilisateur dans session
+    """ Appelé en AJAX : Permet qu'un utilisateur puisse changer de pseudo
+    """
+    if 'utilisateur' not in session:  # si pas d'utilisateur dans session on renvoi vers la fonction index donc route '/'
         return redirect(url_for('index'))
 
-    pseudo_voulu = request.form["PseudoVoulu"]
-    if is_null_or_empty(pseudo_voulu):
-        return message_error_champs_vide()
+    pseudo_voulu = request.form["PseudoVoulu"]  # récupère la valeur envoyé par la méthode POST en ajax
+    if is_null_or_empty(pseudo_voulu):          
+        return message_error_champs_vide()      # On retourne directement un message d'erreur qui sera affiché dans le html 
 
-    is_pseudo_disponible = if_pseudo_disponible(pseudo_voulu)
-    if is_pseudo_disponible:
-        user_id = session['utilisateur']["IdUtilisateur"]
-        user_pseudo = session['utilisateur']["PseudoUtilisateur"]
-        if update_pseudo(pseudo_voulu, user_pseudo, user_id):
-            return "True"
+    is_pseudo_disponible = if_pseudo_disponible(pseudo_voulu)       # Vérifie si le pseudo existe dans la bdd
+    if is_pseudo_disponible:                                        
+        user_id = session['utilisateur']["IdUtilisateur"]           
+        user_pseudo = session['utilisateur']["PseudoUtilisateur"]   
+        if update_pseudo(pseudo_voulu, user_pseudo, user_id):       # On actualise le pseudo en bdd
+            return "True"   # True est attendu coté ajax pour signifié que tout c'est bien passé .
+                            # Une fois cette valeur receptionné on déconnect l'utilisateur ( avec msg de prevention de 2s)
+                            # (clear de sa sesssion ) afin qu'il se reconnect avec une nouvelle session avec son nouveau pseudo  
         else:
-            return "Echec pendant la mise à jour du pseudo"
-    else:
-        return "Le pseudo n'est pas disponible"
+            return "Echec pendant la mise à jour du pseudo"     # On retourne directement le message qui sera affiché dans le html 
+    else:                                                       # si le pseudo existe dans la bdd
+        return "Le pseudo n'est pas disponible"                 # On retourne directement le message qui sera affiché dans le html 
     return
 
 
-# Fonction appelée en ajax
+# Fonction appelée en ajax 
 @app.route('/demande_changement_password', methods=['POST'])
 def demande_changement_password():
-    if 'utilisateur' not in session:
+    """ Appelé en AJAX : Permet qu'un utilisateur puisse changer de mots de passe
+    """
+    if 'utilisateur' not in session:    
         return redirect(url_for('index'))
 
-    user_id = session['utilisateur']["IdUtilisateur"]
-    user_pseudo = session['utilisateur']["PseudoUtilisateur"]
-    user_password_current = get_current_user_password(user_pseudo, user_id)
+    user_id = session['utilisateur']["IdUtilisateur"]           # recupère l'id utilisateur de la session qui appel la route
+    user_pseudo = session['utilisateur']["PseudoUtilisateur"]   # recupère le pseudo utilisateur de la session qui appel la route
+    user_password_current = get_current_user_password(user_pseudo, user_id) 
 
-    old_password_clair = request.form["AncienMotDePasse"]
-    new_password_clair = request.form["NewMotDePasse"]
+    old_password_clair = request.form["AncienMotDePasse"]   
+    new_password_clair = request.form["NewMotDePasse"]      
     confirm_password_clair = request.form["ConfirmationMotDePasse"]
 
-    if is_null_or_empty(old_password_clair, new_password_clair, confirm_password_clair):
-        return message_error_champs_vide()
+    if is_null_or_empty(old_password_clair, new_password_clair, confirm_password_clair): # verifie si l'un est vide
+        return message_error_champs_vide()  # renvoi un message d'erreur dans le html pour signaler qu'un champs est vide
 
-    ancien_mot_de_passe = hash_password(old_password_clair)
+    # hash des mots de passe reçu via le POST
+    ancien_mot_de_passe = hash_password(old_password_clair) 
     new_mot_de_passe = hash_password(new_password_clair)
     confirmation_mot_de_passe = hash_password(confirm_password_clair)
 
+
     if(new_mot_de_passe != confirmation_mot_de_passe):
-        return "Le nouveau mot de passe et la confirmation ne sont pas identique"
+        return "Le nouveau mot de passe et la confirmation ne sont pas identique" # message affiché dans le html
 
+    # Si le mot de passe de l'utilisateur de la session est différent de celui envoyé (ancien mdp)
     if(user_password_current != ancien_mot_de_passe):
-        return "L'ancien mot de passe est incorrect"
+        return "L'ancien mot de passe est incorrect" 
 
-    if update_password(new_mot_de_passe, user_pseudo, user_id):
-        return "True"
+    # TODO: Il aurait fallut ajouter toutes les règles de conformités concernant le mdp (regex)
+    # mais nous n'avons pas eut le temps
+
+    if update_password(new_mot_de_passe, user_pseudo, user_id): # on actualise le mdp de passe de l'user
+        return "True"  
     else:
-        return "Echec pendant la mise à jour du mot de passe"
+        return "Echec pendant la mise à jour du mot de passe" # message affiché dans le html
 
 
-@app.route('/update_titre_poste', methods=['POST'])  # Fonction appelée en ajax
+# Fonction appelée en ajax 
+@app.route('/update_titre_poste', methods=['POST']) 
 def update_titre_poste():
+    """ Appelé lorsqu'un membre du staff actualise le titre d'un psote via l'écran d'accueil aléatoire
+    """
+    # On vérifie si l'utilisateur est bien connecter et si il a le role admin ou modo 
+    # On aurait pu aussi simplement vérifié si c'est pas un posteur 
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
-        id_poste = request.form["IdPoste"]
-        new_titre_poste = request.form["NewTitrePoste"]
-        mdp_user_clair = request.form["MdpUser"]
+        id_poste = request.form["IdPoste"]              
+        new_titre_poste = request.form["NewTitrePoste"] 
+        mdp_user_clair = request.form["MdpUser"]       
 
-        if is_null_or_empty(id_poste, new_titre_poste, mdp_user_clair):
-            return message_error_champs_vide()
+        if is_null_or_empty(id_poste, new_titre_poste, mdp_user_clair): 
+            return message_error_champs_vide()  
 
-        mdp_user_saisie = hash_password(mdp_user_clair)
-        mdp_current_user = get_current_user_password(
+        mdp_user_saisie = hash_password(mdp_user_clair) 
+        mdp_current_user = get_current_user_password(   
             session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
-
-        if mdp_user_saisie != mdp_current_user:
+        
+        if mdp_user_saisie != mdp_current_user: 
             return " Le mot de passe saisie est incorrect"
 
-        if update_title_poste(id_poste, new_titre_poste):
+        if update_title_poste(id_poste, new_titre_poste):   # si tout ok on actualise le titre du poste grace a son id
             return "True"
         else:
             return "Le titre n'as pas pu être mis à jour"
@@ -343,9 +375,11 @@ def update_titre_poste():
         return redirect(url_for('index'))
 
 
-# Fonction appelée en ajax
+# Fonction appelée en ajax ( permet d'éviter le rechargement de la page au click d'envoi )
 @app.route('/suppression_poste_accueil', methods=['POST'])
 def suppression_poste_accueil():
+    """ Appelé lorsqu'un membre du staff souhaite supprimer un poste de l'accueil ou de la page aléatoire
+    """
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         id_poste = request.form["IdPoste"]
         mdp_user_clair = request.form["MdpUser"]
@@ -361,12 +395,12 @@ def suppression_poste_accueil():
         if mdp_user_saisie != mdp_current_user:
             return " Le mot de passe saisie est incorrect"
 
-        if delete_poste(id_poste):
+        if delete_poste(id_poste):  # supprime le poste grace a son id
             return "True"
         else:
             return "Le titre n'as pas pu être mis à jour"
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('index'))   # si l'utilsateur n'est pas conncter on redirige vers l'accueil
 
 
 """ SECTION ADMINISTRATION  """
@@ -374,24 +408,31 @@ def suppression_poste_accueil():
 
 @app.route('/administration')
 def administration():
+    """ Partie accessible uniquement lorsqu'un utilisateur a le role adminsitrateur 
+    """
+    # si l'utilisateur est connecter et a le role admin
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
-        is_mode_moderation_actif = bool(get_mode_moderation())
+        is_mode_moderation_actif = bool(get_mode_moderation())     # on récupere la valeur du mode modération pour l'affiche en html
         msg_tmp = get_last_message_information()
         if(msg_tmp == False):
             message_info = MessageInformation(
                 "vide", "Aucun", datetime.datetime.now())
         else:
             message_info = map_result_to_message_information(msg_tmp)
-        array_user = select_all_user()
-        all_user = map_array_result_bdd_to_array_utilisateur(array_user)
+        array_user = select_all_user()                                      # On recupere tous les utilisateurs ( pas les admins ) pour pouvoir changer leurs roles
+        all_user = map_array_result_bdd_to_array_utilisateur(array_user)    # Mapping des resultat bdd en utlisateur
+        # On envoi toutes les infos au template 
         return render_template("Administration.html", user=session['utilisateur'], all_user=all_user, message_info=message_info, is_mode_moderation_actif=is_mode_moderation_actif)
     else:
         return redirect(url_for('index'))
 
 
-@app.route("/changement_role", methods=['POST'])  # Fonction appelée en ajax
+@app.route("/changement_role", methods=['POST'])  # Fonction appelée en ajax ( permet d'éviter le rechargement de la page au click d'envoi )
 def changement_role():
+    """ Lorqu'un admin change le role d'un utilisateur.
+    """
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
+        # recupère toutes les infos pour pouvoir actualiser le role de l'utilisiateur
         pseudo_user = request.form["pseudoUser"]
         id_user = request.form["idUser"]
         ancien_role_user = request.form["AncienRoleUser"]
@@ -408,18 +449,19 @@ def changement_role():
         if mdp_admin_saisie != current_mdp_user:
             return "Le mot de passe entré est incorrect"
 
-        is_role_update = update_role(id_user, pseudo_user, nouveau_role_user)
+        is_role_update = update_role(id_user, pseudo_user, nouveau_role_user) # Actualise le role de l'utilisateur
         return str(is_role_update)
     else:
         return redirect(url_for('index'))
 
 
-# Fonction appelée en ajax
+# Fonction appelée en ajax ( permet d'éviter le rechargement de la page au click d'envoi )
 @app.route("/update_msg_information", methods=['POST'])
 def update_msg_information():
-
-    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
-        msg = request.form["Msg"]
+    """ Actualise le message d'information présent un peu partout sur le site
+    """
+    if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3: # obligation d'être un admin
+        msg = request.form["Msg"]                       #recupère le message écrit
         mdp_user_saisieClair = request.form["MdpUser"]
 
         if is_null_or_empty(msg, mdp_user_saisieClair):
@@ -433,7 +475,8 @@ def update_msg_information():
             return " Le mot de passe saisie est incorrect"
 
         user_id_current = session['utilisateur']["IdUtilisateur"]
-        if insert_message_information(msg, user_id_current):
+
+        if insert_message_information(msg, user_id_current):    # met a jour le message et l'utilisateur qui l'as posté 
             return "True"
         else:
             return "Le message n'as pas pu être actualisé"
@@ -441,20 +484,22 @@ def update_msg_information():
         return redirect(url_for('index'))
 
 
-# Fonction appelée en ajax
+# Fonction appelée en ajax 
 @app.route('/changement_mode_moderation', methods=['POST'])
 def changement_mode_moderation():
+    """ Désactive ou active le mode modération des postes
+    """
     if 'utilisateur' in session and session['utilisateur']['IdRoleUtilisateur'] == 3:
 
         mdp_user_saisieClair = request.form["MdpUser"]
-        mode_moderation_voulu = request.form["ModeModerationVoulu"]
+        mode_moderation_voulu = request.form["ModeModerationVoulu"] # la valeur du mode modération voulu
 
         if is_null_or_empty(mode_moderation_voulu, mdp_user_saisieClair):
             return message_error_champs_vide()
 
         user = map_session_to_user(session['utilisateur'])
         mdp_user_saisie = hash_password(mdp_user_saisieClair)
-        mode_moderation_voulu_bit = 1 if mode_moderation_voulu == "true" else 0
+        mode_moderation_voulu_bit = 1 if mode_moderation_voulu == "true" else 0 # ternaire qui renvoi une valeur binaire (0 ou 1) selon la mode voulut
 
         mdp_current_user = get_current_user_password(
             session['utilisateur']["PseudoUtilisateur"], session['utilisateur']["IdUtilisateur"])
@@ -462,7 +507,7 @@ def changement_mode_moderation():
         if mdp_user_saisie != mdp_current_user:
             return " Le mot de passe saisie est incorrect"
 
-        if update_mode_moderation(mode_moderation_voulu_bit, user.IdUtilisateur):
+        if update_mode_moderation(mode_moderation_voulu_bit, user.IdUtilisateur):   # actualise le mode modération et l'utilisateur
             return "True"
         else:
             return "Echec pendant la mise à jour du mode modération"
@@ -472,27 +517,34 @@ def changement_mode_moderation():
 
 @app.route('/Moderation<id_page>')
 def moderation(id_page):
-
+    """ Gère la pagination dans la page modération
+    """
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
-        is_mode_moderation_actif = bool(get_mode_moderation())
+        is_mode_moderation_actif = bool(get_mode_moderation())  # récup le mode modération pour l'afficher dans la page modération
         num_page = int(id_page)
         postes_attente_moderation = []
         nb_pam_totaux = get_nb_poste_attente_moderation()
-        result_array = get_poste_attente_moderation_by_page(id_page)
+        result_array = get_poste_attente_moderation_by_page(id_page)    # recupere les poste en fontion de la page (de plus ancien au plus récent)
         nb_page_max = calcul_nb_page_max(
             nb_pam_totaux, NB_POSTE_BY_PAGE)
 
         for result in result_array:
             postes_attente_moderation.append(PosteAttenteModeration(
                 result[0], result[1], result[2], result[3], result[4], result[5], result[6]))
-
+        
+        # renvoi toutes les infos pour compléter la page ainsi que les postes en fonction du numéro de la page
         return render_template("Moderation.html", user=session['utilisateur'], postes_attente_moderation=postes_attente_moderation, nb_page_max=nb_page_max, page=num_page, is_mode_moderation_actif=is_mode_moderation_actif)
     else:
         return redirect(url_for('index'))
 
 
-@app.route('/banissement', methods=['POST'])  # Fonction appelée en ajax
+@app.route('/banissement', methods=['POST'])  # Fonction appelée en ajax ( permet d'éviter le rechargement de la page au click d'envoi )
 def banissement():
+    """ Permet de gérer le banissement d'un utilisateur
+
+        info: Un membre du staff ne peut bannir que des membres qui ont un role inférieur au sien
+        Le banissement produit des suppressions en cascades notemment au niveau des postes et des poste attente modération.
+    """
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         user_ban_id = request.form["userId"]
         mdp_user_saisieClair = request.form["MdpUser"]
@@ -507,7 +559,7 @@ def banissement():
         if mdp_user_saisie != mdp_current_user:
             return " Le mot de passe saisie est incorrect"
 
-        if ban_user(user_ban_id):
+        if ban_user(user_ban_id):   # banni l'utilisateur grace a son id
             return "True"
         else:
             return "L'utilisateur n'as pas pu être banni"
@@ -515,28 +567,32 @@ def banissement():
         return redirect(url_for('index'))
 
 
-# Fonction appelée en ajax
+# Fonction appelée en ajax ( permet d'éviter le rechargement de la page au click d'envoi )
 @app.route('/update_poste_attente_moderation', methods=['POST'])
 def update_poste_attente_moderation():
+    """ Accepte ou refuse le poste en attente de modération
+    """
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         is_post_pam = request.form["IdPoste"]
-        is_post_accept = request.form["IsPostAccept"]
+        is_post_accept = request.form["IsPostAccept"]   # recoit la valeur 'true' pour accepter et 'false' pour refuser 
 
         if is_null_or_empty(is_post_pam, is_post_accept):
             return message_error_champs_vide()
 
-        if is_post_accept == "true":
-            accept_poste_pam(is_post_pam)
+        if is_post_accept == "true":                # si on accepte
+            accept_poste_pam(is_post_pam)           # on transfert le poste de la table poste attente modération a la table poste
             return "True"
-        else:
-            delete_poste_pam(is_post_pam)
+        else:                                       # si on refuse
+            delete_poste_pam(is_post_pam)           # on le supprime de la table poste attente modération
             return "True"
     else:
         return redirect(url_for('index'))
 
 
-@app.route('/update_titre_pam', methods=['POST'])  # Fonction appelée en ajax
+@app.route('/update_titre_pam', methods=['POST'])  # Fonction appelée en ajax ( permet d'éviter le rechargement de la page au click d'envoi )
 def update_titre_pam():
+    """ Actualise le titre d'un poste en attente de modération
+    """
     if 'utilisateur' in session and (session['utilisateur']['IdRoleUtilisateur'] == 3 or session['utilisateur']['IdRoleUtilisateur'] == 2):
         id_poste = request.form["IdPoste"]
         new_titre_poste = request.form["NewTitrePoste"]
@@ -553,8 +609,8 @@ def update_titre_pam():
         if mdp_user_saisie != mdp_current_user:
             return " Le mot de passe saisie est incorrect"
 
-        if update_title_poste_pam(id_poste, new_titre_poste):
-            return "True"
+        if update_title_poste_pam(id_poste, new_titre_poste): # actualise le titre d'un poste grace a son id  
+            return "True"                                     # et on recharge la page en js
         else:
             return "Le titre n'as pas pu être mis à jour"
     else:
@@ -566,6 +622,8 @@ def update_titre_pam():
 
 @app.route('/a_propos')
 def a_propos():
+    """ Affiche la page qui parle du site
+    """
     msg_tmp = get_last_message_information()
     if(msg_tmp == False):
         message_info = MessageInformation(
@@ -580,6 +638,8 @@ def a_propos():
 
 @app.route('/cgu')
 def cgu():
+    """ Page ennuyeuse sur les conditions d'utilisation du site (copié d'un site tiers)
+    """
     msg_tmp = get_last_message_information()
     if(msg_tmp == False):
         message_info = MessageInformation(
@@ -593,6 +653,8 @@ def cgu():
 
 @app.route('/contact')
 def contact():
+    """ page qui permet de fournir des informations sur comment contacter les admins du site
+    """
     msg_tmp = get_last_message_information()
     if(msg_tmp == False):
         message_info = MessageInformation(
@@ -606,6 +668,8 @@ def contact():
 
 @app.route('/aleatoire')
 def aleatoire():
+    """ page qui propose des postes en aléatoires
+    """
     result_array = get_random_poste()
     poste_array = []
     for result in result_array:
@@ -622,6 +686,8 @@ def aleatoire():
 
 @app.route('/aide')
 def aide():
+    """ page qui présente des petits tutos.
+    """
     nb_poste_totaux = get_nb_poste()
     msg_tmp = get_last_message_information()
     if(msg_tmp == False):
