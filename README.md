@@ -10,6 +10,8 @@ La technologie utilisée est  [**python**](https://www.python.org/)  avec son fr
 
 Nous avons tenté de respecter au maximum les règles communes du langage python et avons appliqué au maximum les règles de la  [**PEP8**](https://www.python.org/dev/peps/pep-0008/)
 
+Nous n'avions pas vu la règle de commentaire et de code en anglais ! nous nous en excusons par avance !
+
 # Sommaire:
 
 **1. C'est quoi Work is Hard ?  
