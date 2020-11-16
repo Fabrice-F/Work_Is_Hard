@@ -163,7 +163,7 @@ def get_poste_by_page(id_page):
             FROM Poste AS P
             INNER JOIN Utilisateur AS U ON
             U.IdUtilisateur = P.Fk_IdUtilisateur
-            ORDER BY P.DatePoste DESC
+            ORDER BY P.IdPoste  DESC
             LIMIT {NB_POSTE_BY_PAGE} OFFSET (?*{NB_POSTE_BY_PAGE})-{NB_POSTE_BY_PAGE};"""
 
         result_array = c.execute(request, (id_page,)).fetchall()
